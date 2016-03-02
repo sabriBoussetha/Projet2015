@@ -13,14 +13,21 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import fr.univavignon.courbes.network.central.CentralCommunication;
+import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
 
+/**
+ * @author nathan
+ *
+ */
 public class PHPCommunication implements CentralCommunication{
 
 	@Override
 	public void sendIP()throws IOException {
 		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
 	    String result = "";
-	    String data = "infos=" + URLEncoder.encode("10.122.2.46"+"|4", "UTF-8");
+	    ServerCommunicationImpl server = new ServerCommunicationImpl();
+	    System.out.println(server.getIp());
+	    String data = "infos=" + URLEncoder.encode(server.getIp()+"|4", "UTF-8");
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    try {
 	        connection.setDoInput(true);

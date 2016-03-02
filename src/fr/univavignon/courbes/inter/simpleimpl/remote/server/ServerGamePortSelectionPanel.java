@@ -21,6 +21,7 @@ package fr.univavignon.courbes.inter.simpleimpl.remote.server;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.IOException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -32,6 +33,7 @@ import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
 import fr.univavignon.courbes.inter.simpleimpl.remote.AbstractConnectionPanel;
 import fr.univavignon.courbes.network.ServerCommunication;
+import fr.univavignon.courbes.network.central.simpleimpl.PHPCommunication;
 import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
 
 /**
@@ -118,7 +120,15 @@ public class ServerGamePortSelectionPanel extends AbstractConnectionPanel implem
 		int port = Integer.parseInt(portStr);
 		SettingsManager.setLastPort(port);
 		mainWindow.serverCom.setPort(port);
-		
+		if(publicBox.isSelected()){
+			PHPCommunication phpCom = new PHPCommunication();
+			try {
+				phpCom.sendIP();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		mainWindow.displayPanel(PanelName.SERVER_GAME_LOCAL_PLAYER_SELECTION);
 	}
 
