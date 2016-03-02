@@ -19,15 +19,15 @@ import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
  * @author nathan
  *
  */
-public class PHPCommunication implements CentralCommunication{
+public class PhpCommunication implements CentralCommunication{
 
 	@Override
-	public void sendIP()throws IOException {
-		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
+	public void sendGameInformation() throws IOException {
+		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1501163/Projet2015_PHP/server.php");
 	    String result = "";
 	    ServerCommunicationImpl server = new ServerCommunicationImpl();
 	    System.out.println(server.getIp());
-	    String data = "infos=" + URLEncoder.encode(server.getIp()+"|4", "UTF-8");
+	    String data = "infos=" + URLEncoder.encode(server.getIp()+"|4" /* à la place 4 on met le nb de joueur max*/ , "UTF-8");
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    try {
 	        connection.setDoInput(true);
@@ -37,14 +37,13 @@ public class PHPCommunication implements CentralCommunication{
 	        connection.setRequestProperty("Content-Type",
 	                "application/x-www-form-urlencoded");
 
-	        // Send the POST data
+	        // Envoyer les données en POST
 	        DataOutputStream dataOut = new DataOutputStream(
 	                connection.getOutputStream());
 	        dataOut.writeBytes(data);
 	        dataOut.flush();
 	        dataOut.close();
 
-	        //BufferedReader in = null;
             String line;
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             while ((line = in.readLine()) != null) {

@@ -6,8 +6,8 @@ public class MainCommunication {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		PHPCommunication server = new PHPCommunication();
-		server.sendIP();
+		PhpCommunication server = new PhpCommunication();
+		server.sendGameInformation();
 		System.out.println("Ok");
 	}
 
