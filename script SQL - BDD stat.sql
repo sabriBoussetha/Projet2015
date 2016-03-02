@@ -82,7 +82,7 @@ AND date_ >= ALL (
 drop table parties;
 
 
-CREATE TABLE stat_joueur
+CREATE TABLE parties
 (
 id SERIAL PRIMARY KEY,
 ip_host VARCHAR(50),
