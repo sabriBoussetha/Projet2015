@@ -16,8 +16,8 @@ public class SoundEffect implements SoundEngine {
 	
 	@Override
 	public void collisionWithSnakeSound() {
-		sound = new Sound("test.wav");
-		Sound.soundD.play();
+		sound = new Sound("/home/sabri/git/Projet2015/res/sounds/test.wav");
+		sound.play();
 	}
 
 	@Override

@@ -12,33 +12,42 @@ import javax.sound.sampled.DataLine;
 
 public class Sound {
 	
-	AudioClip audio;
-	
-	static Sound soundD = new Sound("test.wav");
+
+	private Clip clip;
+
  	
 	public Sound(String fileName)
 	{
 		try{
-			/*File yourFile = new File(fileName);
-		    AudioInputStream stream;
-		    AudioFormat format;
-		    DataLine.Info info;
-		    Clip clip;
-
-		    stream = AudioSystem.getAudioInputStream(yourFile);
-		    format = stream.getFormat();
-		    info = new DataLine.Info(Clip.class, format);
-		    clip = (Clip) AudioSystem.getLine(info);
-		    clip.open(stream);
-		    clip.start();*/
-			audio = Applet.newAudioClip(Sound.class.getResource(fileName));
+				AudioInputStream aud = AudioSystem.getAudioInputStream(
+						getClass().getResourceAsStream(
+								fileName
+								)
+						);
+				AudioFormat format = aud.getFormat();
+				AudioFormat decodeFormat = new AudioFormat(
+						AudioFormat.Encoding.PCM_SIGNED,
+						format.getSampleRate(),
+						16,
+						format.getChannels(),
+						format.getChannels() * 2,
+						format.getSampleRate(),
+						false
+						);
+				AudioInputStream audD = AudioSystem.getAudioInputStream(
+						decodeFormat,
+						aud
+						);
+			clip = AudioSystem.getClip();
+			clip.open(audD);
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 	
 	public void play()
-	{	try{
+	{	/*try{
 			new Thread(){
 				public void run(){
 					audio.play();
@@ -46,8 +55,22 @@ public class Sound {
 			}.start();
 		}catch(Exception ee){
 			ee.printStackTrace();
-		}
+		}*/	
+		if (clip == null) return;
+		stop();
+		clip.setFramePosition(0);
+		clip.start();
+		
 	}
 	
+	public void stop()
+	{
+		if (clip.isRunning()) clip.stop();
+	}
 	
+	public void close()
+	{
+		stop();
+		clip.close();
+	}
 }
