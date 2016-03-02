@@ -1,8 +1,9 @@
 package fr.univavignon.courbes.sounds;
-/*
- *  
+/**
+ *  Cette interface contient des méthodes qui ajoutes les effects sonores
+ *  à l'application
  * 
- * 
+ * @author Sabri
  */
 public interface SoundEngine {
 	

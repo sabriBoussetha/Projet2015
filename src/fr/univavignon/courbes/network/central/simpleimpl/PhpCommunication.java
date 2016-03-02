@@ -23,6 +23,7 @@ public class PhpCommunication implements CentralCommunication{
 
 	@Override
 	public void sendGameInformation() throws IOException {
+		
 		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1501163/Projet2015_PHP/server.php");
 	    String result = "";
 	    ServerCommunicationImpl server = new ServerCommunicationImpl();
