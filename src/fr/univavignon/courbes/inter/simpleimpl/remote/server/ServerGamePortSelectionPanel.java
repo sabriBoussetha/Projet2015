@@ -118,7 +118,7 @@ public class ServerGamePortSelectionPanel extends AbstractConnectionPanel implem
 		int port = Integer.parseInt(portStr);
 		SettingsManager.setLastPort(port);
 		mainWindow.serverCom.setPort(port);
-	
+		
 		mainWindow.displayPanel(PanelName.SERVER_GAME_LOCAL_PLAYER_SELECTION);
 	}
 
