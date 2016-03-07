@@ -1,16 +1,19 @@
 package fr.univavignon.courbes.sounds.simpleimp;
 
 import java.applet.Applet;
+
 import java.applet.AudioClip;
 import java.io.File;
+import java.net.URL;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
+import javax.swing.*;
 
-public class Sound {
+public class Sound extends JFrame {
 	
 
 	private Clip clip;
@@ -18,11 +21,19 @@ public class Sound {
  	
 	public Sound(String fileName)
 	{
+		
+	
+		    /*  this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		      this.setTitle("Test Sound Clip");
+		      this.setSize(300, 200);
+		      this.setVisible(true);*/
+			// Pour tester 
+		
 		try{
-				AudioInputStream aud = AudioSystem.getAudioInputStream(
-						getClass().getResourceAsStream(
-								fileName
-								)
+				URL file = Sound.class.getResource(fileName);
+
+				AudioInputStream aud = AudioSystem.getAudioInputStream(				
+						new File(fileName).getAbsoluteFile()
 						);
 				AudioFormat format = aud.getFormat();
 				AudioFormat decodeFormat = new AudioFormat(
@@ -47,30 +58,30 @@ public class Sound {
 	}
 	
 	public void play()
-	{	/*try{
+	{	try{
 			new Thread(){
 				public void run(){
-					audio.play();
+					if (clip == null) return;
+					stopC();
+					clip.setFramePosition(0);
+					clip.start();
 				}
 			}.start();
 		}catch(Exception ee){
 			ee.printStackTrace();
-		}*/	
-		if (clip == null) return;
-		stop();
-		clip.setFramePosition(0);
-		clip.start();
+		}
+		
 		
 	}
 	
-	public void stop()
+	public void stopC()
 	{
 		if (clip.isRunning()) clip.stop();
 	}
 	
 	public void close()
 	{
-		stop();
+		stopC();
 		clip.close();
 	}
 }

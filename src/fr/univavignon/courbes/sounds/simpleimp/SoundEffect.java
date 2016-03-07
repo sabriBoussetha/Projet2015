@@ -16,14 +16,14 @@ public class SoundEffect implements SoundEngine {
 	
 	@Override
 	public void collisionWithSnakeSound() {
-		sound = new Sound("/home/sabri/git/Projet2015/res/sounds/test.wav");
+		sound = new Sound("test.wav");
 		sound.play();
 	}
 
 	@Override
 	public void collisionWithItemSound() {
-		
-		
+		sound = new Sound("test.wav");
+		sound.play();
 	}
 
 	@Override

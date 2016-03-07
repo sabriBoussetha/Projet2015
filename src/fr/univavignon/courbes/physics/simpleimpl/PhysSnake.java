@@ -33,6 +33,7 @@ import fr.univavignon.courbes.common.ItemInstance;
 import fr.univavignon.courbes.common.Position;
 import fr.univavignon.courbes.common.Snake;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
+import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
 
 /**
  * Classe fille de {@link Snake}, permettant d'intégrer
@@ -46,6 +47,7 @@ public class PhysSnake extends Snake
 	/** Taille maximale de la file {@link #prevDisks} */
 	private final static int PREV_DISK_SIZE = 20;
 	
+	private SoundEffect s;
 	/**
 	 * Crée le serpent associé au numéro indiqué, pour le profil
 	 * indiqué, sur l'aire de jeu indiquée.
@@ -57,6 +59,8 @@ public class PhysSnake extends Snake
 	 */
 	public PhysSnake(int playerId, Board board)
 	{	this.playerId = playerId;
+		
+		s = new SoundEffect();
 		
 		movingSpeed = Constants.BASE_MOVING_SPEED;
 		resetCharacs();
@@ -375,6 +379,7 @@ public class PhysSnake extends Snake
 						board.removedItems.add(item.itemId);
 						// on le ramasse
 						item.pickUp(board,this);
+						s.collisionWithItemSound();
 					}
 				}
 			}
