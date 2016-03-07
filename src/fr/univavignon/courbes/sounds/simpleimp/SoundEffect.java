@@ -28,20 +28,28 @@ public class SoundEffect implements SoundEngine {
 
 	@Override
 	public void collisionWithBordSound() {
-		
+		sound = new Sound("test.wav");
+		sound.play();
 		
 	}
 
 	@Override
 	public void newGameSound() {
-		
+		sound = new Sound("test.wav");
+		sound.play();
 		
 	}
 
 	@Override
 	public void endGameSound() {
-		
-		
+		sound = new Sound("test.wav");
+		sound.play();
+	}
+	
+	@Override
+	public void clickSound(){
+		sound = new Sound("res/sounds/mouse_click.wav");
+		sound.play();
 	}
 
 }

@@ -34,6 +34,7 @@ import javax.swing.JPanel;
 
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 import fr.univavignon.courbes.inter.simpleimpl.profiles.ProfileManager;
+import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
 
 /**
  * Panel contenant le menu principal du jeu.
@@ -44,6 +45,7 @@ public class MainMenuPanel extends JPanel implements ActionListener
 {	/** Numéro de série de la classe */
 	private static final long serialVersionUID = 1L;
 	
+	private SoundEffect s = new SoundEffect();
 	/**
 	 * Crée le menu principal et tous ses composants graphiques.
 	 * 
@@ -72,7 +74,7 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	private JButton statsButton;
 	/** Bouton pour quitter le jeu */
 	private JButton quitButton;
-
+	
 	/**
 	 * Initialisation du menu principal.
 	 */
@@ -150,7 +152,8 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{	if(e.getSource()==localGameButton)	
-		{	if(ProfileManager.getProfiles().size() > 1)
+		{	s.clickSound(); // Son correspondant à un click
+			if(ProfileManager.getProfiles().size() > 1)
 			{	mainWindow.displayPanel(PanelName.LOCAL_GAME_PLAYER_SELECTION);
 			}
 			else
@@ -163,11 +166,13 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		}
 	
 		else if(e.getSource()==serverGameButton)
-		{	mainWindow.displayPanel(PanelName.SERVER_GAME_PORT_SELECTION);
+		{	s.clickSound();
+			mainWindow.displayPanel(PanelName.SERVER_GAME_PORT_SELECTION);
 		}
 	
 		else if(e.getSource()==clientGameButton)
-		{	if (ProfileManager.getProfiles().size() > 0)
+		{	s.clickSound(); // Son correspondant à un click
+			if (ProfileManager.getProfiles().size() > 0)
 			{	mainWindow.displayPanel(PanelName.CLIENT_GAME_PLAYER_SELECTION);
 			}
 			else
@@ -180,15 +185,18 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		}
 	
 		else if(e.getSource()==profilesButton)
-		{	mainWindow.displayPanel(PanelName.PROFILE_LIST);
+		{	s.clickSound(); // Son correspondant à un click
+			mainWindow.displayPanel(PanelName.PROFILE_LIST);
 		}
 	
 		else if(e.getSource()==statsButton)
-		{	mainWindow.displayPanel(PanelName.STATISTICS);
+		{	s.clickSound(); // Son correspondant à un click
+			mainWindow.displayPanel(PanelName.STATISTICS);
 		}
 	
 		else if(e.getSource()==quitButton)
-		{	mainWindow.closeWindow();
+		{	s.clickSound(); // Son correspondant à un click
+			mainWindow.closeWindow();
 		}
 	}
 }

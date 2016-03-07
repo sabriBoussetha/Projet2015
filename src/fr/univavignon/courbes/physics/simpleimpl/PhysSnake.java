@@ -379,6 +379,7 @@ public class PhysSnake extends Snake
 						board.removedItems.add(item.itemId);
 						// on le ramasse
 						item.pickUp(board,this);
+						// L'ancer le son lors de la collision avec l'item.
 						s.collisionWithItemSound();
 					}
 				}
@@ -397,6 +398,8 @@ public class PhysSnake extends Snake
 				{	// on marque la collision
 					eliminatedBy = -1;
 					result = true;
+					// Lancer le son de collision avec la bordure
+					s.collisionWithBordSound();
 					// on restreint la nouvelle position du serpent
 					it.remove();
 				}
@@ -414,6 +417,8 @@ public class PhysSnake extends Snake
 					if(changed)
 					{	eliminatedBy = i;
 						result = true;
+						// Lancer le son correspondant à la collosion avec un autre snake 
+						s.collisionWithSnakeSound();
 					}
 				}
 				i++;

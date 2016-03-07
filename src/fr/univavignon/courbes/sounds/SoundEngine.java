@@ -32,7 +32,12 @@ public interface SoundEngine {
 	 * 	Cette fonction est appelée à la fin de la partie 
 	 */
 	void endGameSound();
-
+	
+	/**
+	 *  Fonction qui fait un effet sonore lors d'un click
+	 */
+	
+	void clickSound();
 
 	
 }

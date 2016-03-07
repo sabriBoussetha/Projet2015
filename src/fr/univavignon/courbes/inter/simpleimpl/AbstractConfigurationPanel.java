@@ -31,6 +31,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
+import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
 
 /**
  * Panel de base comportant des boutons pour avancer et reculer dans
@@ -43,6 +44,7 @@ public abstract class AbstractConfigurationPanel extends JPanel implements Actio
 {	/** Numéro de série */
 	private static final long serialVersionUID = 1L;
 	
+	private SoundEffect s = new SoundEffect();
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
 	 * les participants locaux à une partie.
@@ -155,8 +157,14 @@ public abstract class AbstractConfigurationPanel extends JPanel implements Actio
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{	if(e.getSource()==backButton)
-			previousStep();
+		{	
+			s.clickSound();
+			previousStep(); 
+		}
 		else if(e.getSource()==nextButton)
-			nextStep();
+			 {
+				s.clickSound();
+				nextStep();
+			 }
 	}
 }
