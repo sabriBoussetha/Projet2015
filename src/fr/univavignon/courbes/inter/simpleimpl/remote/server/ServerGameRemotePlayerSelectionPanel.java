@@ -69,6 +69,7 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 	 * @param mainWindow
 	 * 		Fenêtre contenant ce panel.
 	 */
+		
 	public ServerGameRemotePlayerSelectionPanel(MainWindow mainWindow)
 	{	super(mainWindow,TITLE);
 		
@@ -212,6 +213,10 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 		Player players[] = round.players;
 		int result = Constants.MAX_PLAYER_NBR - players.length;
 		return result;
+	}
+	
+	public int getMaxPlayer(){
+		return getMaxPlayerNbr();
 	}
 
 	@Override

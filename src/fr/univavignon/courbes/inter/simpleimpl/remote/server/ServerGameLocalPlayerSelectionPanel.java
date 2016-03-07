@@ -25,6 +25,7 @@ import fr.univavignon.courbes.common.Round;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 import fr.univavignon.courbes.inter.simpleimpl.local.AbstractLocalPlayerSelectionPanel;
+import fr.univavignon.courbes.network.central.simpleimpl.PhpCommunication;
 
 /**
  * Panel permettant de sélectionner les joueurs locaux au serveur participant à une partie réseau.
@@ -42,6 +43,8 @@ public class ServerGameLocalPlayerSelectionPanel extends AbstractLocalPlayerSele
 	private static final int MAX_PLYR_NBR = Constants.MAX_PLAYER_NBR - 1;
 	/** Texte associé à la combobox */
 	private static final String COMBO_TEXT = "Nombre de joueurs locaux : ";
+	
+	private PhpCommunication updateGameInformation = new PhpCommunication();
 	
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
@@ -86,6 +89,10 @@ public class ServerGameLocalPlayerSelectionPanel extends AbstractLocalPlayerSele
 				"<html>Les données des joueurs locaux ne sont pas correctement remplies. Vérifiez que :" +
 				"<br/>- tous les profils sont définis et différents, et que" +
 				"<br/>- toutes les commandes sont définies et différentes.</html>");
+		}
+		/* Verification du nombre de joueurs locaux, modification de la BDD si supérieur à 1 */
+		if(AbstractLocalPlayerSelectionPanel.getNbLocalPlayer() > 1){
+			
 		}
 	}
 }

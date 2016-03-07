@@ -23,10 +23,11 @@ public interface CentralCommunication {
 	 */
 	void sendGameInformation() throws IOException;
 	
+	void updateGameInformation();
+	
 	void sendStats();
 	
 	void getIP();
 	
-	void getStats();
-	
+	void getStats();	
 }

@@ -21,6 +21,7 @@ package fr.univavignon.courbes.inter.simpleimpl.remote.server;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.IOException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -33,6 +34,7 @@ import fr.univavignon.courbes.inter.simpleimpl.SettingsManager.NetEngineImpl;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
 import fr.univavignon.courbes.inter.simpleimpl.remote.AbstractConnectionPanel;
 import fr.univavignon.courbes.network.ServerCommunication;
+import fr.univavignon.courbes.network.central.simpleimpl.PhpCommunication;
 import fr.univavignon.courbes.network.kryonet.ServerCommunicationKryonetImpl;
 import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
 
@@ -49,6 +51,8 @@ public class ServerGamePortSelectionPanel extends AbstractConnectionPanel implem
 	private static final String TITLE = "Configuration réseau";
 	/** Title du panel */
 	private static final String BOX_LABEL = "Partie publique : ";
+	
+	private PhpCommunication sendGameInformation = new PhpCommunication();
 	
 	/**
 	 * Construit un nouveau panel chargé de connecter le client à son serveur.
@@ -124,7 +128,15 @@ public class ServerGamePortSelectionPanel extends AbstractConnectionPanel implem
 
 	@Override
 	protected void nextStep()
-	{	String portStr = portTextField.getText();
+	{	if(publicBox.isSelected()){
+			try {
+				sendGameInformation.sendGameInformation();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		String portStr = portTextField.getText();
 		int port = Integer.parseInt(portStr);
 		SettingsManager.setLastPort(port);
 		mainWindow.serverCom.setPort(port);

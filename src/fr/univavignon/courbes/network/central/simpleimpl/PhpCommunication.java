@@ -3,15 +3,14 @@ package fr.univavignon.courbes.network.central.simpleimpl;
 
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import fr.univavignon.courbes.common.Constants;
 import fr.univavignon.courbes.network.central.CentralCommunication;
 import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
 
@@ -20,15 +19,14 @@ import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
  *
  */
 public class PhpCommunication implements CentralCommunication{
-
 	@Override
 	public void sendGameInformation() throws IOException {
 		
-		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1501163/Projet2015_PHP/server.php");
+		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
 	    String result = "";
 	    ServerCommunicationImpl server = new ServerCommunicationImpl();
 	    System.out.println(server.getIp());
-	    String data = "infos=" + URLEncoder.encode(server.getIp()+"|4" /* à la place 4 on met le nb de joueur max*/ , "UTF-8");
+	    String data = "infos=" + URLEncoder.encode(server.getIp()+"|"+Constants.MAX_PLAYER_NBR, "UTF-8");
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    try {
 	        connection.setDoInput(true);
@@ -73,6 +71,12 @@ public class PhpCommunication implements CentralCommunication{
 
 	@Override
 	public void getStats() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateGameInformation() {
 		// TODO Auto-generated method stub
 		
 	}
