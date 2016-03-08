@@ -10,10 +10,9 @@ public class BDD {
 	
 	/*
 	
-	public static int classementElo(int id_joueur)
-	
-	public static void majJoueur(int id_joueur);
-	
+fonction qui renvoie un elo a partir d'un id
+
+fonction qui ecris, a partir d'un elo et d'un id, un nouveau tuple dans la table elo
 	
 	*/
 	

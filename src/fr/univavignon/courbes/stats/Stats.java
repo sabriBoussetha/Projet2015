@@ -72,25 +72,23 @@ public class Stats {
 		elo.put(102, 1900);
 		elo.put(103, 2200);
 		
-		double proba_succes
+		double proba_succes;
+		double coef_reussite;
+		int ancien_elo;
 		//on enumere tout les joueurs
 		for (int i = 0; i < issue_partie.length; i++)
 		{
 			//pour chaque joueur
-			//determiner sa probabilité de succes moyenne
 			proba_succes = proba_succes_multi(elo, issue_partie[i]);
-			
-			//on calcul son nouveau elo ainsi
-			//son ancien classement elo
-			//son coefficient de reussite
-			//sa probabilité de succee
-		}
+			coef_reussite = coef_reussite(issue_partie.length, i+1);
+			ancien_elo = elo.get(issue_partie[i]);
 
+			//on calcul son nouveau elo ainsi
+			elo.put(issue_partie[i], newElo(ancien_elo, coef_reussite, proba_succes));
+		}
 		
-			
-			
-			
-			
+		//et on reecris dans la base de donné les nouveau classements
+	
 	}
 	
 	//calculer la probabilite moyenne de succes pour un joueur
@@ -118,7 +116,12 @@ public class Stats {
 		return proba_succes / (elo.size()-1);
 	}
 	
-	public static double newElo(int lastElo, double coef_reussite, double proba_succes);
+	
+	//calcule un nouveau classement elo a partir de son ancient, de son coeficient de reussite et de sa probabilité de succès
+	public static int newElo(int lastElo, double coef_reussite, double proba_succes)
+	{
+		return (int) (lastElo + K * (coef_reussite - proba_succes));
+	}
 	
 	//renvoie la probabilité de succès du joueur ayant un classement elo1
 	//quand il joue contre un joueur ayant un classement elo2
