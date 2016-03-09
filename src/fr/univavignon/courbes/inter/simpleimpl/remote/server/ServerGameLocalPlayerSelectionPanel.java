@@ -28,6 +28,7 @@ import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 import fr.univavignon.courbes.inter.simpleimpl.local.AbstractLocalPlayerSelectionPanel;
 import fr.univavignon.courbes.network.central.simpleimpl.PhpCommunication;
+import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
 
 /**
  * Panel permettant de sélectionner les joueurs locaux au serveur participant à une partie réseau.
@@ -47,6 +48,8 @@ public class ServerGameLocalPlayerSelectionPanel extends AbstractLocalPlayerSele
 	private static final String COMBO_TEXT = "Nombre de joueurs locaux : ";
 	
 	private PhpCommunication updateGameInformation = new PhpCommunication();
+	
+    ServerCommunicationImpl server = new ServerCommunicationImpl();
 	
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
@@ -97,7 +100,7 @@ public class ServerGameLocalPlayerSelectionPanel extends AbstractLocalPlayerSele
 		/* Verification du nombre de joueurs locaux, modification de la BDD si supérieur à 1 */
 		if(AbstractLocalPlayerSelectionPanel.getNbLocalPlayer() > 1){
 			System.out.println("Modification sur le serveur central du nombre de place restante. Il faut enlever " + (AbstractLocalPlayerSelectionPanel.getNbLocalPlayer()-1) + " place");
-			updateGameInformation.updateGameInformation(AbstractLocalPlayerSelectionPanel.getNbLocalPlayer());
+			updateGameInformation.updateGameInformation(AbstractLocalPlayerSelectionPanel.getNbLocalPlayer(),server.getIp());
 		}
 	}
 }
