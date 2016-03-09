@@ -20,13 +20,14 @@ import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
  */
 public class PhpCommunication implements CentralCommunication{
 	@Override
-	public void sendGameInformation() throws IOException {
+	public Boolean sendGameInformation() throws IOException {
 		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
 	    String result = "";
 	    ServerCommunicationImpl server = new ServerCommunicationImpl();
-	    System.out.println(server.getIp());
+	    System.out.println("Adresse ip du serveur : " + server.getIp());
 	    String data = "infos=" + URLEncoder.encode(server.getIp() + "|" + Constants.MAX_PLAYER_NBR, "UTF-8");
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        System.out.println(InputStream error = ((HttpURLConnection) connection).getErrorStream());
 	    try {
 	        connection.setDoInput(true);
 	        connection.setDoOutput(true);
@@ -47,8 +48,8 @@ public class PhpCommunication implements CentralCommunication{
             while ((line = in.readLine()) != null) {
             	result += line;
             }
-        
 	    	in.close();
+			return true;
 	    }
     	finally {
     		connection.disconnect();
