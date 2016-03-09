@@ -25,6 +25,8 @@ public interface CentralCommunication {
 	
 	void updateGameInformation(Integer newNbPlayer, String ip) throws IOException;
 	
+	void removePlace(String ip) throws IOException;
+	
 	void sendStats();
 	
 	void getIP();

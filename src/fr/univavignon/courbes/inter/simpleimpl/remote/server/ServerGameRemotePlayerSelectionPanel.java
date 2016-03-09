@@ -19,6 +19,7 @@ package fr.univavignon.courbes.inter.simpleimpl.remote.server;
  */
 
 import java.awt.Dimension;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -44,6 +45,7 @@ import fr.univavignon.courbes.inter.simpleimpl.SettingsManager.NetEngineImpl;
 import fr.univavignon.courbes.inter.simpleimpl.remote.RemotePlayerConfigPanel;
 import fr.univavignon.courbes.inter.simpleimpl.remote.RemotePlayerSelectionPanel;
 import fr.univavignon.courbes.network.ServerCommunication;
+import fr.univavignon.courbes.network.central.simpleimpl.PhpCommunication;
 import fr.univavignon.courbes.network.kryonet.ServerCommunicationKryonetImpl;
 import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
 
@@ -61,6 +63,10 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 	private static final int MIN_PLYR_NBR = 1;
 	/** Texte associé à la combobox */
 	private static final String COMBO_TEXT = "Nombre de joueurs distants : ";
+	
+	private PhpCommunication deletePlayer = new PhpCommunication();
+	
+    private ServerCommunicationImpl server = new ServerCommunicationImpl();
 	
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
@@ -248,6 +254,14 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 		// on prévient les clients restants
 		Profile profiles[] = getAllPlayers();
 		serverCom.sendProfiles(profiles);
+		
+		//Rajout d'une place dans la table sur le serveur central
+		try {
+			deletePlayer.removePlace(server.getIp());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

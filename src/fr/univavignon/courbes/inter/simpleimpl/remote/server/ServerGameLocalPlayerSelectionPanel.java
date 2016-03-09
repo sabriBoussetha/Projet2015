@@ -49,7 +49,7 @@ public class ServerGameLocalPlayerSelectionPanel extends AbstractLocalPlayerSele
 	
 	private PhpCommunication updateGameInformation = new PhpCommunication();
 	
-    ServerCommunicationImpl server = new ServerCommunicationImpl();
+    private ServerCommunicationImpl server = new ServerCommunicationImpl();
 	
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
