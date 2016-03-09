@@ -1,4 +1,4 @@
-Sabri,Algériiiiiiiieeeeeee,1,null,null
-Nathan,france,2,null,null
-Charlie,France,3,null,null
-Alex,Syrie,4,null,null
+Nathan,France,1,null,null
+Sabri,Algérie,2,null,null
+Alexandre,Syrie,3,null,null
+Charlie,France,4,null,null
