@@ -22,6 +22,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -144,8 +145,9 @@ public abstract class AbstractConfigurationPanel extends JPanel implements Actio
 	 * Passe à l'étape suivante de la configuration
 	 * de la partie, ou bien début la partie elle-même
 	 * (en fonction du type de partie).
+	 * @throws IOException 
 	 */
-	protected abstract void nextStep();
+	protected abstract void nextStep() throws IOException;
 	
 	/**
 	 * Revient à l'étape précédente de la configuration
@@ -164,7 +166,12 @@ public abstract class AbstractConfigurationPanel extends JPanel implements Actio
 		else if(e.getSource()==nextButton)
 			 {
 				s.clickSound();
-				nextStep();
+				try {
+					nextStep();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			 }
 	}
 }

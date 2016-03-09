@@ -131,6 +131,7 @@ public class ServerGamePortSelectionPanel extends AbstractConnectionPanel implem
 	{	if(publicBox.isSelected()){
 			try {
 				sendGameInformation.sendGameInformation();
+				System.out.println("Envoi des informations au serveur central");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

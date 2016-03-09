@@ -18,6 +18,8 @@ package fr.univavignon.courbes.inter.simpleimpl.remote.server;
  * along with Courbes. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.io.IOException;
+
 import javax.swing.JOptionPane;
 
 import fr.univavignon.courbes.common.Constants;
@@ -78,7 +80,7 @@ public class ServerGameLocalPlayerSelectionPanel extends AbstractLocalPlayerSele
 	}
 	
 	@Override
-	protected void nextStep()
+	protected void nextStep() throws IOException
 	{	if(checkConfiguration())
 		{	Round round = initRound();
 			mainWindow.currentRound = round;
@@ -90,9 +92,12 @@ public class ServerGameLocalPlayerSelectionPanel extends AbstractLocalPlayerSele
 				"<br/>- tous les profils sont définis et différents, et que" +
 				"<br/>- toutes les commandes sont définies et différentes.</html>");
 		}
+	System.out.println(AbstractLocalPlayerSelectionPanel.getNbLocalPlayer());
+
 		/* Verification du nombre de joueurs locaux, modification de la BDD si supérieur à 1 */
 		if(AbstractLocalPlayerSelectionPanel.getNbLocalPlayer() > 1){
-			
+			System.out.println("Modification sur le serveur central du nombre de place restante. Il faut enlever " + (AbstractLocalPlayerSelectionPanel.getNbLocalPlayer()-1) + " place");
+			updateGameInformation.updateGameInformation(AbstractLocalPlayerSelectionPanel.getNbLocalPlayer());
 		}
 	}
 }

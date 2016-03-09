@@ -23,7 +23,7 @@ public interface CentralCommunication {
 	 */
 	void sendGameInformation() throws IOException;
 	
-	void updateGameInformation();
+	void updateGameInformation(Integer newNbPlayer) throws IOException;
 	
 	void sendStats();
 	
