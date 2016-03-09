@@ -21,7 +21,7 @@ public interface CentralCommunication {
 	 * 		<li>Le nombre de place restante</li>
 	 * </ul>
 	 */
-	Boolean sendGameInformation() throws IOException;
+	void sendGameInformation() throws IOException;
 	
 	void updateGameInformation(Integer newNbPlayer, String ip) throws IOException;
 	
