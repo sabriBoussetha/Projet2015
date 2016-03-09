@@ -99,7 +99,7 @@ public class ServerGameLocalPlayerSelectionPanel extends AbstractLocalPlayerSele
 
 		/* Verification du nombre de joueurs locaux, modification de la BDD si supérieur à 1 */
 		if(AbstractLocalPlayerSelectionPanel.getNbLocalPlayer() > 1){
-			System.out.println("Modification sur le serveur central du nombre de place restante. Il faut enlever " + (AbstractLocalPlayerSelectionPanel.getNbLocalPlayer()-1) + " place");
+			System.out.println("Modification sur le serveur central du nombre de place restante. Il faut enlever " + (AbstractLocalPlayerSelectionPanel.getNbLocalPlayer()) + " places");
 			updateGameInformation.updateGameInformation(AbstractLocalPlayerSelectionPanel.getNbLocalPlayer(),server.getIp());
 		}
 	}

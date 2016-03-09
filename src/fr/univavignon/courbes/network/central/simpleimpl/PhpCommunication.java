@@ -83,7 +83,6 @@ public class PhpCommunication implements CentralCommunication{
             while ((line = in.readLine()) != null) {
             	result += line;
             }
-        
 	    	in.close();
 	    }
     	finally {
@@ -118,7 +117,6 @@ public class PhpCommunication implements CentralCommunication{
             while ((line = in.readLine()) != null) {
             	result += line;
             }
-        
 	    	in.close();
 	    }
     	finally {
