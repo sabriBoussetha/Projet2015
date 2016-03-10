@@ -46,7 +46,7 @@ public abstract class AbstractLocalPlayerSelectionPanel extends AbstractPlayerSe
 {	/** Numéro de série */
 	private static final long serialVersionUID = 1L;
 	
-	private static int nbLocalPlayer;
+	private static int nbLocalPlayer = 1;
 	
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
@@ -59,6 +59,7 @@ public abstract class AbstractLocalPlayerSelectionPanel extends AbstractPlayerSe
 	 */
 	public AbstractLocalPlayerSelectionPanel(MainWindow mainWindow, String title)
 	{	super(mainWindow,title);
+		setNbLocalPlayer(1);	// 
 	}
 	
 	/** Largeur des noms */

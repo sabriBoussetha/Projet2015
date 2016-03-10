@@ -20,10 +20,11 @@ public interface CentralCommunication {
 	 * 		<li>Le nombre maximum de joueur dans cette partie</li>
 	 * 		<li>Le nombre de place restante</li>
 	 * </ul>
+	 * @return 
 	 */
-	void sendGameInformation() throws IOException;
+	boolean sendGameInformation() throws IOException;
 	
-	void updateGameInformation(Integer newNbPlayer, String ip) throws IOException;
+	void updateGameInformation(Integer newNbPlayer) throws IOException;
 	
 	void removePlace(String ip) throws IOException;
 	

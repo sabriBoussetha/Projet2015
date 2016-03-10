@@ -26,6 +26,7 @@ import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
@@ -128,21 +129,30 @@ public class ServerGamePortSelectionPanel extends AbstractConnectionPanel implem
 
 	@Override
 	protected void nextStep()
-	{	if(publicBox.isSelected()){
-			try {
-				sendGameInformation.sendGameInformation();
-				System.out.println("Envoi des informations au serveur central");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+	{	
 		String portStr = portTextField.getText();
 		int port = Integer.parseInt(portStr);
 		SettingsManager.setLastPort(port);
 		mainWindow.serverCom.setPort(port);
-	
-		mainWindow.displayPanel(PanelName.SERVER_GAME_LOCAL_PLAYER_SELECTION);
+		
+		
+		if(publicBox.isSelected()){
+			try {
+				if(sendGameInformation.sendGameInformation()){
+					mainWindow.displayPanel(PanelName.SERVER_GAME_LOCAL_PLAYER_SELECTION);
+				}
+				else{
+					JOptionPane.showMessageDialog(mainWindow, 
+							"<html>Accès au serveur central impossible.<br/>"
+							+ "Vérifier votre connection internet.</html>");
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			mainWindow.displayPanel(PanelName.SERVER_GAME_LOCAL_PLAYER_SELECTION);
+		}
 	}
 
 	@Override
