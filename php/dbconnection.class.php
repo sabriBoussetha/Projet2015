@@ -1,9 +1,9 @@
 <?php
 
 define ('HOST', 'localhost') ;
-define ('USER', 'postgres'  ) ;
-define ('PASS', 'aibWesBed2' ) ;
-define ('DB', 'projet' ) ;
+define ('USER', 'uapv1402577'  ) ;
+define ('PASS', 'jenYv1' ) ;
+define ('DB', 'etd' ) ;
 
 class dbconnection
 {

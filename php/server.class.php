@@ -2,19 +2,16 @@
     include_once 'dbconnection.class.php';
     class JavaCommunication{
         public function addNewGame(){
-            if(isset($_POST['infos'])){
-                $parse_infos = explode("|",$_POST['infos']);
-                $ip_host = $parse_infos[0];
-                $nb_player = $parse_infos[1];
-                $available_place = $nb_player-1;
-            }
+            $parse_new_game = explode("|",$_POST['new_game']);
+            $ip_host = $parse_new_game[0];
+            $nb_player = $parse_new_game[1];
             $connection = new dbconnection();
             $serverExist = JavaCommunication::ifServerExist($ip_host);
             if($serverExist){
                 echo "La partie existe déjà";
             }
             else{
-                $sql = "INSERT INTO parties (ip_host, nb_player,available_place) VALUES('$ip_host','$nb_player','$available_place')";
+                $sql = "INSERT INTO parties (ip_host, nb_player,available_place) VALUES('$ip_host','$nb_player','$nb_player')";
                 $res = $connection->doExec($sql);
                 if($res === false)
                     return false ;
@@ -38,14 +35,29 @@
             return true;  
         }
         public function updateGame(){
+            $parse_update_game = explode("|",$_POST['new_nb_player']);
+            $ip_host = $parse_update_game[0];
+            $nb_local_player = $parse_update_game[1];
+            
             $connection = new dbconnection();
-            if(isset($_POST['nb_player_update'])){   // Modification des places restantes lors du choix des joueurs
-                $new_nb_player = $_POST['nb_player_update'];
-                $sql = "UPDATE parties set available_place= '$nb_local_player' where ip_host =$ip'";
-                $res = $connection->doExec($sql);
-                if($res === false)
-                    return false ;
-                return $res ;
+            $sql = "SELECT available_place from parties where ip_host='$ip_host'";
+            
+            $res = $connection->doQuery($sql); // Récupération du nombre de places disponible actuelle
+            foreach($res as $result){
+                $actual_available_place = $result['available_place'];
             }
+            echo "<br> Nombre de joueur actuel :$actual_available_place";
+            echo "<br> Nombre de joueur à enlever :$nb_local_player";
+            $new_nb_player = $actual_available_place - $nb_local_player;
+            echo "<br> Nouveau nombre de joueurs :$new_nb_player";
+            $sql1 = "UPDATE parties set available_place = '$new_nb_player' where ip_host = '$ip_host'";
+            $res = $connection->doExec($sql1);
+            if($res === false)
+                return false ;
+            return $res ;
         }
     }
+
+
+
+           
