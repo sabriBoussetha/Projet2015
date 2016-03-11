@@ -42,13 +42,11 @@
             $connection = new dbconnection();
             $sql = "SELECT available_place from parties where ip_host='$ip_host'";
             
-            $res = $connection->doQuery($sql); // Récupération du nombre de places disponible actuelle
-            foreach($res as $result){
-                $actual_available_place = $result['available_place'];
-            }
-            echo "<br> Nombre de joueur actuel :$actual_available_place";
+            $actual_available_place = $connection->doQuery($sql); // Récupération du nombre de places disponible actuelle
+            echo "<br> Nombre de joueur actuel :";
+            echo $actual_available_place[0]['available_place'];
             echo "<br> Nombre de joueur à enlever :$nb_local_player";
-            $new_nb_player = $actual_available_place - $nb_local_player;
+            $new_nb_player = $actual_available_place[0]['available_place'] - $nb_local_player;
             echo "<br> Nouveau nombre de joueurs :$new_nb_player";
             $sql1 = "UPDATE parties set available_place = '$new_nb_player' where ip_host = '$ip_host'";
             $res = $connection->doExec($sql1);
@@ -57,7 +55,3 @@
             return $res ;
         }
     }
-
-
-
-           
