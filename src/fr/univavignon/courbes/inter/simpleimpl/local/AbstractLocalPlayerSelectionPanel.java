@@ -46,6 +46,8 @@ public abstract class AbstractLocalPlayerSelectionPanel extends AbstractPlayerSe
 {	/** Numéro de série */
 	private static final long serialVersionUID = 1L;
 	
+	private static int nbLocalPlayer = 1;
+	
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
 	 * les participants locaux à une partie.
@@ -57,6 +59,7 @@ public abstract class AbstractLocalPlayerSelectionPanel extends AbstractPlayerSe
 	 */
 	public AbstractLocalPlayerSelectionPanel(MainWindow mainWindow, String title)
 	{	super(mainWindow,title);
+		setNbLocalPlayer(1);	// 
 	}
 	
 	/** Largeur des noms */
@@ -191,7 +194,7 @@ public abstract class AbstractLocalPlayerSelectionPanel extends AbstractPlayerSe
 	protected void comboboxChanged()
 	{	int oldPlayerNbr = selectedProfiles.size();
 		int newPlayerNbr = (int) playerNbrCombo.getSelectedItem();
-		
+		setNbLocalPlayer(newPlayerNbr);
 		if(oldPlayerNbr<newPlayerNbr)
 		{	for(int i=oldPlayerNbr;i<newPlayerNbr;i++)
 				addProfile();
@@ -203,5 +206,19 @@ public abstract class AbstractLocalPlayerSelectionPanel extends AbstractPlayerSe
 				playersPanel.repaint();
 			}
 		}
+	}
+
+	/**
+	 * @param newPlayerNbr
+	 */
+	private void setNbLocalPlayer(int newPlayerNbr) {
+		nbLocalPlayer = newPlayerNbr;		
+	}
+	
+	/**
+	 * @return
+	 */
+	public static int getNbLocalPlayer(){
+		return nbLocalPlayer;
 	}
 }

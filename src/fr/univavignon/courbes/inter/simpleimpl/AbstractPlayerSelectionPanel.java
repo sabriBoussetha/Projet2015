@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 
 import fr.univavignon.courbes.common.Round;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
+import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
 
 /**
  * Panel permettant de sélectionner les joueurs participant à une partie.
@@ -47,6 +48,7 @@ public abstract class AbstractPlayerSelectionPanel<T> extends AbstractConfigurat
 {	/** Numéro de série */
 	private static final long serialVersionUID = 1L;
 	
+	private SoundEffect s = new SoundEffect();
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
 	 * les participants locaux à une partie.
@@ -137,7 +139,7 @@ public abstract class AbstractPlayerSelectionPanel<T> extends AbstractConfigurat
 		if(minNumber==0)
 			selectedVal = 1;
 		playerNbrCombo.setSelectedIndex(selectedVal);
-		dim = new Dimension(40,30);
+		dim = new Dimension(50,30);
 		playerNbrCombo.setPreferredSize(dim);
 		playerNbrCombo.setMinimumSize(dim);
 		playerNbrCombo.setMaximumSize(dim);
@@ -185,9 +187,11 @@ public abstract class AbstractPlayerSelectionPanel<T> extends AbstractConfigurat
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
-	{	super.actionPerformed(e);
-		
-		if(e.getSource()==playerNbrCombo)
+	{	
+		super.actionPerformed(e);
+		s.clickSound();
+		if(e.getSource()==playerNbrCombo)			
 			comboboxChanged();
+		
 	}
 }

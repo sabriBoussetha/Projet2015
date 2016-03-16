@@ -19,7 +19,8 @@ package fr.univavignon.courbes.network.simpleimpl;
  */
 
 /**
- * Cette classe contient uniquement des constantes utilisées par le moteur réseau.
+ * Cette classe contient uniquement des constantes utilisées par l'implémentation
+ * à base de socket standard du Moteur Réseau.
  * 
  * @author	L3 Info UAPV 2015-16
  */
@@ -30,7 +31,6 @@ public class NetworkConstants
 	
 	/** Le serveur indique au client qu'il peut se connecter à la partie en cours de configuration */
 	public static final String ANNOUNCE_ACCEPTED_CONNECTION = "ANNOUNCE_ACCEPTED_CONNECTION";
-	/** Le serveur indique au client que son profil a été rejeté et ne participera pas à la partie (le message implique aussi une déconnexion) */
 	/** Le serveur indique au client qu'il ne peut pas se connecter à la partie en cours de configuration */
 	public static final String ANNOUNCE_REJECTED_CONNECTION = "ANNOUNCE_REJECTED_CONNECTION";
 	/** Le serveur indique au client que son profil a été rejeté et ne participera pas à la partie (le message implique aussi une déconnexion) */

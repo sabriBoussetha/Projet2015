@@ -19,6 +19,7 @@ package fr.univavignon.courbes.inter.simpleimpl.remote.server;
  */
 
 import java.awt.Dimension;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -38,10 +39,14 @@ import fr.univavignon.courbes.common.Round;
 import fr.univavignon.courbes.inter.ServerProfileHandler;
 import fr.univavignon.courbes.inter.simpleimpl.AbstractPlayerSelectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
+import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
+import fr.univavignon.courbes.inter.simpleimpl.SettingsManager.NetEngineImpl;
 import fr.univavignon.courbes.inter.simpleimpl.remote.RemotePlayerConfigPanel;
 import fr.univavignon.courbes.inter.simpleimpl.remote.RemotePlayerSelectionPanel;
 import fr.univavignon.courbes.network.ServerCommunication;
+import fr.univavignon.courbes.network.central.simpleimpl.PhpCommunication;
+import fr.univavignon.courbes.network.kryonet.ServerCommunicationKryonetImpl;
 import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
 
 /**
@@ -59,6 +64,10 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 	/** Texte associé à la combobox */
 	private static final String COMBO_TEXT = "Nombre de joueurs distants : ";
 	
+	private PhpCommunication deletePlayer = new PhpCommunication();
+	
+    private ServerCommunicationImpl server = new ServerCommunicationImpl();
+	
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
 	 * les joueurs locaux au serveur participant à une partie locale.
@@ -66,6 +75,7 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 	 * @param mainWindow
 	 * 		Fenêtre contenant ce panel.
 	 */
+		
 	public ServerGameRemotePlayerSelectionPanel(MainWindow mainWindow)
 	{	super(mainWindow,TITLE);
 		
@@ -175,7 +185,16 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 	 * Initialise la partie serveur du moteur réseau
 	 */
 	private void initServer()
-	{	serverCom = new ServerCommunicationImpl();
+	{	NetEngineImpl netEngineImpl = SettingsManager.getNetEngineImpl();
+		switch(netEngineImpl)
+		{	case KRYONET:
+				serverCom = new ServerCommunicationKryonetImpl();
+				break;
+			case SOCKET:
+				serverCom = new ServerCommunicationImpl();
+				break;
+		}
+		
 		serverCom.setErrorHandler(mainWindow);
 		serverCom.setProfileHandler(this);
 		serverCom.launchServer();
@@ -186,7 +205,12 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 	
 	@Override
 	public int getMinPlayerNbr()
-	{	return MIN_PLYR_NBR;
+	{	Round round = mainWindow.currentRound;
+		Player players[] = round.players;
+		int result = MIN_PLYR_NBR;
+		if(players.length==0)
+			result++;
+		return result;
 	}
 	
 	@Override
@@ -195,6 +219,10 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 		Player players[] = round.players;
 		int result = Constants.MAX_PLAYER_NBR - players.length;
 		return result;
+	}
+	
+	public int getMaxPlayer(){
+		return getMaxPlayerNbr();
 	}
 
 	@Override
@@ -226,6 +254,14 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 		// on prévient les clients restants
 		Profile profiles[] = getAllPlayers();
 		serverCom.sendProfiles(profiles);
+		
+		//Rajout d'une place dans la table sur le serveur central
+		try {
+			deletePlayer.removePlace(server.getIp());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -296,13 +332,12 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 			{	e.printStackTrace();
 			}
 			mainWindow.displayPanel(PanelName.SERVER_GAME_PLAY);
-			mainWindow.serverCom.sendRound(round);
+//			mainWindow.serverCom.sendRound(round);
 		}
 		else
 		{	JOptionPane.showMessageDialog(mainWindow, 
-				"<html>Les données des joueurs locaux ne sont pas correctement remplies. Vérifiez que :" +
-				"<br/>- tous les profils sont définis et différents, et que" +
-				"<br/>- toutes les commandes sont définies et différentes.</html>");
+				"<html>Tous les joueurs distants n'ont pas été sélectionnés.<br/>"
+				+ "Ajoutez de nouveaux joueurs ou diminuez le nombre de joueurs distants.</html>");
 		}
 	}
 	

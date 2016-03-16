@@ -55,6 +55,11 @@ public class SmallUpdate implements UpdateInterface
 		currentItems = new ArrayList<ItemInstance[]>();
 	}
 	
+	/**
+	 * Empty constructor user by Kryonet network
+	 */
+	public SmallUpdate(){}
+	
 	////////////////////////////////////////////////////////////////
 	////	AIRE DE JEU
 	////////////////////////////////////////////////////////////////
@@ -90,7 +95,7 @@ public class SmallUpdate implements UpdateInterface
 	public boolean[] connected;
 	/** Mode avion  */
 	public boolean[] fly;
-	/** Dernière partie de la trainée */
+	/** Dernière section de la trainée */
 	public List<TreeSet<Position>> newTrails;
 	/** Items affectant actuellement chaque serpent */
 	public List<ItemInstance[]> currentItems;

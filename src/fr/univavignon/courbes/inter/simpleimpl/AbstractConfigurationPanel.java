@@ -22,6 +22,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -31,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
+import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
 
 /**
  * Panel de base comportant des boutons pour avancer et reculer dans
@@ -43,6 +45,7 @@ public abstract class AbstractConfigurationPanel extends JPanel implements Actio
 {	/** Numéro de série */
 	private static final long serialVersionUID = 1L;
 	
+	private SoundEffect s = new SoundEffect();
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
 	 * les participants locaux à une partie.
@@ -142,8 +145,9 @@ public abstract class AbstractConfigurationPanel extends JPanel implements Actio
 	 * Passe à l'étape suivante de la configuration
 	 * de la partie, ou bien début la partie elle-même
 	 * (en fonction du type de partie).
+	 * @throws IOException 
 	 */
-	protected abstract void nextStep();
+	protected abstract void nextStep() throws IOException;
 	
 	/**
 	 * Revient à l'étape précédente de la configuration
@@ -155,8 +159,19 @@ public abstract class AbstractConfigurationPanel extends JPanel implements Actio
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{	if(e.getSource()==backButton)
-			previousStep();
+		{	
+			s.clickSound();
+			previousStep(); 
+		}
 		else if(e.getSource()==nextButton)
-			nextStep();
+			 {
+				s.clickSound();
+				try {
+					nextStep();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			 }
 	}
 }

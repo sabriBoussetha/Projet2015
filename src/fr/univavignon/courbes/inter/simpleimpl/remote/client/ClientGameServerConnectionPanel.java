@@ -21,12 +21,14 @@ package fr.univavignon.courbes.inter.simpleimpl.remote.client;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import fr.univavignon.courbes.common.Constants;
 import fr.univavignon.courbes.inter.ClientConnectionHandler;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
+import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
+import fr.univavignon.courbes.inter.simpleimpl.SettingsManager.NetEngineImpl;
 import fr.univavignon.courbes.inter.simpleimpl.remote.AbstractConnectionPanel;
 import fr.univavignon.courbes.network.ClientCommunication;
+import fr.univavignon.courbes.network.kryonet.ClientCommunicationKryonetImpl;
 import fr.univavignon.courbes.network.simpleimpl.client.ClientCommunicationImpl;
 
 /**
@@ -53,7 +55,14 @@ public class ClientGameServerConnectionPanel extends AbstractConnectionPanel imp
 	
 	@Override
 	public String getDefaultIp()
-	{	return Constants.DEFAULT_IP;
+	{	String result = SettingsManager.getLastServerIp();
+		return result;
+	}
+
+	@Override
+	public int getDefaultPort()
+	{	int result = SettingsManager.getLastServerPort();
+		return result;
 	}
 	
 	/**
@@ -64,17 +73,29 @@ public class ClientGameServerConnectionPanel extends AbstractConnectionPanel imp
 	 */
 	private boolean connect()
 	{	// on initialise le Moteur Réseau
-		ClientCommunication clientCom = new ClientCommunicationImpl();
+		ClientCommunication clientCom = null;
+		NetEngineImpl netEngineImpl = SettingsManager.getNetEngineImpl();
+		switch(netEngineImpl)
+		{	case KRYONET:
+				clientCom = new ClientCommunicationKryonetImpl();
+				break;
+			case SOCKET:
+				clientCom = new ClientCommunicationImpl();
+				break;
+		}
+		
 		mainWindow.clientCom = clientCom;
 		clientCom.setErrorHandler(mainWindow);
 		clientCom.setConnectionHandler(this);
 		
 		String ipStr = ipTextField.getText();
 		clientCom.setIp(ipStr);
+		SettingsManager.setLastServerIp(ipStr);
 		
 		String portStr = portTextField.getText();
 		int port = Integer.parseInt(portStr);
 		clientCom.setPort(port);
+		SettingsManager.setLastServerPort(port);
 		
 		// puis on se connecte
 		boolean result = clientCom.launchClient();

@@ -167,7 +167,7 @@ public interface ClientCommunication
      * 		n'a été envoyée.
      */
 	public UpdateInterface retrieveUpdate();
-
+	
 	/**
      * Permet au client d'envoyer les commandes générées par les joueurs qu'il gère.
      * Ces commandes sont passées sous forme de map: l'entier correspond à l'ID du joueur
@@ -184,4 +184,10 @@ public interface ClientCommunication
      * Permet au client d'indiquer au serveur qu'il est prêt à commencer la manche.. 
      */
 	public void sendAcknowledgment();
+	
+	/**
+	 * Effectue les opérations nécessaires à la préparatin du Moteur Réseau
+	 * pour la manche suivante (par ex. vider des buffers, etc.).
+	 */
+	public void finalizeRound();
 }

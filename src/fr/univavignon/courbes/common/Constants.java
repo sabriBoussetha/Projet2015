@@ -34,22 +34,12 @@ import java.util.Map;
 public class Constants
 {	
 	////////////////////////////////////////////////////////////////
-	////	AIRE DE JEU
+	////	DIMENSIONS
 	////////////////////////////////////////////////////////////////
-	/** Largeur de l'aire de jeu standard */
-	public static final int BOARD_WIDTH = 800;//TODO à confirmer
-	/** Hauteur de l'aire de jeu standard */
-	public static final int BOARD_HEIGHT = 800;//TODO à confirmer
 	/** Largeur du panel de score */
 	public static final int SCORE_WIDTH = 200;//TODO à confirmer
-	
-	////////////////////////////////////////////////////////////////
-	////	FENÊTRE
-	////////////////////////////////////////////////////////////////
-	/** Largeur de la fenêtre de jeu */
-	public static final int WINDOW_WIDTH = 20+BOARD_WIDTH+20+SCORE_WIDTH+20;
-	/** Hauteur de la fenêtre de jeu */
-	public static final int WINDOW_HEIGHT = 20+BOARD_HEIGHT+20;
+	/** Marge de séparation */
+	public static final int WINDOW_MARGIN = 20;
 	
 	////////////////////////////////////////////////////////////////
 	////	DUREES ASSOCIEES AUX ETATS DE LA MANCHE
@@ -103,7 +93,7 @@ public class Constants
 	/** Rayon d'un item, exprimé en pixels */
 	public static final int ITEM_RADIUS = 20;
 	/** Temps de vie d'un item (en ms), avant qu'il ne disparaisse de l'aire de jeu */
-	public static final long ITEM_DURATION = 7000;	// TODO à confirmer
+	public static final long ITEM_DURATION = -1; // valeur négative = infini
 	/** Probabilité qu'un item apparaisse à chaque ms */
 	public static final float BASE_ITEM_POPUP_RATE = 0.0001f; 
 	/** Coefficient multiplicateur appliqué à la probabilité qu'un item apparaisse, pour l'augmenter */
@@ -114,8 +104,6 @@ public class Constants
 	////////////////////////////////////////////////////////////////
 	////	JOUEURS & SERPENTS
 	////////////////////////////////////////////////////////////////
-	/** Nombre maximal de joueurs dans une manche donnée */
-	public static final int MAX_PLAYER_NBR = 6;
 	/** Tableau contenant les couleurs associées à chaque numéro de joueur pendant une manche */
 	public static final Color[] PLAYER_COLORS = 
 	{	new Color(255, 69, 69),	// rouge
@@ -125,6 +113,8 @@ public class Constants
 		new Color(255,136, 52),	// orange
 		new Color(255,164,186)	// rose
 	};
+	/** Nombre maximal de joueurs dans une manche donnée */
+	public static final int MAX_PLAYER_NBR = PLAYER_COLORS.length;
 	/** Couleur utilisée pendant une manche pour indiquer qu'un joueur n'est plus connecté */
 	public static final Color DISCO_PLAYER_COLOR = Color.GRAY;
 	/** Couleur utilisée pendant une manche pour tracer la tête d'un joueur éliminé */
@@ -146,23 +136,22 @@ public class Constants
 	////	POINTS
 	////////////////////////////////////////////////////////////////
 	/** Points marqués par les joueurs à l'issue d'une manche, en fonction de leur classement */
-	public static final Map<Integer,Integer> POINTS_FOR_RANK = new HashMap<Integer,Integer>();
+	public static final Map<Integer,int[]> POINTS_FOR_RANK = new HashMap<Integer,int[]>();
 	static
-	{	POINTS_FOR_RANK.put(1,5); //TODO points à confirmer sur le jeu original
-		POINTS_FOR_RANK.put(2,4);
-		POINTS_FOR_RANK.put(3,3);
-		POINTS_FOR_RANK.put(4,2);
-		POINTS_FOR_RANK.put(5,1);
-		POINTS_FOR_RANK.put(6,0);
+	{	POINTS_FOR_RANK.put(2, new int[] {1,0});
+		POINTS_FOR_RANK.put(3, new int[] {2,1,0});
+		POINTS_FOR_RANK.put(4, new int[] {3,2,1,0});
+		POINTS_FOR_RANK.put(5, new int[] {4,3,2,1,0});
+		POINTS_FOR_RANK.put(6, new int[] {5,4,3,2,1,0});
 	}
 	/** Limite de points à atteindre */
 	public static final Map<Integer,Integer> POINT_LIMIT_FOR_PLAYER_NBR = new HashMap<Integer,Integer>();
 	static
-	{	POINT_LIMIT_FOR_PLAYER_NBR.put(2,35);
-		POINT_LIMIT_FOR_PLAYER_NBR.put(3,35);
-		POINT_LIMIT_FOR_PLAYER_NBR.put(4,35);
-		POINT_LIMIT_FOR_PLAYER_NBR.put(5,35);
-		POINT_LIMIT_FOR_PLAYER_NBR.put(6,35);
+	{	POINT_LIMIT_FOR_PLAYER_NBR.put(2,10);
+		POINT_LIMIT_FOR_PLAYER_NBR.put(3,20);
+		POINT_LIMIT_FOR_PLAYER_NBR.put(4,30);
+		POINT_LIMIT_FOR_PLAYER_NBR.put(5,40);
+		POINT_LIMIT_FOR_PLAYER_NBR.put(6,50);
 	}
 	
 	////////////////////////////////////////////////////////////////
@@ -172,4 +161,6 @@ public class Constants
 	public static final String DEFAULT_IP = "localhost";//60010;//453;
 	/** Port TCP par défaut */
 	public static final int DEFAULT_PORT = 9999;//60010;//453;
+	/** Liste des préfixes d'adresses IP acceptées par le Moteur Réseau */
+	public static final String[] IP_PREFIXES = {"192.168.","10.104.","194.57.","10.12" };
 }
