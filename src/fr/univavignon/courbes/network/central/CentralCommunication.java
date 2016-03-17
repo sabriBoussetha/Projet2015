@@ -30,7 +30,7 @@ public interface CentralCommunication {
 	
 	void sendStats();
 	
-	void getIP();
+	String getIP();
 	
 	void getStats();
 

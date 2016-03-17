@@ -141,7 +141,8 @@ public class PhpCommunication implements CentralCommunication{
 	}
 
 	@Override
-	public void getIP() {
+	public String getIP() {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}

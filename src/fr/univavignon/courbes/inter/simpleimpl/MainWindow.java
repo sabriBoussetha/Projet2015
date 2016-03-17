@@ -34,6 +34,7 @@ import javax.swing.SwingUtilities;
 import fr.univavignon.courbes.common.Player;
 import fr.univavignon.courbes.common.Round;
 import fr.univavignon.courbes.inter.ErrorHandler;
+import fr.univavignon.courbes.inter.central.ClientGameCentralConnectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.local.LocalGamePlayerSelectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.local.LocalGameRoundPanel;
 import fr.univavignon.courbes.inter.simpleimpl.profiles.ProfileListPanel;
@@ -166,10 +167,14 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 		/** Aire de jeu d'une partie réseau côté client */
 		CLIENT_GAME_PLAY,
 		
+		/** La fenetre qui correspond à la connection du client au serveur central*/ 
+		CLIENT_GAME_CENTRAL_CONNECTION,
+		
 		/** Liste des profils */
 		PROFILE_LIST,
 		/** Affichage des statistiques */
 		STATISTICS;
+		
 	}
 	
 	/**
@@ -221,6 +226,9 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 				System.out.println("Option pas encore implémentée...");
 				// TODO à compléter
 				// currentPanel = new XxxxxxPanel(this);
+				break;
+			case CLIENT_GAME_CENTRAL_CONNECTION:
+				currentPanel = new ClientGameCentralConnectionPanel(this);
 				break;
 		}
 		

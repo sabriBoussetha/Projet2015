@@ -137,7 +137,7 @@ public class ClientGamePlayerSelectionPanel extends AbstractLocalPlayerSelection
 			{	System.out.println("Fonctionnalité pas encore implémentée");
 				// TODO à compléter avec le traitement relatif au serveur central :
 				// il faut afficher un panel qui va se connecter au central et faire le traitement approprié
-				//mainWindow.displayPanel(PanelName.XXXXXXXXXX);
+				mainWindow.displayPanel(PanelName.CLIENT_GAME_CENTRAL_CONNECTION);
 			}
 		}
 		else
