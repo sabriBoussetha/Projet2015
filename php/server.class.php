@@ -60,4 +60,7 @@
             $available_game = $connection->doQuery($sql);
             echo $available_game[0]['ip_host'];
         }
+        public function resetGame(){
+            
+        }
     }

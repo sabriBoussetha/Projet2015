@@ -11,5 +11,8 @@
     else if(isset($_POST['search_game'])){
         JavaCommunication::searchGame();
     }
+    else if(isset($_POST['reser_game'])){
+        JavaCommunication::resetGame();
+    }
     
 ?>

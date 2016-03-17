@@ -100,10 +100,11 @@ public class PhpCommunication implements CentralCommunication{
 	}
 
 	@Override
-	public void removePlace(String ip) throws IOException{
+	public void removePlace() throws IOException{
 		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
 	    String result = "";
-	    String data = "delete_player=" + URLEncoder.encode("1", "UTF-8");
+	    ServerCommunicationImpl server = new ServerCommunicationImpl();
+	    String data = "delete_player=" + URLEncoder.encode(server.getIp() + "|1", "UTF-8");
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    try {
 	        connection.setDoInput(true);
@@ -147,6 +148,12 @@ public class PhpCommunication implements CentralCommunication{
 
 	@Override
 	public void getStats() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reset() throws IOException {
 		// TODO Auto-generated method stub
 		
 	}	
