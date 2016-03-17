@@ -54,4 +54,10 @@
                 return false ;
             return $res ;
         }
+        public function searchGame(){
+            $connection = new dbconnection();
+            $sql = "SELECT ip_host FROM parties where available_place > 0 LIMIT 1";
+            $available_game = $connection->doQuery($sql);
+            echo $available_game[0]['ip_host'];
+        }
     }

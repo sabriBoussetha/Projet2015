@@ -8,5 +8,8 @@
         echo "Modification du nombre de joueurs locaux";
         JavaCommunication::updateGame();
     }
+    else if(isset($_POST['search_game'])){
+        JavaCommunication::searchGame();
+    }
     
 ?>
