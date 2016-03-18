@@ -11,8 +11,17 @@
     else if(isset($_POST['search_game'])){
         JavaCommunication::searchGame();
     }
-    else if(isset($_POST['reser_game'])){
+    else if(isset($_POST['reset_game'])){
+        echo "Remise à zero du nombre de places disponible";
         JavaCommunication::resetGame();
+    }
+    else if(isset($_POST['delete_game'])){
+        echo "Suppression de la partie";
+        JavaCommunication::deleteGame();
+    }
+    else if(isset($_POST['modif_player'])){
+        echo "Modification des joueurs dans la table";
+        JavaCommunication::modifPlayer();
     }
     
 ?>

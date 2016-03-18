@@ -30,11 +30,13 @@ public interface CentralCommunication {
 	
 	String searchGame() throws IOException;
 	
+	void deleteGame() throws IOException;
+	
 	void sendStats();
 	
 	String getIP();
 	
 	void getStats();
 
-	void removePlace() throws IOException;	
+	void modifPlayer(Integer player) throws IOException;	
 }

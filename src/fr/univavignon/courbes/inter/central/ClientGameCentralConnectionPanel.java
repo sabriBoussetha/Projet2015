@@ -75,7 +75,10 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		
 		String ipStr = null;
 		try {
+			System.out.println("Connexion...");
 			ipStr = search.searchGame();
+			// On enlève une place disponible dans la table
+			search.modifPlayer(-1);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
