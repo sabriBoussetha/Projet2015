@@ -28,6 +28,8 @@ public interface CentralCommunication {
 	
 	void reset() throws IOException;
 	
+	String searchGame() throws IOException;
+	
 	void sendStats();
 	
 	String getIP();

@@ -12,6 +12,7 @@ import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager.NetEngineImpl;
 import fr.univavignon.courbes.inter.simpleimpl.remote.AbstractConnectionPanel;
 import fr.univavignon.courbes.network.ClientCommunication;
+import fr.univavignon.courbes.network.central.simpleimpl.PhpCommunication;
 import fr.univavignon.courbes.network.kryonet.ClientCommunicationKryonetImpl;
 import fr.univavignon.courbes.network.simpleimpl.client.ClientCommunicationImpl;
 
@@ -30,12 +31,24 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 	
 	private static final String TITLE = "Connexion au serveur central";
 	
+	private PhpCommunication search = new PhpCommunication();
+	
 	/**
 	 * @param mainWindow
 	 */
 	public ClientGameCentralConnectionPanel(MainWindow mainWindow)
 	{	
 		super(mainWindow, TITLE);
+		boolean connected = connect();
+		
+		if(connected)
+		{	// on désactive les boutons le temps de l'attente
+			backButton.setEnabled(false);
+			nextButton.setEnabled(false);
+		
+			// puis on se contente d'attendre la réponse : acceptation ou rejet
+			// la méthode correspondante du handler sera automatiquement invoquée
+		}
 	}
 	
 	/**
@@ -59,13 +72,20 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		clientCom.setConnectionHandler(this);
 		
 		// On récupère l'adresse ip d'un serveur disponible 
-		String ipStr = null; 
+		
+		String ipStr = null;
+		try {
+			ipStr = search.searchGame();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 //		ipStr = ipTextField.getText();
 		clientCom.setIp(ipStr);
 		SettingsManager.setLastServerIp(ipStr);
 		
 		// On récupère le numéro de port
-		int port = 0;
+		int port = 9999;
 //		String portStr = portTextField.getText();
 //		int port = Integer.parseInt(portStr);
 		clientCom.setPort(port);
@@ -114,7 +134,7 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 	@Override
 	protected void nextStep() throws IOException {
 		// on se connecte
-		boolean connected = connect();
+		/*boolean connected = connect();
 		
 		if(connected)
 		{	// on désactive les boutons le temps de l'attente
@@ -123,12 +143,13 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		
 			// puis on se contente d'attendre la réponse : acceptation ou rejet
 			// la méthode correspondante du handler sera automatiquement invoquée
-		}
+		}*/
 		
-		else
-		{	JOptionPane.showMessageDialog(mainWindow, 
+		//else
+		//{	
+		JOptionPane.showMessageDialog(mainWindow, 
 				"<html>Il n'est pas possible d'établir une connexion avec le serveur.</html>");
-		}
+		//}
 		
 	}
 
