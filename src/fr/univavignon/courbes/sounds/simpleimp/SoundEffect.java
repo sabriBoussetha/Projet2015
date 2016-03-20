@@ -16,19 +16,19 @@ public class SoundEffect implements SoundEngine {
 	
 	@Override
 	public void collisionWithSnakeSound() {
-		sound = new Sound("test.wav");
+		sound = new Sound("res/sounds/Bonus.wav");
 		sound.play(false);
 	}
 
 	@Override
 	public void collisionWithItemSound() {
-		sound = new Sound("test.wav");
+		sound = new Sound("res/sounds/Bonus.wav");
 		sound.play(false);
 	}
 
 	@Override
 	public void collisionWithBordSound() {
-		sound = new Sound("test.wav");
+		sound = new Sound("res/sounds/Bonus.wav");
 		sound.play(false);
 		
 	}
@@ -42,7 +42,7 @@ public class SoundEffect implements SoundEngine {
 
 	@Override
 	public void endGameSound() {
-		sound = new Sound("test.wav");
+		sound = new Sound("res/sounds/Bonus.wav");
 		sound.play(false);
 	}
 	
