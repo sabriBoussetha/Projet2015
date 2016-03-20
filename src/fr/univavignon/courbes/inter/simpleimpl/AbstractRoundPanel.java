@@ -37,6 +37,7 @@ import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.local.KeyManager;
 import fr.univavignon.courbes.physics.PhysicsEngine;
 import fr.univavignon.courbes.physics.simpleimpl.PhysicsEngineImpl;
+import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
 
 /**
  * Panel utilisé pour afficher le jeu proprement dit,
@@ -58,6 +59,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	/** délai entre deux màj graphiques en ms */
 	protected double GRAPH_DELAY = 1000f / FPS;
 	
+	protected SoundEffect sound;
 	/**
 	 * Crée une fenêtre contenant le plateau du jeu et les données du jeu.
 	 * 
@@ -70,6 +72,8 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 		this.mainWindow = mainWindow;
 		init();
 		start();
+		
+		sound = new SoundEffect();
 	}
 	
 	/** Fenêtre principale du jeu */
@@ -138,7 +142,9 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 		Arrays.fill(totalPoints, 0);
 
 		do
-		{	// on joue le round
+		{	
+			sound.newGameSound();
+			// on joue le round
 			playRound();
 			
 			// on met à jour les score totaux

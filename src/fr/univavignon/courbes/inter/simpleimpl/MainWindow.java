@@ -48,6 +48,7 @@ import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGameRemotePla
 import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGameRoundPanel;
 import fr.univavignon.courbes.network.ClientCommunication;
 import fr.univavignon.courbes.network.ServerCommunication;
+import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
 
 /**
  * Menu principal du jeu.
@@ -62,12 +63,14 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 	/** Version du jeu */
 	private static final String GAME_VERSION = "1";
 	
+	private SoundEffect sound;
 	/**
 	 * Crée le menu principal et tous ses composants graphiques.
 	 */
 	public MainWindow()
 	{	super();
-		
+		sound = new SoundEffect();
+		//sound.backGroundMusic();
 		initWindow();
 	}
 	
