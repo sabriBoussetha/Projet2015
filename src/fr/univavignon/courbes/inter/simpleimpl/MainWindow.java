@@ -46,6 +46,7 @@ import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGameLocalPlay
 import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGamePortSelectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGameRemotePlayerSelectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGameRoundPanel;
+import fr.univavignon.courbes.inter.stats.graphEloPanel;
 import fr.univavignon.courbes.network.ClientCommunication;
 import fr.univavignon.courbes.network.ServerCommunication;
 import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
@@ -229,6 +230,7 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 				System.out.println("Option pas encore implémentée...");
 				// TODO à compléter
 				// currentPanel = new XxxxxxPanel(this);
+				currentPanel = new graphEloPanel();
 				break;
 			case CLIENT_GAME_CENTRAL_CONNECTION:
 				currentPanel = new ClientGameCentralConnectionPanel(this);

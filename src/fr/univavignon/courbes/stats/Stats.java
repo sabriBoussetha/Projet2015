@@ -18,8 +18,6 @@ public class Stats {
 	public static double D = 400;
 	public static int K = 30;
 	
-
-
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -49,9 +47,6 @@ public class Stats {
 		System.out.println(proba_succes_multi(elo, 101));
 		
 		//System.out.println(proba_succe_1vs1(1800, 2005));
-		
-		
-		
 
 	}
 	
@@ -88,7 +83,6 @@ public class Stats {
 		}
 		
 		//et on reecris dans la base de donné les nouveau classements
-	
 	}
 	
 	//calculer la probabilite moyenne de succes pour un joueur
@@ -102,7 +96,6 @@ public class Stats {
 		while(keySetIterator.hasNext())
 		{
 		  Integer key = keySetIterator.next();
-		  
 		  if (!(key == id_joueur))
 		  {
 			  //System.out.println(elo.get(id_joueur) + " " + elo.get(key) + " : " + proba_succes_1vs1(elo.get(id_joueur), elo.get(key)));
@@ -115,7 +108,6 @@ public class Stats {
 		//on retourne la moyenne
 		return proba_succes / (elo.size()-1);
 	}
-	
 	
 	//calcule un nouveau classement elo a partir de son ancient, de son coeficient de reussite et de sa probabilité de succès
 	public static int newElo(int lastElo, double coef_reussite, double proba_succes)
