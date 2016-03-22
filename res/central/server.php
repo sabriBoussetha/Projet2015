@@ -11,6 +11,9 @@
     else if(isset($_POST['search_game'])){
         JavaCommunication::searchGame();
     }
+	else if(isset($_POST['search_game_json'])){
+        JavaCommunication::searchGameListJson();
+    }
     else if(isset($_POST['reset_game'])){
         echo "Remise à zero du nombre de places disponible";
         JavaCommunication::resetGame();

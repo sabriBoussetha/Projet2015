@@ -62,6 +62,12 @@
             $available_game = $connection->doQuery($sql);
             echo $available_game[0]['ip_host'];
         }
+        public function searchGameListJson(){
+            $connection = new dbconnection();
+            $sql = "SELECT ip_host,available_place FROM parties where available_place > 0";
+            $available_game = $connection->doQuery($sql);
+            echo json_encode($available_game);
+        }
         public function resetGame(){
             $ip_host = $_POST['reset_game'];
             
