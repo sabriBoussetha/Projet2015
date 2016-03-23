@@ -206,6 +206,7 @@ public class PhpCommunication implements CentralCommunication{
 	    String result = "";
 	    String data = "delete_game=" + URLEncoder.encode(server.getIp(), "UTF-8");
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	    System.out.println("o");
 	    try {
 	        connection.setDoInput(true);
 	        connection.setDoOutput(true);
