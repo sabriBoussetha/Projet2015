@@ -95,7 +95,6 @@ public class ServerGameLocalPlayerSelectionPanel extends AbstractLocalPlayerSele
 				"<br/>- tous les profils sont définis et différents, et que" +
 				"<br/>- toutes les commandes sont définies et différentes.</html>");
 		}
-	System.out.println(AbstractLocalPlayerSelectionPanel.getNbLocalPlayer());
 
 		/* Verification du nombre de joueurs locaux, modification de la BDD si supérieur à 1 */
 		if(AbstractLocalPlayerSelectionPanel.getNbLocalPlayer() >= 1){

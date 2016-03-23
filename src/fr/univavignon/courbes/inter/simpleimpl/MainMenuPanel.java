@@ -45,7 +45,7 @@ public class MainMenuPanel extends JPanel implements ActionListener
 {	/** Numéro de série de la classe */
 	private static final long serialVersionUID = 1L;
 	
-	private SoundEffect s = new SoundEffect();
+	private SoundEffect sound;
 	/**
 	 * Crée le menu principal et tous ses composants graphiques.
 	 * 
@@ -56,6 +56,7 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	{	super();
 		
 		this.mainWindow = mainWindow;
+		sound = new SoundEffect();
 		initMenu();
 	}
 	
@@ -152,7 +153,7 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{	if(e.getSource()==localGameButton)	
-		{	s.clickSound(); // Son correspondant à un click
+		{	sound.clickSound(); // Son correspondant à un click
 			if(ProfileManager.getProfiles().size() > 1)
 			{	mainWindow.displayPanel(PanelName.LOCAL_GAME_PLAYER_SELECTION);
 			}
@@ -166,12 +167,12 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		}
 	
 		else if(e.getSource()==serverGameButton)
-		{	s.clickSound();
+		{	sound.clickSound();
 			mainWindow.displayPanel(PanelName.SERVER_GAME_PORT_SELECTION);
 		}
 	
 		else if(e.getSource()==clientGameButton)
-		{	s.clickSound(); // Son correspondant à un click
+		{	sound.clickSound(); // Son correspondant à un click
 			if (ProfileManager.getProfiles().size() > 0)
 			{	mainWindow.displayPanel(PanelName.CLIENT_GAME_PLAYER_SELECTION);
 			}
@@ -185,17 +186,17 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		}
 	
 		else if(e.getSource()==profilesButton)
-		{	s.clickSound(); // Son correspondant à un click
+		{	sound.clickSound(); // Son correspondant à un click
 			mainWindow.displayPanel(PanelName.PROFILE_LIST);
 		}
 	
 		else if(e.getSource()==statsButton)
-		{	s.clickSound(); // Son correspondant à un click
+		{	sound.clickSound(); // Son correspondant à un click
 			mainWindow.displayPanel(PanelName.STATISTICS);
 		}
 	
 		else if(e.getSource()==quitButton)
-		{	s.clickSound(); // Son correspondant à un click
+		{	sound.clickSound(); // Son correspondant à un click
 			mainWindow.closeWindow();
 		}
 	}

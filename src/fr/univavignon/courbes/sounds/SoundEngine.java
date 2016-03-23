@@ -38,6 +38,10 @@ public interface SoundEngine {
 	 */
 	
 	void clickSound();
+	/**
+	 * Fonction qui lance le son en arrière plan durant tout le jeu 
+	 * 
+	 */
+	void backGroundMusic();
 
-	
 }

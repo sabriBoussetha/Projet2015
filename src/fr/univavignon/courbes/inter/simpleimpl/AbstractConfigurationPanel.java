@@ -45,7 +45,9 @@ public abstract class AbstractConfigurationPanel extends JPanel implements Actio
 {	/** Numéro de série */
 	private static final long serialVersionUID = 1L;
 	
-	private SoundEffect s = new SoundEffect();
+	/** Instance de la classe SoundEffect nécessaire pour lancer le son */ 
+	private SoundEffect sound;
+	
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
 	 * les participants locaux à une partie.
@@ -58,7 +60,7 @@ public abstract class AbstractConfigurationPanel extends JPanel implements Actio
 	public AbstractConfigurationPanel(MainWindow mainWindow, String title)
 	{	super();
 		this.mainWindow = mainWindow;
-		
+		sound = new SoundEffect();
 		init(title);
 	}
 	
@@ -160,12 +162,12 @@ public abstract class AbstractConfigurationPanel extends JPanel implements Actio
 	public void actionPerformed(ActionEvent e)
 	{	if(e.getSource()==backButton)
 		{	
-			s.clickSound();
+			sound.clickSound();
 			previousStep(); 
 		}
 		else if(e.getSource()==nextButton)
 			 {
-				s.clickSound();
+				sound.clickSound();
 				try {
 					nextStep();
 				} catch (IOException e1) {

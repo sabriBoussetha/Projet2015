@@ -42,6 +42,7 @@ import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager.NetEngineImpl;
+import fr.univavignon.courbes.inter.simpleimpl.local.AbstractLocalPlayerSelectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.remote.RemotePlayerConfigPanel;
 import fr.univavignon.courbes.inter.simpleimpl.remote.RemotePlayerSelectionPanel;
 import fr.univavignon.courbes.network.ServerCommunication;
@@ -65,9 +66,7 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 	private static final String COMBO_TEXT = "Nombre de joueurs distants : ";
 	
 	private PhpCommunication deletePlayer = new PhpCommunication();
-	
-    private ServerCommunicationImpl server = new ServerCommunicationImpl();
-	
+		
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
 	 * les joueurs locaux au serveur participant à une partie locale.
@@ -257,7 +256,7 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 		
 		//Rajout d'une place dans la table sur le serveur central
 		try {
-			deletePlayer.removePlace(server.getIp());
+			deletePlayer.modifPlayer(1);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -346,6 +345,13 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 	{	serverCom.closeServer();
 		mainWindow.serverCom = null;
 		mainWindow.displayPanel(PanelName.SERVER_GAME_LOCAL_PLAYER_SELECTION);
+		// En cas de retour à la selection des joueurs locaux, remise à 0 des places restantes
+		try {
+			deletePlayer.reset();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**

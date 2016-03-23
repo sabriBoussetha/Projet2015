@@ -57,21 +57,23 @@ public class Sound extends JFrame {
 		}
 	}
 	
-	public void play()
-	{	try{
-			new Thread(){
-				public void run(){
-					if (clip == null) return;
-					stopC();
-					clip.setFramePosition(0);
-					clip.start();
-				}
-			}.start();
-		}catch(Exception ee){
-			ee.printStackTrace();
-		}
-		
-		
+	public void play(final boolean loop)
+	{	
+
+			try{
+				new Thread(){
+					public void run(){
+						if (clip == null) return;
+						stopC();
+						clip.setFramePosition(0);
+						clip.start();
+						if(loop) clip.loop(clip.LOOP_CONTINUOUSLY);
+					}
+				}.start();
+			}catch(Exception ee){
+				ee.printStackTrace();
+			}	
+
 	}
 	
 	public void stopC()

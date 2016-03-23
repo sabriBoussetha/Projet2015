@@ -26,11 +26,17 @@ public interface CentralCommunication {
 	
 	void updateGameInformation(Integer newNbPlayer) throws IOException;
 	
-	void removePlace(String ip) throws IOException;
+	void reset() throws IOException;
+	
+	String searchGame() throws IOException;
+	
+	void deleteGame() throws IOException;
 	
 	void sendStats();
 	
-	void getIP();
+	String getIP();
 	
-	void getStats();	
+	void getStats();
+
+	void modifPlayer(Integer player) throws IOException;	
 }

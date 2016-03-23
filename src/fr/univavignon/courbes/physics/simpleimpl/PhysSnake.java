@@ -47,7 +47,7 @@ public class PhysSnake extends Snake
 	/** Taille maximale de la file {@link #prevDisks} */
 	private final static int PREV_DISK_SIZE = 20;
 	
-	private SoundEffect s;
+	private SoundEffect sound;
 	/**
 	 * Crée le serpent associé au numéro indiqué, pour le profil
 	 * indiqué, sur l'aire de jeu indiquée.
@@ -60,7 +60,7 @@ public class PhysSnake extends Snake
 	public PhysSnake(int playerId, Board board)
 	{	this.playerId = playerId;
 		
-		s = new SoundEffect();
+		sound = new SoundEffect();
 		
 		movingSpeed = Constants.BASE_MOVING_SPEED;
 		resetCharacs();
@@ -380,7 +380,7 @@ public class PhysSnake extends Snake
 						// on le ramasse
 						item.pickUp(board,this);
 						// L'ancer le son lors de la collision avec l'item.
-						s.collisionWithItemSound();
+						sound.collisionWithItemSound();
 					}
 				}
 			}
@@ -399,7 +399,7 @@ public class PhysSnake extends Snake
 					eliminatedBy = -1;
 					result = true;
 					// Lancer le son de collision avec la bordure
-					s.collisionWithBordSound();
+					sound.collisionWithBordSound();
 					// on restreint la nouvelle position du serpent
 					it.remove();
 				}
@@ -418,7 +418,7 @@ public class PhysSnake extends Snake
 					{	eliminatedBy = i;
 						result = true;
 						// Lancer le son correspondant à la collosion avec un autre snake 
-						s.collisionWithSnakeSound();
+						sound.collisionWithSnakeSound();
 					}
 				}
 				i++;

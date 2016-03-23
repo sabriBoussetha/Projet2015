@@ -34,6 +34,7 @@ import javax.swing.SwingUtilities;
 import fr.univavignon.courbes.common.Player;
 import fr.univavignon.courbes.common.Round;
 import fr.univavignon.courbes.inter.ErrorHandler;
+import fr.univavignon.courbes.inter.central.ClientGameCentralConnectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.local.LocalGamePlayerSelectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.local.LocalGameRoundPanel;
 import fr.univavignon.courbes.inter.simpleimpl.profiles.ProfileListPanel;
@@ -45,8 +46,10 @@ import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGameLocalPlay
 import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGamePortSelectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGameRemotePlayerSelectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGameRoundPanel;
+import fr.univavignon.courbes.inter.stats.graphEloPanel;
 import fr.univavignon.courbes.network.ClientCommunication;
 import fr.univavignon.courbes.network.ServerCommunication;
+import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
 
 /**
  * Menu principal du jeu.
@@ -61,12 +64,14 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 	/** Version du jeu */
 	private static final String GAME_VERSION = "1";
 	
+	private SoundEffect sound;
 	/**
 	 * Crée le menu principal et tous ses composants graphiques.
 	 */
 	public MainWindow()
 	{	super();
-		
+		sound = new SoundEffect();
+		//sound.backGroundMusic();
 		initWindow();
 	}
 	
@@ -166,10 +171,14 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 		/** Aire de jeu d'une partie réseau côté client */
 		CLIENT_GAME_PLAY,
 		
+		/** La fenetre qui correspond à la connection du client au serveur central*/ 
+		CLIENT_GAME_CENTRAL_CONNECTION,
+		
 		/** Liste des profils */
 		PROFILE_LIST,
 		/** Affichage des statistiques */
 		STATISTICS;
+		
 	}
 	
 	/**
@@ -221,6 +230,10 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 				System.out.println("Option pas encore implémentée...");
 				// TODO à compléter
 				// currentPanel = new XxxxxxPanel(this);
+				currentPanel = new graphEloPanel();
+				break;
+			case CLIENT_GAME_CENTRAL_CONNECTION:
+				currentPanel = new ClientGameCentralConnectionPanel(this);
 				break;
 		}
 		
