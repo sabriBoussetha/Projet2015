@@ -33,6 +33,7 @@ import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 import fr.univavignon.courbes.inter.simpleimpl.local.AbstractLocalPlayerSelectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.local.LocalPlayerConfigPanel;
+import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
 
 /**
  * Panel permettant de sélectionner les joueurs participant à une partie réseau côté client.
@@ -53,6 +54,8 @@ public class ClientGamePlayerSelectionPanel extends AbstractLocalPlayerSelection
 	/** Title du panel */
 	private static final String BOX_LABEL = "Connexion directe : ";
 	
+	public static SoundEffect sound;
+	
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
 	 * les participants à une partie locale.
@@ -62,6 +65,7 @@ public class ClientGamePlayerSelectionPanel extends AbstractLocalPlayerSelection
 	 */
 	public ClientGamePlayerSelectionPanel(MainWindow mainWindow)
 	{	super(mainWindow,TITLE);
+		sound = new SoundEffect();
 	}
 	
 	/** Check box pour la partie publique/privée */
@@ -151,6 +155,7 @@ public class ClientGamePlayerSelectionPanel extends AbstractLocalPlayerSelection
 	public void itemStateChanged(ItemEvent e)
 	{	if(e.getSource()==publicBox)
 		{	// rien de spécial à faire
+			sound.clickSound();
 		}
 	}
 }

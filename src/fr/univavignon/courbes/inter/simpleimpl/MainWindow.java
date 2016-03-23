@@ -71,7 +71,7 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 	public MainWindow()
 	{	super();
 		sound = new SoundEffect();
-		//sound.backGroundMusic();
+		sound.backGroundMusic();
 		initWindow();
 	}
 	

@@ -142,8 +142,8 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 		Arrays.fill(totalPoints, 0);
 
 		do
-		{	
-			sound.newGameSound();
+		{		
+			//sound.newGameSound();
 			// on joue le round
 			playRound();
 			
