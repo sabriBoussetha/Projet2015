@@ -19,6 +19,8 @@ package fr.univavignon.courbes.inter.simpleimpl.remote.server;
  */
 
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
@@ -461,6 +463,6 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 				Profile profiles[] = getAllPlayers();
 				serverCom.sendProfiles(profiles);
 			}
-		   });
+		});
 	}
 }

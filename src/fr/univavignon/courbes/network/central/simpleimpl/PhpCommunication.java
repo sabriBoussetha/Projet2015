@@ -51,16 +51,13 @@ public class PhpCommunication implements CentralCommunication{
             	result += line;
             }
 	    	in.close();
+	    	connection.disconnect();
+            System.out.println(result);
 	    	return true;
 	    }catch(Throwable t) {
 	        System.out.println("Error: " + t.getMessage());
 	        return false;
 	    }
-    	finally {
-    		connection.disconnect();
-            System.out.println(result);
-            
-        }
 	}
 	
 	@Override
