@@ -95,7 +95,7 @@ public abstract class AbstractConfigurationPanel extends JPanel implements Actio
 	 * @param title
 	 * 		Titre du panel.
 	 */
-	private void initTitle(String title)
+	protected void initTitle(String title)
 	{	JLabel titleLabel = new JLabel(title);
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		

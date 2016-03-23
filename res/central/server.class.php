@@ -62,6 +62,12 @@
             $available_game = $connection->doQuery($sql);
             echo $available_game[0]['ip_host'];
         }
+        public function searchGameListJson(){
+            $connection = new dbconnection();
+            $sql = "SELECT ip_host,available_place FROM parties where available_place > 0";
+            $available_game = $connection->doQuery($sql);
+            echo json_encode($available_game);
+        }
         public function resetGame(){
             $ip_host = $_POST['reset_game'];
             
@@ -79,6 +85,7 @@
             $connection = new dbconnection();
             $sql = "SELECT available_place from parties where ip_host='$ip_host'";
             $actual_available_place = $connection->doQuery($sql); // Récupération du nombre de places disponible actuelle
+            var_dump($actual_available_place);
             $new_nb_player = $actual_available_place[0]['available_place'] + $nb_player;
             $sql = "UPDATE parties set available_place = '$new_nb_player' where ip_host = '$ip_host'";
             $res = $connection->doExec($sql);
