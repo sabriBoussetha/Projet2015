@@ -14,7 +14,7 @@ import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 
 /**
  * Panel qui represente le contenu central du menu statistiques (listeJoueurPanel ou graphEloPanel)
- * et les boutons suivant precedents
+ * et les boutons suivant precedents qui permettent de passer de du graphique au tableau
  * 
  * @author charlie
  *

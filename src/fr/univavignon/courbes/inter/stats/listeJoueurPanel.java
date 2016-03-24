@@ -32,6 +32,7 @@ public class listeJoueurPanel extends JPanel{
 		
 		//Les données du tableau
 		
+		//le tableau est un JTable classique mais qui utilise un modele perso
 		modele = new TabStat();
 	    tableau = new JTable(modele);
 
