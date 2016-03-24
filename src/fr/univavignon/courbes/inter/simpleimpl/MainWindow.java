@@ -47,8 +47,6 @@ import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGamePortSelec
 import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGameRemotePlayerSelectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGameRoundPanel;
 import fr.univavignon.courbes.inter.stats.MenuStatPanel;
-import fr.univavignon.courbes.inter.stats.graphEloPanel;
-import fr.univavignon.courbes.inter.stats.menuStatPanel;
 import fr.univavignon.courbes.network.ClientCommunication;
 import fr.univavignon.courbes.network.ServerCommunication;
 import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
