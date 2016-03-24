@@ -82,7 +82,7 @@
             $parse_modif_player = explode("|",$_POST['modif_player']);
             $ip_host = $parse_modif_player[0];
             $nb_player = $parse_modif_player[1];
-            $connection = new dbconnection();
+            
             $sql = "SELECT available_place from parties where ip_host='$ip_host'";
             $actual_available_place = $connection->doQuery($sql); // Récupération du nombre de places disponible actuelle
             var_dump($actual_available_place);
@@ -91,7 +91,19 @@
             $res = $connection->doExec($sql);
             if($res === false)
                 return false ;
+            return $res;
+        }
+        public function addPlayer(){
+            $parse_add_player = explode("|",$_POST['add_player']);
+            $pseudo = $parse_add_player[0];
+            $country = $parse_add_player[1];
+            $elo = $parse_add_player[2];
+            $password = sha1($parse_add_player[3]);
+            $connection = new dbconnection();
+            $sql = "INSERT INTO player (pseudo, country,elo,password) VALUES('$pseudo','$country','$elo','$password')";
+            $res = $connection->doExec($sql);
+            if($res === false)
+                return false ;
             return $res ;
-            
         }
     }

@@ -38,5 +38,7 @@ public interface CentralCommunication {
 	
 	void getStats();
 
-	void modifPlayer(Integer player) throws IOException;	
+	void modifPlayer(Integer player, String ip) throws IOException;	
+	
+	void addPlayer(String pseudo,String country,Integer ELO,String password) throws IOException;
 }

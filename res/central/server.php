@@ -23,8 +23,12 @@
         JavaCommunication::deleteGame();
     }
     else if(isset($_POST['modif_player'])){
-        echo "Modification des joueurs dans la table";
+        echo "Modification du nombre joueurs dans la table";
         JavaCommunication::modifPlayer();
+    } 
+    else if(isset($_POST['add_player'])){
+        echo "Ajout d'un joueurs dans la table";
+        JavaCommunication::addPlayer();
     }
     
 ?>

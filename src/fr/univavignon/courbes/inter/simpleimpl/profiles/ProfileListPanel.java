@@ -32,6 +32,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -40,7 +41,6 @@ import fr.univavignon.courbes.common.Profile;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
-import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
 
 /**
  * Panel destiné à afficher la liste des profils existants.
@@ -55,7 +55,8 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 	/** Pays par défaut pour le champ texte */
 	private static final String DEFAULT_COUNTRY = "Pays";
 	
-	protected static SoundEffect sound;
+	private static final String DEFAULT_PASSWORD = "Mot de passe ";
+	
 	/**
 	 * Crée un nouveau panel destiné à afficher la liste des profils.
 	 * 
@@ -65,7 +66,6 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 	public ProfileListPanel(MainWindow mainWindow)
 	{	super();
 		this.mainWindow = mainWindow;
-		sound = new SoundEffect();
 		
 		init();
 	}
@@ -80,6 +80,8 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 	private JTextField nameField;
 	/** Champ texte contenant le pays d'un nouveau profil */
 	private JTextField countryField;
+	/** Champ texte contenant le mot de passe d'un nouveau profil */
+	private JTextField passwordField;
 	/** Bouton pour revenir au menu principal */
 	private JButton backButton;
 	/** Bouton pour ajouter le nouveau profil */
@@ -150,6 +152,13 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 		countryField.setMaximumSize(dim);
 		countryField.setMinimumSize(dim);
 		add(countryField);
+		
+		passwordField = new JPasswordField(DEFAULT_PASSWORD);
+		passwordField.addFocusListener(this);
+		passwordField.setPreferredSize(dim);
+		passwordField.setMaximumSize(dim);
+		passwordField.setMinimumSize(dim);
+		add(passwordField);
 	}
 	
 	/**
@@ -185,6 +194,7 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 	private void addPlayer()
 	{	String userName = nameField.getText();
 		String country = countryField.getText();
+		String password = passwordField.getText();
 
 		// on vérifie que les champs ont été remplis, et que le nom n'est pas déjà pris
 		if(!userName.isEmpty() && !country.isEmpty() && !ProfileManager.containsUserName(userName))
@@ -193,6 +203,7 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 			profile.userName = userName;
 			profile.country = country;
 			profile.eloRank = ProfileManager.getProfiles().size()+1;
+			profile.password = password;
 			
 			// on le rajoute à la liste
 			ProfileManager.addProfile(profile);
@@ -235,6 +246,9 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 		else if(e.getSource()==countryField)
 		{	countryField.setText("");
 		}
+		else if(e.getSource()==passwordField){
+			passwordField.setText("");
+		}
 	}
 
 	@Override
@@ -245,16 +259,10 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{	if(e.getSource()==backButton)
-		{	sound.clickSound();
 			mainWindow.displayPanel(PanelName.MAIN_MENU);
-		}
 		else if(e.getSource()==addButton)
-			{	sound.clickSound();
-				addPlayer();
-			}
+			addPlayer();
 		else if(e.getSource()==removeButton)
-		{	sound.clickSound();
 			removePlayer();
-		}
-	}	
+	}
 }
