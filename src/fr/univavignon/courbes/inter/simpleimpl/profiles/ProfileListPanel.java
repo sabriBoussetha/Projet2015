@@ -41,7 +41,6 @@ import fr.univavignon.courbes.common.Profile;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
-import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
 
 /**
  * Panel destiné à afficher la liste des profils existants.
@@ -56,12 +55,8 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 	/** Pays par défaut pour le champ texte */
 	private static final String DEFAULT_COUNTRY = "Pays";
 	
-<<<<<<< HEAD
 	private static final String DEFAULT_PASSWORD = "Mot de passe ";
 	
-=======
-	protected static SoundEffect sound;
->>>>>>> 4be389527dd382f3e2d8911bdd76f4f0c08beec3
 	/**
 	 * Crée un nouveau panel destiné à afficher la liste des profils.
 	 * 
@@ -71,7 +66,6 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 	public ProfileListPanel(MainWindow mainWindow)
 	{	super();
 		this.mainWindow = mainWindow;
-		sound = new SoundEffect();
 		
 		init();
 	}
@@ -265,16 +259,10 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{	if(e.getSource()==backButton)
-		{	sound.clickSound();
 			mainWindow.displayPanel(PanelName.MAIN_MENU);
-		}
 		else if(e.getSource()==addButton)
-			{	sound.clickSound();
-				addPlayer();
-			}
+			addPlayer();
 		else if(e.getSource()==removeButton)
-		{	sound.clickSound();
 			removePlayer();
-		}
-	}	
+	}
 }
