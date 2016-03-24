@@ -43,5 +43,10 @@ public interface SoundEngine {
 	 * 
 	 */
 	void backGroundMusic();
+	
+	/**
+	 * Fonction qui fait le son quand il y a une erreur
+	 */
+	void errorSound();
 
 }

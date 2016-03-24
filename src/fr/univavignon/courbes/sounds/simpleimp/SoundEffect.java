@@ -12,7 +12,7 @@ import javax.sound.sampled.*;
  */
 public class SoundEffect implements SoundEngine {
 	
-	private Sound sound;
+	public Sound sound;
 	
 	@Override
 	public void collisionWithSnakeSound() {
@@ -22,7 +22,7 @@ public class SoundEffect implements SoundEngine {
 
 	@Override
 	public void collisionWithItemSound() {
-		sound = new Sound("res/sounds/Bonus.wav");
+		sound = new Sound("res/sounds/eat_sound.wav");
 		sound.play(false);
 	}
 
@@ -42,7 +42,7 @@ public class SoundEffect implements SoundEngine {
 
 	@Override
 	public void endGameSound() {
-		sound = new Sound("res/sounds/Bonus.wav");
+		sound = new Sound("res/sounds/Clapps.wav");
 		sound.play(false);
 	}
 	
@@ -55,8 +55,15 @@ public class SoundEffect implements SoundEngine {
 	@Override
 	public void backGroundMusic()
 	{
-			sound = new Sound("res/sounds/Bonus.wav");
-			sound.play(true);	
+		sound = new Sound("res/sounds/Happy.wav");
+		sound.play(true);	
+	}
+
+	@Override
+	public void errorSound() 
+	{
+		sound = new Sound("res/sounds/Error.wav");
+		sound.play(false);
 	}
 
 }

@@ -1,4 +1,4 @@
-Nathan,France,1,null,nathan
-Sabri,Algérie,2,null,sabri
-Alexandre,Syrie,3,null,alexandre
-Charlie,France,4,null,charli
+Nathan,France,1,null,null
+Sabri,Algérie,2,null,null
+Alexandre,Syrie,3,null,null
+Charlie,France,4,null,null

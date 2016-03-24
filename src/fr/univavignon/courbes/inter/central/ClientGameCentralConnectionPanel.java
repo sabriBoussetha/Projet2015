@@ -43,7 +43,7 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		
 		if(connected)
 		{	// on désactive les boutons le temps de l'attente
-			backButton.setEnabled(false);
+			//backButton.setEnabled(false);
 			nextButton.setEnabled(false);
 		
 			// puis on se contente d'attendre la réponse : acceptation ou rejet

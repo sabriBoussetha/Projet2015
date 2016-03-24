@@ -19,9 +19,7 @@ public class menuStatPanel extends JPanel implements ActionListener{
 	JButton btnPrec = new JButton("PRECEDENT");
 	JButton btnSuiv = new JButton("SUIVANT");
 	JLabel lab = new JLabel("label");
-	
-	listeJoueurPanel listeJoueur = new listeJoueurPanel();
-	graphEloPanel graphique = new graphEloPanel();
+	JPanel boutonPanel = new JPanel();
 	
 	public menuStatPanel()
 	{
@@ -38,7 +36,7 @@ public class menuStatPanel extends JPanel implements ActionListener{
 		
 		//on ajoute les elements
 		this.setLayout(new BorderLayout());
-		this.add(listeJoueur, BorderLayout.CENTER);
+		this.add(new listeJoueurPanel(), BorderLayout.CENTER);
 		this.add(boutonPanel, BorderLayout.SOUTH);
 		
 		
@@ -56,9 +54,10 @@ public class menuStatPanel extends JPanel implements ActionListener{
 			//on presse le bouton precedent sur la page du graphique
 			if (afficherGraphique)
 			{
-				//this.remove(graphique);
-				this.add(listeJoueur, BorderLayout.CENTER);
-				this.repaint();
+				//this.removeAll();
+				this.add(new listeJoueurPanel(), BorderLayout.CENTER);
+				this.validate();
+				
 				afficherGraphique = false;
 				
 				System.out.println("PAGE GRAPHE : PRECEDENT");
@@ -83,9 +82,10 @@ public class menuStatPanel extends JPanel implements ActionListener{
 			else
 			{
 				//on affiche le graphique
-				//this.remove(listeJoueur);
-				this.add(graphique, BorderLayout.CENTER);
-				this.repaint();
+				//this.removeAll();
+				this.add(new graphEloPanel(), BorderLayout.CENTER);
+				this.validate();
+				
 				afficherGraphique = true;
 				
 				System.out.println("PAGE TABLEAU : SUIVANT");

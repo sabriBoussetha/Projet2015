@@ -48,7 +48,7 @@ public abstract class AbstractPlayerSelectionPanel<T> extends AbstractConfigurat
 {	/** Numéro de série */
 	private static final long serialVersionUID = 1L;
 	
-	private SoundEffect s = new SoundEffect();
+	protected SoundEffect sound;
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
 	 * les participants locaux à une partie.
@@ -60,6 +60,7 @@ public abstract class AbstractPlayerSelectionPanel<T> extends AbstractConfigurat
 	 */
 	public AbstractPlayerSelectionPanel(MainWindow mainWindow, String title)
 	{	super(mainWindow, title);
+		sound = new SoundEffect();
 	}
 	
 	/** Label associé à la combobox portant sur le nombre de joueurs */
@@ -189,9 +190,9 @@ public abstract class AbstractPlayerSelectionPanel<T> extends AbstractConfigurat
 	public void actionPerformed(ActionEvent e)
 	{	
 		super.actionPerformed(e);
-		s.clickSound();
-		if(e.getSource()==playerNbrCombo)			
+		if(e.getSource()==playerNbrCombo)
+		{	sound.clickSound();
 			comboboxChanged();
-		
+		}
 	}
 }
