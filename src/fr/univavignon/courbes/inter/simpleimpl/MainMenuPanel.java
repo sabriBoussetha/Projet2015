@@ -28,6 +28,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -91,34 +92,39 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		
 		// créer une partie locale
 		localGameButton = initButton("Créer une partie locale");
+		localGameButton.setBackground(Color.orange); 
 		menuPanel.add(localGameButton);
 		
 		// créer une partie réseau
 		serverGameButton = initButton("Créer une partie réseau");
+		serverGameButton.setBackground(Color.orange); 
 		menuPanel.add(serverGameButton);
 		
 		// rejoindre une partie réseau
 		clientGameButton = initButton("Rejoindre une partie réseau");
+		clientGameButton.setBackground(Color.orange); 
 		menuPanel.add(clientGameButton);
 		
 		menuPanel.add(Box.createVerticalStrut(10));
 		
 		// lister les profils existants
 		profilesButton = initButton("Voir les profils");
+		profilesButton.setBackground(Color.green); 
 		menuPanel.add(profilesButton);
 		
 		// afficher les statistiques
 		statsButton = initButton("Voir les statistiques");
+		statsButton.setBackground(Color.green); 
 		menuPanel.add(statsButton);
 		
 		menuPanel.add(Box.createVerticalStrut(10));
 		
 		// quitter le jeu
 		quitButton = initButton("Quitter le jeu");
+		quitButton.setBackground(Color.red); 
 		menuPanel.add(quitButton);
 		
 		menuPanel.add(Box.createVerticalGlue());
-		
 		add(menuPanel,BorderLayout.CENTER);
 		menuPanel.setBackground(Color.BLACK);
 		setVisible(true);
