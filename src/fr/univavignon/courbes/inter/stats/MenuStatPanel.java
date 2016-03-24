@@ -52,7 +52,7 @@ public class MenuStatPanel extends AbstractConfigurationPanel{
 			this.add(new graphEloPanel());
 			add(Box.createVerticalGlue());
 			initButtons();
-			nextButton.setVisible(false);
+			nextButton.setEnabled(false);
 			
 			this.validate();
 			this.repaint();
