@@ -30,6 +30,7 @@ import java.util.Scanner;
 import java.util.TreeSet;
 
 import fr.univavignon.courbes.common.Profile;
+import fr.univavignon.courbes.network.central.simpleimpl.PhpCommunication;
 
 /**
  * Classe chargée de charger, gérer et enregistrer les profils.
@@ -46,6 +47,8 @@ public class ProfileManager
 	private static final TreeSet<Profile> PROFILES = new TreeSet<Profile>();
 	/** Nombre de champs à lire par profil */
 	private static final int PROFILE_FIELD_NBR = 5;
+	
+	static PhpCommunication player = new PhpCommunication();
 	
 	/**
 	 * Renvoie la liste de tous profils disponibles. La méthode charge
@@ -74,10 +77,17 @@ public class ProfileManager
 		else
 		{	Profile mx = Collections.max(PROFILES);
 			profile.profileId = mx.profileId + 1;
-		}
-		
+		}	
 		PROFILES.add(profile);
 		recordProfiles();
+		
+		 //Ajout dans la base de donnée
+		try {
+			player.addPlayer(profile.userName,profile.country,profile.eloRank,profile.password);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**

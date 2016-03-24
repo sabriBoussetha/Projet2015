@@ -101,5 +101,6 @@ CREATE TABLE player
 id SERIAL PRIMARY KEY,
 pseudo VARCHAR(50),
 country VARCHAR(50),
+ELO INT,
 password VARCHAR(50)
 );

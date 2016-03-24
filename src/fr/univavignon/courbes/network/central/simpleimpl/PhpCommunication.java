@@ -236,6 +236,47 @@ public class PhpCommunication implements CentralCommunication{
 	    }		
 	}
 	
+	/**
+	 * @param pseudo
+	 * @param country
+	 * @param ELO
+	 * @param password
+	 * @throws IOException
+	 */
+	public void addPlayer(String pseudo, String country, Integer ELO, String password) throws IOException{
+		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
+	    String result = "";
+	    String data = "add_player=" + URLEncoder.encode(pseudo+"|"+country+"|"+ELO+"|"+password, "UTF-8");
+	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	    System.out.println("o");
+	    try {
+	        connection.setDoInput(true);
+	        connection.setDoOutput(true);
+	        connection.setUseCaches(false);
+	        connection.setRequestMethod("POST");
+	        connection.setRequestProperty("Content-Type",
+	                "application/x-www-form-urlencoded");
+
+	        // Envoyer les données en POST
+	        DataOutputStream dataOut = new DataOutputStream(
+	                connection.getOutputStream());
+	        dataOut.writeBytes(data);
+	        dataOut.flush();
+	        dataOut.close();
+
+            String line;
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            while ((line = in.readLine()) != null) {
+            	result += line;
+            }
+	    	in.close();
+	    	connection.disconnect();
+            System.out.println(result);
+	    }catch(Throwable t) {
+	        System.out.println("Error: " + t.getMessage());
+	    }		
+	}
+	
 	@Override
 	public void sendStats() {
 		// TODO Auto-generated method stub
