@@ -258,7 +258,7 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 		
 		//Rajout d'une place dans la table sur le serveur central
 		try {
-			deletePlayer.modifPlayer(1);
+			deletePlayer.modifPlayer(1,serverCom.getIp());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

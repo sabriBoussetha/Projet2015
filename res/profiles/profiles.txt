@@ -2,3 +2,4 @@ Nathan,France,1,null,nathan
 Sabri,Algérie,2,null,sabri
 Alexandre,Syrie,3,null,alexandre
 Charlie,France,4,null,charlie
+David,Palestine,5,null,david
