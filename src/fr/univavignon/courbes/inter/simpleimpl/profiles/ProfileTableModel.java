@@ -47,6 +47,7 @@ public class ProfileTableModel extends AbstractTableModel
 		columnNames[0] = "Pseudo";
 		columnNames[1] = "Pays";
 		columnNames[2] = "Rang ELO";
+		columnNames[3] = "Mot de passe";
 		
 		// on définit le contenu de la table
 		TreeSet<Profile> profiles = ProfileManager.getProfiles();
@@ -55,6 +56,7 @@ public class ProfileTableModel extends AbstractTableModel
 			row.add(profile.userName);
 			row.add(profile.country);
 			row.add(Integer.toString(profile.eloRank));
+			row.add(profile.password);
 			rowdata.add(row);
 		}
 	}

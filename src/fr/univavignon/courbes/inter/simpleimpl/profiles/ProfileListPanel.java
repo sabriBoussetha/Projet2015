@@ -153,7 +153,7 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 		countryField.setMinimumSize(dim);
 		add(countryField);
 		
-		passwordField = new JPasswordField();
+		passwordField = new JPasswordField(DEFAULT_PASSWORD);
 		passwordField.addFocusListener(this);
 		passwordField.setPreferredSize(dim);
 		passwordField.setMaximumSize(dim);
