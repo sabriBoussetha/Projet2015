@@ -12,6 +12,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import fr.univavignon.courbes.common.Constants;
+import fr.univavignon.courbes.network.ClientCommunication;
 import fr.univavignon.courbes.network.central.CentralCommunication;
 import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
 
