@@ -89,3 +89,17 @@ ip_host VARCHAR(50),
 nb_player_max INT,
 available_places INT
 );
+
+
+---- SCRIPT DE CREATION DE LA BDD pour les joueurs ----
+
+drop table player;
+
+
+CREATE TABLE player
+(
+id SERIAL PRIMARY KEY,
+pseudo VARCHAR(50),
+country VARCHAR(50),
+password VARCHAR(50)
+);
