@@ -98,11 +98,11 @@ public class PhpCommunication implements CentralCommunication{
 	}
 
 	@Override
-	public void modifPlayer(Integer nbPlayer) throws IOException{
+	public void modifPlayer(Integer nbPlayer, String ip) throws IOException{
 		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
 	    String result = "";
 	    String player = Integer.toString(nbPlayer);
-	    String data = "modif_player=" + URLEncoder.encode(server.getIp()+"|"+player, "UTF-8");
+	    String data = "modif_player=" + URLEncoder.encode(ip+"|"+player, "UTF-8");
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    try {
 	        connection.setDoInput(true);
