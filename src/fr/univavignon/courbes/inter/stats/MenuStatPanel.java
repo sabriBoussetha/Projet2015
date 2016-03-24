@@ -3,6 +3,7 @@ package fr.univavignon.courbes.inter.stats;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.io.IOException;
+import java.util.LinkedList;
 
 import javax.swing.Box;
 import javax.swing.JPanel;
@@ -11,11 +12,20 @@ import fr.univavignon.courbes.inter.simpleimpl.AbstractConfigurationPanel;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 
+/**
+ * Panel qui represente le contenu central du menu statistiques (listeJoueurPanel ou graphEloPanel)
+ * et les boutons suivant precedents
+ * 
+ * @author charlie
+ *
+ */
 public class MenuStatPanel extends AbstractConfigurationPanel{
 	
 	boolean afficherGraphique = false;
 	//FALSE : on est sur la page du tableau
 	//TRUE : on est sur le graphique ELO
+	
+	listeJoueurPanel listeJoueursPanel;
 
 	public MenuStatPanel(MainWindow mainWindow) {
 		super(mainWindow, "Statistiques de joueurs");
@@ -25,8 +35,10 @@ public class MenuStatPanel extends AbstractConfigurationPanel{
 	@Override
 	protected void initContent() {
 		// TODO Auto-generated method stub
+		
+		listeJoueursPanel = new listeJoueurPanel();
 		//par defaut, on charge la liste des joueurs
-		this.add(new listeJoueurPanel());
+		this.add(listeJoueursPanel);
 	}
 
 	@Override
@@ -52,10 +64,18 @@ public class MenuStatPanel extends AbstractConfigurationPanel{
 			this.add(new graphEloPanel());
 			add(Box.createVerticalGlue());
 			initButtons();
-			nextButton.setVisible(false);
+			nextButton.setEnabled(false);
 			
 			this.validate();
 			this.repaint();
+			
+			//on affiche en console la lite des id selectioinne
+			LinkedList listId = listeJoueursPanel.modele.getIdChecked();
+			for (int i = 0; i < listId.size(); i++)
+			{
+				System.out.println(listId.get(i));
+			}
+			
 		}
 		
 	}
@@ -75,7 +95,7 @@ public class MenuStatPanel extends AbstractConfigurationPanel{
 			
 			//on reajoute tout les elements composant la page du graphique
 			initTitle("Statistiques des joueurs");
-			this.add(new listeJoueurPanel());
+			this.add(listeJoueursPanel);
 			add(Box.createVerticalGlue());
 			initButtons();
 			
