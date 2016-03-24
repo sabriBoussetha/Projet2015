@@ -55,7 +55,7 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 	/** Pays par défaut pour le champ texte */
 	private static final String DEFAULT_COUNTRY = "Pays";
 	
-	private static final String DEFAULT_PASSWORD = "Mot de passe";
+	private static final String DEFAULT_PASSWORD = "Mot de passe ";
 	
 	/**
 	 * Crée un nouveau panel destiné à afficher la liste des profils.
