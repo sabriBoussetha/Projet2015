@@ -138,14 +138,15 @@ public class ClientGamePlayerSelectionPanel extends AbstractLocalPlayerSelection
 				mainWindow.displayPanel(PanelName.CLIENT_GAME_CONNECTION);
 			// connexion via le central
 			else
-			{	System.out.println("Fonctionnalité pas encore implémentée");
+			{	
 				// TODO à compléter avec le traitement relatif au serveur central :
 				// il faut afficher un panel qui va se connecter au central et faire le traitement approprié
 				mainWindow.displayPanel(PanelName.CLIENT_GAME_CENTRAL_CONNECTION);
 			}
 		}
 		else
-		{	JOptionPane.showMessageDialog(mainWindow, 
+		{	sound.errorSound();
+			JOptionPane.showMessageDialog(mainWindow, 
 				"<html>Les données du joueur local ne sont pas correctement remplies. Vérifiez que" +
 				"<br/>les deux commandes sont définies et différentes.</html>");
 		}

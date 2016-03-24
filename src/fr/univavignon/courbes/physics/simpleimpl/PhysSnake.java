@@ -380,7 +380,8 @@ public class PhysSnake extends Snake
 						// on le ramasse
 						item.pickUp(board,this);
 						// L'ancer le son lors de la collision avec l'item.
-						sound.collisionWithItemSound();
+						sound.collisionWithItemSound(item.type);
+						//System.out.println();
 					}
 				}
 			}
