@@ -91,42 +91,6 @@ public class PhpCommunication implements CentralCommunication{
 	        return false;
 	    }
 	}
-	
-	@Override
-	public void modifPlayer(Integer nbPlayer, String ip) throws IOException{
-		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
-	    String result = "";
-	    String player = Integer.toString(nbPlayer);
-	    String data = "modif_player=" + URLEncoder.encode(ip+"|"+player, "UTF-8");
-	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-	    try {
-	        connection.setDoInput(true);
-	        connection.setDoOutput(true);
-	        connection.setUseCaches(false);
-	        connection.setRequestMethod("POST");
-	        connection.setRequestProperty("Content-Type",
-	                "application/x-www-form-urlencoded");
-
-	        // Envoyer les données en POST
-	        DataOutputStream dataOut = new DataOutputStream(
-	                connection.getOutputStream());
-	        dataOut.writeBytes(data);
-	        dataOut.flush();
-	        dataOut.close();
-
-            String line;
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            while ((line = in.readLine()) != null) {
-            	result += line;
-            }
-	    	in.close();
-	    }
-    	finally {
-    		connection.disconnect();
-            System.out.println(result);
-        }
-	}
-	
 	@Override
 	public String searchGame() throws IOException{
 		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
