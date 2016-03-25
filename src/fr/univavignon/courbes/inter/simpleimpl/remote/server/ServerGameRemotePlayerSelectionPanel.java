@@ -349,7 +349,7 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 		mainWindow.displayPanel(PanelName.SERVER_GAME_LOCAL_PLAYER_SELECTION);
 		// En cas de retour à la selection des joueurs locaux, remise à 0 des places restantes
 		try {
-			deletePlayer.reset();
+			deletePlayer.sendInformation("NULL", 0, 4);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

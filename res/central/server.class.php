@@ -70,9 +70,11 @@
         }
         public function resetGame(){
             $ip_host = $_POST['reset_game'];
-            
             $connection = new dbconnection();
-            $sql = "UPDATE parties set available_place=6 where ip_host = '$ip_host'";
+            $sql1 = "SELECT nb_player FROM parties where ip_host='$ip_host'";
+            $exec = $connection->doQuery($sql1);
+            $max_place = $exec[0]['nb_player'];
+            $sql = "UPDATE parties set available_place='$max_place' where ip_host = '$ip_host'";
             $res = $connection->doExec($sql);
             if($res === false)
                 return false ;

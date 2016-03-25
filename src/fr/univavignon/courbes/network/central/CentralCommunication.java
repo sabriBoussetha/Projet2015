@@ -24,18 +24,14 @@ public interface CentralCommunication {
 	 */
 	boolean sendGameInformation() throws IOException;
 	
+	boolean sendInformation(String Ip, Integer nbPlayer, Integer choix) throws IOException;
+	
 	void updateGameInformation(Integer newNbPlayer) throws IOException;
-	
-	void reset() throws IOException;
-	
+		
 	String searchGame() throws IOException;
-	
-	void deleteGame() throws IOException;
-	
+		
 	void sendStats();
-	
-	String getIP();
-	
+		
 	void getStats();
 
 	void modifPlayer(Integer player, String ip) throws IOException;	

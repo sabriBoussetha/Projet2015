@@ -17,20 +17,51 @@ import fr.univavignon.courbes.network.central.CentralCommunication;
 import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
 
 /**
- * @author nathan
+ * @author : Nathan Cheval
+ * @author : Sabri Boussetha
  *
  */
 public class PhpCommunication implements CentralCommunication{
 
     ServerCommunicationImpl server = new ServerCommunicationImpl();
 	
+    /**
+     * Fonction permettant l'envoie d'information au serveur central
+     * 
+     * Si le choix est égale à 1 --> Envoie des informations de la partie lors de sa création
+     * Si le choix est égale à 2 --> Modification du nombre de joueurs en fonction du nombres de joueurs locaux 
+     * Si le choix est égale à 3 --> Ajout ou suppression de joueurs distants lors de la connexion ou d'un kick
+     * Si le choix est égale à 4 --> Reset de la partie (remise du nombre de joueurs disponible au nombre max)
+     * Si le choix est égale à 5 --> Suppression de la partie de la base de donnée
+     */
+    
 	@Override
-	public boolean sendGameInformation() throws IOException {
+	public boolean sendInformation(String ip, Integer nbPlayer,Integer choix) throws IOException {
+		if(ip == "NULL"){
+			ip = server.getIp();
+		}
 		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    String result = "";
-	    System.out.println("Adresse ip du serveur : " + server.getIp());
-	    String data = "new_game=" + URLEncoder.encode(server.getIp() + "|" + Constants.MAX_PLAYER_NBR, "UTF-8");
-	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	    String data = "";
+		if(choix == 1){
+			System.out.println("Adresse ip du serveur : " + ip);
+			data = "new_game=" + URLEncoder.encode(ip + "|" + Constants.MAX_PLAYER_NBR, "UTF-8");
+		}
+		else if(choix == 2){ 
+			String NewNbLocalPlayer = Integer.toString(nbPlayer);
+			data = "new_nb_player=" + URLEncoder.encode(ip + "|" + NewNbLocalPlayer, "UTF-8");
+		}
+		else if(choix == 3){
+			String player = Integer.toString(nbPlayer);
+		    data = "modif_player=" + URLEncoder.encode(ip+"|"+player, "UTF-8");
+		}
+		else if(choix == 4){ 
+			data = "reset_game=" + URLEncoder.encode(ip, "UTF-8");
+		}
+		else if(choix == 5){
+			data = "delete_game=" + URLEncoder.encode(server.getIp(), "UTF-8");
+		}
 	    try {
 	        connection.setDoInput(true);
 	        connection.setDoOutput(true);
@@ -65,8 +96,8 @@ public class PhpCommunication implements CentralCommunication{
 	public void updateGameInformation(Integer newNbPlayer) throws IOException {
 		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
 	    String result = "";
-	    String stringNewNbPlayer = Integer.toString(newNbPlayer);
-	    String data = "new_nb_player=" + URLEncoder.encode(server.getIp() + "|" + stringNewNbPlayer, "UTF-8");
+	    
+	    
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    try {
 	        connection.setDoInput(true);
@@ -79,7 +110,6 @@ public class PhpCommunication implements CentralCommunication{
 	        // Envoyer les données en POST
 	        DataOutputStream dataOut = new DataOutputStream(
 	                connection.getOutputStream());
-	        dataOut.writeBytes(data);
 	        dataOut.flush();
 	        dataOut.close();
 
@@ -166,75 +196,6 @@ public class PhpCommunication implements CentralCommunication{
 		return result;
 	}
 	
-	@Override
-	public void reset() throws IOException {
-		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
-	    String result = "";
-	    String data = "reset_game=" + URLEncoder.encode(server.getIp(), "UTF-8");
-	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-	    try {
-	        connection.setDoInput(true);
-	        connection.setDoOutput(true);
-	        connection.setUseCaches(false);
-	        connection.setRequestMethod("POST");
-	        connection.setRequestProperty("Content-Type",
-	                "application/x-www-form-urlencoded");
-
-	        // Envoyer les données en POST
-	        DataOutputStream dataOut = new DataOutputStream(
-	                connection.getOutputStream());
-	        dataOut.writeBytes(data);
-	        dataOut.flush();
-	        dataOut.close();
-
-            String line;
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            while ((line = in.readLine()) != null) {
-            	result += line;
-            }
-	    	in.close();
-	    	connection.disconnect();
-            System.out.println(result);
-	    }catch(Throwable t) {
-	        System.out.println("Error: " + t.getMessage());
-	    }		
-	}	
-	
-	@Override
-	public void deleteGame() throws IOException{
-		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
-	    String result = "";
-	    String data = "delete_game=" + URLEncoder.encode(server.getIp(), "UTF-8");
-	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-	    System.out.println("o");
-	    try {
-	        connection.setDoInput(true);
-	        connection.setDoOutput(true);
-	        connection.setUseCaches(false);
-	        connection.setRequestMethod("POST");
-	        connection.setRequestProperty("Content-Type",
-	                "application/x-www-form-urlencoded");
-
-	        // Envoyer les données en POST
-	        DataOutputStream dataOut = new DataOutputStream(
-	                connection.getOutputStream());
-	        dataOut.writeBytes(data);
-	        dataOut.flush();
-	        dataOut.close();
-
-            String line;
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            while ((line = in.readLine()) != null) {
-            	result += line;
-            }
-	    	in.close();
-	    	connection.disconnect();
-            System.out.println(result);
-	    }catch(Throwable t) {
-	        System.out.println("Error: " + t.getMessage());
-	    }		
-	}
-	
 	/**
 	 * @param pseudo
 	 * @param country
@@ -283,15 +244,14 @@ public class PhpCommunication implements CentralCommunication{
 	}
 
 	@Override
-	public String getIP() {
-		return null;
+	public void getStats() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void getStats() {
+	public boolean sendGameInformation() throws IOException {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 }
