@@ -31,7 +31,6 @@ public class PhpCommunication implements CentralCommunication{
 	    System.out.println("Adresse ip du serveur : " + server.getIp());
 	    String data = "new_game=" + URLEncoder.encode(server.getIp() + "|" + Constants.MAX_PLAYER_NBR, "UTF-8");
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-	    //InputStream error = ((HttpURLConnection) connection).getErrorStream();
 	    try {
 	        connection.setDoInput(true);
 	        connection.setDoOutput(true);
