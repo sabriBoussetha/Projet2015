@@ -33,6 +33,11 @@ public class PhpCommunication implements CentralCommunication{
      * Si le choix est égale à 3 --> Ajout ou suppression de joueurs distants lors de la connexion ou d'un kick
      * Si le choix est égale à 4 --> Reset de la partie (remise du nombre de joueurs disponible au nombre max)
      * Si le choix est égale à 5 --> Suppression de la partie de la base de donnée
+     * 
+     * @param ip
+     * @param nbPlayer
+     * @param choix
+     * @throws IOException
      */
     
 	@Override
