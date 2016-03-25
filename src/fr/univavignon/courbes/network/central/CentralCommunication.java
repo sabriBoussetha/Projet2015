@@ -22,17 +22,9 @@ public interface CentralCommunication {
 	 * </ul>
 	 * @return 
 	 */
-	boolean sendGameInformation() throws IOException;
-	
 	boolean sendInformation(String Ip, Integer nbPlayer, Integer choix) throws IOException;
-	
-	void updateGameInformation(Integer newNbPlayer) throws IOException;
-		
+			
 	String searchGame() throws IOException;
-		
-	void sendStats();
-		
-	void getStats();
 
 	void modifPlayer(Integer player, String ip) throws IOException;	
 	
