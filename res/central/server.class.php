@@ -108,4 +108,7 @@
                 return false ;
             return $res ;
         }
+        public function getPlayer(){
+            
+        } 
     }

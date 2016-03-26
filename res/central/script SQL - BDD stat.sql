@@ -17,7 +17,7 @@ nb_partie_premier INT DEFAULT 0
 
 CREATE TABLE stat_elo
 (
-id_joueur INT,
+id_joueur INT PRIMARY KEY,
 date_ TIMESTAMP  DEFAULT now(),
 score_ELO INT DEFAULT 2000
 );
@@ -101,6 +101,5 @@ CREATE TABLE player
 id SERIAL PRIMARY KEY,
 pseudo VARCHAR(50),
 country VARCHAR(50),
-ELO INT,
 password VARCHAR(50)
 );

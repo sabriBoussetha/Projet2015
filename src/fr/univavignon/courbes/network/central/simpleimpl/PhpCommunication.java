@@ -96,6 +96,9 @@ public class PhpCommunication implements CentralCommunication{
 	        return false;
 	    }
 	}
+	
+	
+	
 	@Override
 	public String searchGame() throws IOException{
 		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
@@ -132,6 +135,9 @@ public class PhpCommunication implements CentralCommunication{
 	}
 	
 	/**
+	 * 
+	 * Fonction permettant l'ajout de joueur dans la base de données
+	 * 
 	 * @param pseudo
 	 * @param country
 	 * @param ELO
