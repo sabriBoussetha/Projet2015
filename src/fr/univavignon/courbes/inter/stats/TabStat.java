@@ -10,6 +10,11 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import com.orsoncharts.util.json.JSONArray;
+import com.orsoncharts.util.json.JSONObject;
+import com.orsoncharts.util.json.parser.JSONParser;
+import com.orsoncharts.util.json.parser.ParseException;
+
 /**
  * Classe creant un modele de table qui contient les donnees statistiques des joueurs
  *
@@ -27,6 +32,52 @@ class TabStat extends AbstractTableModel{
 		String  title[] = 
 		{"classement ELO", "pseudo", "nombre de parties joués", "ratio de victoires","SELECT"};
 		
+		//TRAITEMENT JSON
+		
+		 String s = "["+
+					"{\"id\" : 101, \"score_elo\" : 2100, \"pseudo\" : \"charlie\" 	,\"nb_partie\" : 10, \"nb_partie_premier\" : 5, \"date_\" : 2016},"+
+					"{\"id\" : 102, \"score_elo\" : 1900, \"pseudo\" : \"alex\" 		,\"nb_partie\" : 10, \"nb_partie_premier\" : 4, \"date_\" : 2016},"+
+					"{\"id\" : 103, \"score_elo\" : 1800, \"pseudo\" : \"sabri\" 	,\"nb_partie\" : 10, \"nb_partie_premier\" : 3, \"date_\" : 2016},"+
+					"{\"id\" : 104, \"score_elo\" : 1700, \"pseudo\" : \"nathan\" 	,\"nb_partie\" : 10, \"nb_partie_premier\" : 2, \"date_\" : 2016},]";
+		 
+		JSONParser parser = new JSONParser();
+		   
+		JSONArray tab = null;
+		try {
+			tab = (JSONArray) parser.parse(s);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        JSONObject ligne;
+        
+        //on remplis le tableau qui sera affiché a partir des données JSON
+        Object[][] data = new Object[tab.size()][5];
+        int [] tabId = new int[tab.size()];
+        
+        //on enumere les elements du tableau
+        for (int i = 0; i < tab.size(); i++)
+        {
+        	ligne = (JSONObject)tab.get(i);
+        	System.out.println("id : " + ligne.get("id"));
+        	System.out.println("score_elo : " + ligne.get("score_elo"));
+        	System.out.println("pseudo : " + ligne.get("pseudo"));
+        	System.out.println("nb_partie : " + ligne.get("nb_partie"));
+        	System.out.println("nb_partie_premier : " + ligne.get("nb_partie_premier"));
+        	System.out.println("date_ : " + ligne.get("date_"));
+        	
+        	data[i][0] = (int) ligne.get("score_elo");
+        	data[i][1] = (String) ligne.get("pseudo");
+        	data[i][2] = (int) ligne.get("nb_partie");
+        	data[i][3] = (double) ligne.get("nb_partie_premier") / (double) ligne.get("nb_partie");
+        	data[i][4] = new Boolean(false);
+        	
+        	tabId[i] =  (int) ligne.get("id");
+
+        } 
+		//FIN TRAITEMENT JSON
+		
+		/*
 		//on construit le tableau depuis la BDD
 		//pour l'instant données bruts
 		Object[][] data = {
@@ -46,7 +97,8 @@ class TabStat extends AbstractTableModel{
 		tabId[4] = 105;
 		tabId[5] = 106;
 		//fin donnees bruts
-		
+		*/
+        
 		this.data = data;
 		this.title = title;
 	}

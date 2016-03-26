@@ -39,11 +39,16 @@ public class MenuStatPanel extends AbstractConfigurationPanel{
 		
 		
 		//test JSON
-		
+		/*
 		JSONParser parser = new JSONParser();
-	    String s = "[0,{\"1\":{\"2\":{\"3\":{\"4\":[5,{\"6\":7}]}}}}]";
-	    String s = "[{\"id\" = 101, \"elo\" = 2000}, {\"id\" = 102, \"elo\" = 2100}]";
+	    String s = "["+
+	"{\"id\" : 101, \"score_elo\" : 2100, \"pseudo\" : \"charlie\" 	,\"nb_partie\" : 10, \"nb_partie_premier\" : 5, \"date_\" : 2016},"+
+	"{\"id\" : 102, \"score_elo\" : 1900, \"pseudo\" : \"alex\" 		,\"nb_partie\" : 10, \"nb_partie_premier\" : 4, \"date_\" : 2016},"+
+	"{\"id\" : 103, \"score_elo\" : 1800, \"pseudo\" : \"sabri\" 	,\"nb_partie\" : 10, \"nb_partie_premier\" : 3, \"date_\" : 2016},"+
+	"{\"id\" : 104, \"score_elo\" : 1700, \"pseudo\" : \"nathan\" 	,\"nb_partie\" : 10, \"nb_partie_premier\" : 2, \"date_\" : 2016},]";
 	    
+	    System.out.println(s);
+	    /*
 	    Object obj = null;
 		try {
 			obj = parser.parse(s);
@@ -52,11 +57,27 @@ public class MenuStatPanel extends AbstractConfigurationPanel{
 			e.printStackTrace();
 		}
         JSONArray array = (JSONArray)obj;
-			
-        System.out.println("The 2nd element of array");
-        System.out.println(array.get(1));
-        System.out.println();
-		
+        
+	    
+        JSONArray array = null;
+		try {
+			array = (JSONArray) parser.parse(s);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        JSONObject obj2;
+        for (int i = 0; i < array.size(); i++)
+        {
+        	obj2 = (JSONObject)array.get(i);
+        	System.out.println("id : " + obj2.get("id"));
+        	System.out.println("score_elo : " + obj2.get("score_elo"));
+        	System.out.println("pseudo : " + obj2.get("pseudo"));
+        	System.out.println("nb_partie : " + obj2.get("nb_partie"));
+        	System.out.println("nb_partie_premier : " + obj2.get("nb_partie_premier"));
+        	System.out.println("date_ : " + obj2.get("date_"));
+        } 
+		*/
 		//fin testJSON
 	}
 
