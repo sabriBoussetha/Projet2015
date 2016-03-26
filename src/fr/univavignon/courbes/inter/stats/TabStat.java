@@ -53,7 +53,7 @@ class TabStat extends AbstractTableModel{
         
         //on remplis le tableau qui sera affiché a partir des données JSON
         Object[][] data = new Object[tab.size()][5];
-        int [] tabId = new int[tab.size()];
+        long [] tabId = new long[tab.size()];
         
         //on enumere les elements du tableau
         for (int i = 0; i < tab.size(); i++)
@@ -66,13 +66,13 @@ class TabStat extends AbstractTableModel{
         	System.out.println("nb_partie_premier : " + ligne.get("nb_partie_premier"));
         	System.out.println("date_ : " + ligne.get("date_"));
         	
-        	data[i][0] = (int) ligne.get("score_elo");
+        	data[i][0] = (int) (long) ligne.get("score_elo");
         	data[i][1] = (String) ligne.get("pseudo");
-        	data[i][2] = (int) ligne.get("nb_partie");
-        	data[i][3] = (double) ligne.get("nb_partie_premier") / (double) ligne.get("nb_partie");
+        	data[i][2] = (int) (long) ligne.get("nb_partie");
+        	data[i][3] = (double) (long) ligne.get("nb_partie_premier") / (long) ligne.get("nb_partie");
         	data[i][4] = new Boolean(false);
         	
-        	tabId[i] =  (int) ligne.get("id");
+        	tabId[i] =  (int) (long) ligne.get("id");
 
         } 
 		//FIN TRAITEMENT JSON
