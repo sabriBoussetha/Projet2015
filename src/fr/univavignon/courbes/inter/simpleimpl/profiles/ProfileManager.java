@@ -83,7 +83,7 @@ public class ProfileManager
 		
 		 //Ajout dans la base de donnée
 		try {
-			player.addPlayer(profile.userName,profile.country,profile.eloRank,profile.password);
+			player.addPlayer(profile.userName,profile.country,profile.password);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

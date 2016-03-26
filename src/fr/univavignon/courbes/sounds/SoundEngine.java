@@ -1,4 +1,7 @@
 package fr.univavignon.courbes.sounds;
+
+import fr.univavignon.courbes.common.ItemType;
+
 /**
  *  Cette interface contient des méthodes qui ajoutes les effects sonores
  *  à l'application
@@ -16,7 +19,7 @@ public interface SoundEngine {
 	/**
 	 * 	Cette fonction est appelée quand il y a une item
 	 */
-	void collisionWithItemSound();
+	void collisionWithItemSound(ItemType item);
 	
 	/**
 	 * 	Cette fonction est appelée quand il y a une bordure

@@ -9,7 +9,7 @@ drop table stat_elo;
 
 CREATE TABLE stat_joueur
 (
-id_joueur SERIAL PRIMARY KEY,
+id_joueur INT ,
 pseudo VARCHAR(30),
 nb_partie INT DEFAULT 0,
 nb_partie_premier INT DEFAULT 0
@@ -101,6 +101,5 @@ CREATE TABLE player
 id SERIAL PRIMARY KEY,
 pseudo VARCHAR(50),
 country VARCHAR(50),
-ELO INT,
 password VARCHAR(50)
 );

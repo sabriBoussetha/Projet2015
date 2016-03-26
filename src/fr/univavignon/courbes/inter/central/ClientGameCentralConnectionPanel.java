@@ -75,10 +75,10 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		
 		String ipStr = null;
 		try {
-			System.out.println("Connexion...");
 			ipStr = search.searchGame();
+			System.out.println("Connexion..."+ipStr);
 			// On enlève une place disponible dans la table
-			search.modifPlayer(-1,ipStr);
+			search.sendInformation(ipStr, -1, 3);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -104,7 +104,8 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		SwingUtilities.invokeLater(new Runnable()
 		{	@Override
 			public void run()
-			{	JOptionPane.showMessageDialog(mainWindow, 
+			{	sound.errorSound();
+				JOptionPane.showMessageDialog(mainWindow, 
 					"<html>Le serveur a rejeté votre candidature, car il ne reste "
 					+ "<br/>pas de place dans la partie en cours de configuration.</html>");
 			}
@@ -150,6 +151,7 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		
 		//else
 		//{	
+		sound.errorSound();
 		JOptionPane.showMessageDialog(mainWindow, 
 				"<html>Il n'est pas possible d'établir une connexion avec le serveur.</html>");
 		//}

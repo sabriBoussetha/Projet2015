@@ -138,7 +138,7 @@ public class ServerGamePortSelectionPanel extends AbstractConnectionPanel implem
 		
 		if(publicBox.isSelected()){
 			try {
-				if(sendGameInformation.sendGameInformation()){
+				if(sendGameInformation.sendInformation("NULL",0,1)){
 					mainWindow.displayPanel(PanelName.SERVER_GAME_LOCAL_PLAYER_SELECTION);
 				}
 				else{

@@ -1,5 +1,6 @@
 package fr.univavignon.courbes.sounds.simpleimp;
 
+import fr.univavignon.courbes.common.ItemType;
 import fr.univavignon.courbes.sounds.SoundEngine;
 
 import java.io.*;
@@ -21,8 +22,24 @@ public class SoundEffect implements SoundEngine {
 	}
 
 	@Override
-	public void collisionWithItemSound() {
-		sound = new Sound("res/sounds/eat_sound.wav");
+	public void collisionWithItemSound(ItemType item) {
+		switch (item) {
+			case USER_FAST: sound = new Sound("res/sounds/eat_sound.wav");
+							break;
+			case USER_SLOW: sound = new Sound("res/sounds/eat_sound.wav");
+							break;
+			case USER_FLY: sound = new Sound("res/sounds/eat_sound.wav");
+							break;
+			case OTHERS_FAST: sound = new Sound("res/sounds/eat_sound.wav");
+							break;	
+			case OTHERS_THICK: sound = new Sound("res/sounds/eat_sound.wav");
+							break;
+			case OTHERS_SLOW: sound = new Sound("res/sounds/eat_sound.wav");
+							break;
+			default: sound = new Sound("res/sounds/eat_sound.wav");
+					 break;
+			
+		}
 		sound.play(false);
 	}
 

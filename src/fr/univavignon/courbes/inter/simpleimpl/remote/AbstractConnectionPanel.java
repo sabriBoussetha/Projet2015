@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 
 import fr.univavignon.courbes.inter.simpleimpl.AbstractConfigurationPanel;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
+import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
 
 /**
  * Classe permettant à l'utilisateur de spécifier les information de connexion
@@ -39,6 +40,8 @@ public abstract class AbstractConnectionPanel extends AbstractConfigurationPanel
 {	/** Numéro de série de la classe */
 	private static final long serialVersionUID = 1L;
 	
+	protected SoundEffect sound;
+	
 	/**
 	 * Construit un nouveau panel chargé de connecter le client à son serveur.
 	 * 
@@ -49,6 +52,7 @@ public abstract class AbstractConnectionPanel extends AbstractConfigurationPanel
 	 */
 	public AbstractConnectionPanel(MainWindow mainWindow, String title)
 	{	super(mainWindow,title);
+		sound = new SoundEffect();
 	}
 	
 	/** Saisie de l'adresse IP */
