@@ -8,6 +8,11 @@ import java.util.LinkedList;
 import javax.swing.Box;
 import javax.swing.JPanel;
 
+import com.orsoncharts.util.json.JSONArray;
+import com.orsoncharts.util.json.JSONObject;
+import com.orsoncharts.util.json.parser.JSONParser;
+import com.orsoncharts.util.json.parser.ParseException;
+
 import fr.univavignon.courbes.inter.simpleimpl.AbstractConfigurationPanel;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
@@ -30,6 +35,29 @@ public class MenuStatPanel extends AbstractConfigurationPanel{
 	public MenuStatPanel(MainWindow mainWindow) {
 		super(mainWindow, "Statistiques de joueurs");
 		// TODO Auto-generated constructor stub
+		
+		
+		
+		//test JSON
+		
+		JSONParser parser = new JSONParser();
+	    String s = "[0,{\"1\":{\"2\":{\"3\":{\"4\":[5,{\"6\":7}]}}}}]";
+	    String s = "[{\"id\" = 101, \"elo\" = 2000}, {\"id\" = 102, \"elo\" = 2100}]";
+	    
+	    Object obj = null;
+		try {
+			obj = parser.parse(s);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        JSONArray array = (JSONArray)obj;
+			
+        System.out.println("The 2nd element of array");
+        System.out.println(array.get(1));
+        System.out.println();
+		
+		//fin testJSON
 	}
 
 	@Override
