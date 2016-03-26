@@ -197,12 +197,18 @@ public class LocalPlayerConfigPanel extends JPanel implements ActionListener, Ke
 		if(e.getSource()==leftButton)
 		{	leftButton.setText(keyText);
 			player.leftKey = keyCode;
-			sound.clickSound();
+			try{sound.clickSound();}
+			catch(Exception e1){
+				System.err.print(e1);
+			}
 		}
 		else if(e.getSource()==rightButton)
 		{	rightButton.setText(keyText);
 			player.rightKey = keyCode;
-			sound.clickSound();
+			try{sound.clickSound();}
+			catch(Exception e1){
+				System.err.print(e1);
+			}
 		}
 	}
 }

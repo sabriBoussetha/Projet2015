@@ -146,7 +146,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 			//sound.newGameSound();
 			// on joue le round
 			playRound();
-			sound.endGameSound();;
+			sound.endGameSound();
 			// on met à jour les score totaux
 			Player[] players = round.players;
 			for(int i=0;i<players.length;i++)
