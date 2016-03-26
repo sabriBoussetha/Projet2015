@@ -30,5 +30,11 @@
         echo "Ajout d'un joueurs dans la table";
         JavaCommunication::addPlayer();
     }
+    else if(isset($_POST['add_elo'])){
+        JavaCommunication::addElo();
+    }
+    else if(isset($_POST['get_player'])){
+        JavaCommunication::getPlayer();
+    }
     
 ?>
