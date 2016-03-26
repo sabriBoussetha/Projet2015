@@ -153,7 +153,6 @@ public class PhpCommunication implements CentralCommunication{
 	    String result = "";
 	    String data = "add_player=" + URLEncoder.encode(pseudo+"|"+country+"|"+password, "UTF-8");
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-	    System.out.println("o");
 	    try {
 	        connection.setDoInput(true);
 	        connection.setDoOutput(true);
