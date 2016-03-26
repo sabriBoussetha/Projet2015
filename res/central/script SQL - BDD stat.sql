@@ -61,8 +61,8 @@ values (3, 1900);
 
 --recuperer tout les classements elo d'un joueur a partir de son pseudo , ou id
 SELECT date_, score_elo
-FROM stat_elo NATURAL JOIN stat_joueur
-WHERE pseudo = 'alex' -- id = ...
+FROM stat_elo NATURAL JOIN stat_joueur natural join player
+WHERE pseudo = 'alex'
 ORDER BY date_ DESC;
 
 --recuperer le dernier classement ELO d'un joueur par son pseudo
@@ -79,7 +79,6 @@ AND date_ >= ALL (
 ---- SCRIPT DE CREATION DE LA BDD pour les parties existantes ----
 
 drop table parties;
-
 
 CREATE TABLE parties
 (

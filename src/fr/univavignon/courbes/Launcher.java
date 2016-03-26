@@ -28,7 +28,7 @@ import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
 /**
  * Classe principale chargée du lancement du jeu.
  * 
- * @author	L3 Info UAPV 2015-16
+ * @auhor	L3 Info UAPV 2015-16
  */
 public class Launcher extends JFrame
 {	/** numéro de série de la classe */

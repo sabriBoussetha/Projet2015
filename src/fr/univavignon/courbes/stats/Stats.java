@@ -109,7 +109,6 @@ public class Stats {
 		return proba_succes / (elo.size()-1);
 	}
 	
-	//calcule un nouveau classement elo a partir de son ancient, de son coeficient de reussite et de sa probabilité de succès
 	public static int newElo(int lastElo, double coef_reussite, double proba_succes)
 	{
 		return (int) (lastElo + K * (coef_reussite - proba_succes));

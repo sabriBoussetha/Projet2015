@@ -138,4 +138,5 @@
             $sql = "INSERT INTO stat_elo (id,date_,score_elo) VALUES('$id_joueur','$date','$elo_joueur')";
             $res = $connection->doExec($sql);
         }
+
     }
