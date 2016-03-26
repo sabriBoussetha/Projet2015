@@ -66,6 +66,7 @@
             $connection = new dbconnection();
             $sql = "SELECT ip_host,available_place FROM parties where available_place > 0";
             $available_game = $connection->doQuery($sql);
+            var_dump($available_game);
             echo json_encode($available_game);
         }
         public function resetGame(){
@@ -99,11 +100,14 @@
             $parse_add_player = explode("|",$_POST['add_player']);
             $pseudo = $parse_add_player[0];
             $country = $parse_add_player[1];
-            $elo = $parse_add_player[2];
-            $password = sha1($parse_add_player[3]);
+            $password = sha1($parse_add_player[2]);
             $connection = new dbconnection();
-            $sql = "INSERT INTO player (pseudo, country,elo,password) VALUES('$pseudo','$country','$elo','$password')";
+            $sql = "INSERT INTO player (pseudo, country,password) VALUES('$pseudo','$country','$password')";
             $res = $connection->doExec($sql);
+            $sql1 = "SELECT id FROM player WHERE pseudo = '$pseudo'";
+            $res1 = $connection->doQuery($sql1);
+            $id_joueur = $res1[0]['id'];
+            $sql2 = "INSERT INTO stat_elo (id_joueur) VALUES ('$id_joueur')";
             if($res === false)
                 return false ;
             return $res ;

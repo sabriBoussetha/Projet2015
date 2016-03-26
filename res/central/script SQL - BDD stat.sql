@@ -9,7 +9,7 @@ drop table stat_elo;
 
 CREATE TABLE stat_joueur
 (
-id_joueur SERIAL PRIMARY KEY,
+id_joueur INT ,
 pseudo VARCHAR(30),
 nb_partie INT DEFAULT 0,
 nb_partie_premier INT DEFAULT 0
@@ -17,7 +17,7 @@ nb_partie_premier INT DEFAULT 0
 
 CREATE TABLE stat_elo
 (
-id_joueur INT PRIMARY KEY,
+id_joueur INT,
 date_ TIMESTAMP  DEFAULT now(),
 score_ELO INT DEFAULT 2000
 );
