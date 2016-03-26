@@ -15,7 +15,7 @@ import javax.swing.*;
 
 public class Sound extends JFrame {
 	
-
+	private static final long serialVersionUID = 1L;
 	private Clip clip;
 
  	

@@ -164,7 +164,8 @@ public class MainMenuPanel extends JPanel implements ActionListener
 			{	mainWindow.displayPanel(PanelName.LOCAL_GAME_PLAYER_SELECTION);
 			}
 			else
-			{	JOptionPane.showMessageDialog
+			{	sound.errorSound();
+				JOptionPane.showMessageDialog
 				(	mainWindow,
 					"<html>Pour démarrer une partie locale, vous devez avoir défini au moins 2 profils."
 					+ "<br/>(pour définir des profils, cliquez sur \"Profils\")</html>"
@@ -183,7 +184,8 @@ public class MainMenuPanel extends JPanel implements ActionListener
 			{	mainWindow.displayPanel(PanelName.CLIENT_GAME_PLAYER_SELECTION);
 			}
 			else
-			{	JOptionPane.showMessageDialog
+			{	sound.errorSound();
+				JOptionPane.showMessageDialog
 				(	mainWindow,
 					"<html>Pour démarrer un client, vous devez avoir défini au moins 1 profil."
 					+ "<br/>(pour définir des profils, cliquez sur \"Profils\")</html>"

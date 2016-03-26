@@ -1,5 +1,7 @@
 package fr.univavignon.courbes.inter.simpleimpl;
 
+import java.io.IOException;
+
 /*
  * Courbes
  * Copyright 2015-16 L3 Info UAPV 2015-16
@@ -35,6 +37,7 @@ import fr.univavignon.courbes.graphics.GraphicDisplay;
 import fr.univavignon.courbes.graphics.simpleimpl.GraphicDisplayImpl;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.local.KeyManager;
+import fr.univavignon.courbes.network.central.simpleimpl.PhpCommunication;
 import fr.univavignon.courbes.physics.PhysicsEngine;
 import fr.univavignon.courbes.physics.simpleimpl.PhysicsEngineImpl;
 import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
@@ -60,6 +63,8 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	protected double GRAPH_DELAY = 1000f / FPS;
 	
 	protected SoundEffect sound;
+	
+	PhpCommunication endGame = new PhpCommunication();
 	/**
 	 * Crée une fenêtre contenant le plateau du jeu et les données du jeu.
 	 * 
@@ -146,7 +151,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 			//sound.newGameSound();
 			// on joue le round
 			playRound();
-			
+			sound.endGameSound();
 			// on met à jour les score totaux
 			Player[] players = round.players;
 			for(int i=0;i<players.length;i++)
@@ -164,6 +169,13 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 			if(matchOver)
 			{	Profile profile = players[maxIdx].profile;
 				String name = profile.userName;
+				System.out.println("end game");
+				try {
+					endGame.sendInformation("NULL", 0, 5);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				JOptionPane.showMessageDialog(mainWindow, "Le joueur "+name+"a gagné la partie !");
 			}
 			

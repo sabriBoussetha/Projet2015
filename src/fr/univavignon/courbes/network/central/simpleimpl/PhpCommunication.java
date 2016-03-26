@@ -100,10 +100,14 @@ public class PhpCommunication implements CentralCommunication{
 	
 	
 	@Override
-	public String searchGame() throws IOException{
+	public String searchGame(String choice) throws IOException{
+		String data = null;
+		if(choice=="All servers")
+			data = "search_game_json";
+		else if(choice=="server")
+			data = "search_game";
 		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
-	    String result = "";
-	    String data = "search_game";
+	    String result = ""; 
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    try {
 	        connection.setDoInput(true);
@@ -149,7 +153,6 @@ public class PhpCommunication implements CentralCommunication{
 	    String result = "";
 	    String data = "add_player=" + URLEncoder.encode(pseudo+"|"+country+"|"+password, "UTF-8");
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-	    System.out.println("o");
 	    try {
 	        connection.setDoInput(true);
 	        connection.setDoOutput(true);

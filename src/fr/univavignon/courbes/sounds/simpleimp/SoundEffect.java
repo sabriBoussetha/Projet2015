@@ -12,7 +12,7 @@ import javax.sound.sampled.*;
  *
  */
 public class SoundEffect implements SoundEngine {
-	
+	private static final long serialVersionUID = 1L;
 	public Sound sound;
 	
 	@Override
@@ -45,7 +45,7 @@ public class SoundEffect implements SoundEngine {
 
 	@Override
 	public void collisionWithBordSound() {
-		sound = new Sound("res/sounds/Bonus.wav");
+		sound = new Sound("res/sounds/collisionWithBoard.wav");
 		sound.play(false);
 		
 	}

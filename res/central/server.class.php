@@ -66,7 +66,6 @@
             $connection = new dbconnection();
             $sql = "SELECT ip_host,available_place FROM parties where available_place > 0";
             $available_game = $connection->doQuery($sql);
-            var_dump($available_game);
             echo json_encode($available_game);
         }
         public function resetGame(){
@@ -107,12 +106,36 @@
             $sql1 = "SELECT id FROM player WHERE pseudo = '$pseudo'";
             $res1 = $connection->doQuery($sql1);
             $id_joueur = $res1[0]['id'];
-            $sql2 = "INSERT INTO stat_elo (id_joueur) VALUES ('$id_joueur')";
-            if($res === false)
-                return false ;
-            return $res ;
+            $sql2 = "INSERT INTO stat_joueur (id) VALUES ('$id_joueur')";
+            $res2 = $connection->doExec($sql2);
+            $date = date('d-m-Y, H:i:s');
+            $sql3 = "INSERT INTO stat_elo (id,date_) VALUES ('$id_joueur','$date')";
+            $res3 = $connection->doExec($sql3);
         }
         public function getPlayer(){
-            
+            $connection = new dbconnection();
+            $sql = "SELECT id FROM player";
+            $res = $connection -> doQuery($sql);
+            $array_player = array();
+            $i = 0;
+            foreach($res as $player){
+                $id = $player["id"];
+                $sql1 = "SELECT id,score_elo,pseudo,nb_partie,nb_partie_premier , date_
+                    FROM player NATURAL JOIN stat_joueur NATURAL JOIN stat_elo  
+                    WHERE id='$id' AND date_ >= ALL (SELECT date_ FROM stat_elo WHERE id='$id')";
+                $res1 = $connection->doQuery($sql1);
+                $array_player[$i] = $res1;
+                $i++;
+            }
+            echo json_encode($array_player);            
         } 
+        public function addElo(){
+            $parse_add_elo = explode("|",$_POST['add_elo']);
+            $id_joueur = $parse_add_elo[0];
+            $elo_joueur = $parse_add_elo[1];
+            $connection = new dbconnection();
+            $date = date('d-m-Y, H:i:s');
+            $sql = "INSERT INTO stat_elo (id,date_,score_elo) VALUES('$id_joueur','$date','$elo_joueur')";
+            $res = $connection->doExec($sql);
+        }
     }
