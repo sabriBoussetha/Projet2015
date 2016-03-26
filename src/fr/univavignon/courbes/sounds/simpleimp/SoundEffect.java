@@ -12,7 +12,7 @@ import javax.sound.sampled.*;
  *
  */
 public class SoundEffect implements SoundEngine {
-	
+	private static final long serialVersionUID = 1L;
 	public Sound sound;
 	
 	@Override
