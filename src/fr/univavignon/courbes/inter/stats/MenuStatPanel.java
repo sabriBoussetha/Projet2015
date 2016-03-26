@@ -36,51 +36,8 @@ public class MenuStatPanel extends AbstractConfigurationPanel{
 		super(mainWindow, "Statistiques de joueurs");
 		// TODO Auto-generated constructor stub
 		
-		
-		
-		//test JSON
-		/*
-		JSONParser parser = new JSONParser();
-	    String s = "["+
-	"{\"id\" : 101, \"score_elo\" : 2100, \"pseudo\" : \"charlie\" 	,\"nb_partie\" : 10, \"nb_partie_premier\" : 5, \"date_\" : 2016},"+
-	"{\"id\" : 102, \"score_elo\" : 1900, \"pseudo\" : \"alex\" 		,\"nb_partie\" : 10, \"nb_partie_premier\" : 4, \"date_\" : 2016},"+
-	"{\"id\" : 103, \"score_elo\" : 1800, \"pseudo\" : \"sabri\" 	,\"nb_partie\" : 10, \"nb_partie_premier\" : 3, \"date_\" : 2016},"+
-	"{\"id\" : 104, \"score_elo\" : 1700, \"pseudo\" : \"nathan\" 	,\"nb_partie\" : 10, \"nb_partie_premier\" : 2, \"date_\" : 2016},]";
-	    
-	    System.out.println(s);
-	    /*
-	    Object obj = null;
-		try {
-			obj = parser.parse(s);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        JSONArray array = (JSONArray)obj;
-        
-	    
-        JSONArray array = null;
-		try {
-			array = (JSONArray) parser.parse(s);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        JSONObject obj2;
-        for (int i = 0; i < array.size(); i++)
-        {
-        	obj2 = (JSONObject)array.get(i);
-        	System.out.println("id : " + obj2.get("id"));
-        	System.out.println("score_elo : " + obj2.get("score_elo"));
-        	System.out.println("pseudo : " + obj2.get("pseudo"));
-        	System.out.println("nb_partie : " + obj2.get("nb_partie"));
-        	System.out.println("nb_partie_premier : " + obj2.get("nb_partie_premier"));
-        	System.out.println("date_ : " + obj2.get("date_"));
-        } 
-		*/
-		//fin testJSON
 	}
-
+	
 	@Override
 	protected void initContent() {
 		// TODO Auto-generated method stub

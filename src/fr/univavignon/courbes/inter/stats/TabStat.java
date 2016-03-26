@@ -52,19 +52,13 @@ class TabStat extends AbstractTableModel{
         JSONObject ligne;
         
         //on remplis le tableau qui sera affiché a partir des données JSON
-        Object[][] data = new Object[tab.size()][5];
-        long [] tabId = new long[tab.size()];
+        data = new Object[tab.size()][5];
+        tabId = new int[tab.size()];
         
         //on enumere les elements du tableau
         for (int i = 0; i < tab.size(); i++)
         {
         	ligne = (JSONObject)tab.get(i);
-        	System.out.println("id : " + ligne.get("id"));
-        	System.out.println("score_elo : " + ligne.get("score_elo"));
-        	System.out.println("pseudo : " + ligne.get("pseudo"));
-        	System.out.println("nb_partie : " + ligne.get("nb_partie"));
-        	System.out.println("nb_partie_premier : " + ligne.get("nb_partie_premier"));
-        	System.out.println("date_ : " + ligne.get("date_"));
         	
         	data[i][0] = (int) (long) ligne.get("score_elo");
         	data[i][1] = (String) ligne.get("pseudo");
@@ -76,28 +70,6 @@ class TabStat extends AbstractTableModel{
 
         } 
 		//FIN TRAITEMENT JSON
-		
-		/*
-		//on construit le tableau depuis la BDD
-		//pour l'instant données bruts
-		Object[][] data = {
-		      {2500, "Charlie", 10, 0.8, new Boolean(false)},
-		  {2300, "Nathan", 10, 0.7,new Boolean(false)},
-		  {2200, "Sabri", 10, 0.6,new Boolean(false)},
-		  {1800, "Alex", 10, 0.3,new Boolean(false)},
-		  {1700, "Alex2", 10, 0.2,new Boolean(false)},
-		  {1600, "Alex3", 10, 0.1,new Boolean(false)},
-		    };
-		
-		tabId = new int[6];
-		tabId[0] = 101;
-		tabId[1] = 102;
-		tabId[2] = 103;
-		tabId[3] = 104;
-		tabId[4] = 105;
-		tabId[5] = 106;
-		//fin donnees bruts
-		*/
         
 		this.data = data;
 		this.title = title;
