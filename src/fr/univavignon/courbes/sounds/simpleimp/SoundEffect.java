@@ -45,7 +45,7 @@ public class SoundEffect implements SoundEngine {
 
 	@Override
 	public void collisionWithBordSound() {
-		sound = new Sound("res/sounds/Bonus.wav");
+		sound = new Sound("res/sounds/collisionWithBoard.wav");
 		sound.play(false);
 		
 	}

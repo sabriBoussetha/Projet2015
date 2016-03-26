@@ -35,6 +35,7 @@ import fr.univavignon.courbes.common.Constants;
 import fr.univavignon.courbes.common.Player;
 import fr.univavignon.courbes.common.Profile;
 import fr.univavignon.courbes.inter.simpleimpl.profiles.ProfileManager;
+import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
 
 /**
  * Panel représentant un joueur en cours de configuration.
@@ -55,6 +56,8 @@ public class LocalPlayerConfigPanel extends JPanel implements ActionListener, Ke
 		{KeyEvent.VK_F,KeyEvent.VK_G}
 	};
 	
+	private SoundEffect sound;
+	
 	/**
 	 * Crée un panel chargé de représenter un joueur et
 	 * sa configuration.
@@ -64,7 +67,7 @@ public class LocalPlayerConfigPanel extends JPanel implements ActionListener, Ke
 	 */
 	public LocalPlayerConfigPanel(AbstractLocalPlayerSelectionPanel configPanel)
 	{	this.configPanel = configPanel;
-		
+		sound = new SoundEffect();
 		initPlayer();
 		initPanel();
 	}
@@ -163,13 +166,16 @@ public class LocalPlayerConfigPanel extends JPanel implements ActionListener, Ke
 	{	if(e.getSource()==playerSelectorCombo)
 		{	Profile profile = (Profile)playerSelectorCombo.getSelectedItem();
 			player.profile = profile;
+			sound.clickSound();
 		}
 	
 		else if(e.getSource()==leftButton)
-		{	leftButton.setText("?");
+		{	sound.clickSound();
+			leftButton.setText("?");
 		}
 		else if(e.getSource()==rightButton)
-		{	rightButton.setText("?");
+		{	sound.clickSound();
+			rightButton.setText("?");
 		}
 	}
 	
@@ -191,10 +197,12 @@ public class LocalPlayerConfigPanel extends JPanel implements ActionListener, Ke
 		if(e.getSource()==leftButton)
 		{	leftButton.setText(keyText);
 			player.leftKey = keyCode;
+			sound.clickSound();
 		}
 		else if(e.getSource()==rightButton)
 		{	rightButton.setText(keyText);
 			player.rightKey = keyCode;
+			sound.clickSound();
 		}
 	}
 }
