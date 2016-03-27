@@ -70,10 +70,19 @@ public class SoundEffect implements SoundEngine {
 	}
 	
 	@Override
-	public void backGroundMusic()
-	{
-		sound = new Sound("res/sounds/Happy.wav");
-		sound.play(true);	
+	public boolean backGroundMusic(boolean play)
+	{	
+		if(play)
+		{
+			sound = new Sound("res/sounds/Happy.wav");
+			sound.play(true);
+			return true;
+		}
+		else
+		{
+			sound.stopC();
+			return false;
+		}
 	}
 
 	@Override

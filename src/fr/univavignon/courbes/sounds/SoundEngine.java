@@ -45,7 +45,7 @@ public interface SoundEngine {
 	 * Fonction qui lance le son en arrière plan durant tout le jeu 
 	 * 
 	 */
-	void backGroundMusic();
+	boolean backGroundMusic(boolean play);
 	
 	/**
 	 * Fonction qui fait le son quand il y a une erreur

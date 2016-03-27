@@ -48,7 +48,7 @@ class TabStat extends AbstractTableModel{
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}	
         JSONObject ligne;
         
         //on remplis le tableau qui sera affiché a partir des données JSON

@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -63,15 +64,17 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 	private static final String GAME_NAME = "Courbes";
 	/** Version du jeu */
 	private static final String GAME_VERSION = "1";
-	
+	/** Instance de la classe SoundEffect nécessaire pour lancer le son en arrière plan*/
 	private SoundEffect sound;
+	
+	public static JCheckBox publicBox;
 	/**
 	 * Crée le menu principal et tous ses composants graphiques.
 	 */
 	public MainWindow()
 	{	super();
 		sound = new SoundEffect();
-		sound.backGroundMusic();
+		//sound.backGroundMusic();
 		initWindow();
 	}
 	
@@ -227,8 +230,6 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 				break;
 			case STATISTICS:
 				System.out.println("Option pas encore implémentée...");
-				// TODO à compléter
-				// currentPanel = new XxxxxxPanel(this);
 				currentPanel = new MenuStatPanel(this);
 				break;
 			case CLIENT_GAME_CENTRAL_CONNECTION:

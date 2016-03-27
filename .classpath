@@ -14,5 +14,6 @@
 	<classpathentry kind="lib" path="lib/jfreechart/orsonpdf-1.6-eval.jar"/>
 	<classpathentry kind="lib" path="lib/jfreechart/servlet.jar"/>
 	<classpathentry kind="lib" path="lib/jfreechart/swtgraphics2d.jar"/>
+	<classpathentry kind="lib" path="/home/sabri/git/Projet2015/lib/json-20160212.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

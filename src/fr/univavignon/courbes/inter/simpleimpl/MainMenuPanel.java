@@ -25,11 +25,13 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -47,6 +49,8 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	private static final long serialVersionUID = 1L;
 	
 	private SoundEffect sound;
+	
+	private boolean soundIsWorking;
 	/**
 	 * Crée le menu principal et tous ses composants graphiques.
 	 * 
@@ -58,6 +62,7 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		
 		this.mainWindow = mainWindow;
 		sound = new SoundEffect();
+		soundIsWorking = sound.backGroundMusic(true);
 		initMenu();
 	}
 	
@@ -76,6 +81,9 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	private JButton statsButton;
 	/** Bouton pour quitter le jeu */
 	private JButton quitButton;
+	/** Bouton pour arrêter/reprendre le son en arrière plan */
+	private JButton offSound;
+	
 	
 	/**
 	 * Initialisation du menu principal.
@@ -91,43 +99,60 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		menuPanel.add(Box.createVerticalGlue());
 		
 		// créer une partie locale
-		localGameButton = initButton("Créer une partie locale");
-		localGameButton.setBackground(Color.orange); 
+		localGameButton = initButton("Créer une partie locale",400,50);
+		//localGameButton.setBackground(Color.orange); 
 		menuPanel.add(localGameButton);
 		
 		// créer une partie réseau
-		serverGameButton = initButton("Créer une partie réseau");
-		serverGameButton.setBackground(Color.orange); 
+		serverGameButton = initButton("Créer une partie réseau",400,50);
+		//serverGameButton.setBackground(Color.orange); 
 		menuPanel.add(serverGameButton);
 		
 		// rejoindre une partie réseau
-		clientGameButton = initButton("Rejoindre une partie réseau");
-		clientGameButton.setBackground(Color.orange); 
+		clientGameButton = initButton("Rejoindre une partie réseau",400,50);
+		//clientGameButton.setBackground(Color.orange); 
 		menuPanel.add(clientGameButton);
 		
 		menuPanel.add(Box.createVerticalStrut(10));
 		
 		// lister les profils existants
-		profilesButton = initButton("Voir les profils");
-		profilesButton.setBackground(Color.green); 
+		profilesButton = initButton("Voir les profils",400,50);
+		//profilesButton.setBackground(Color.green); 
 		menuPanel.add(profilesButton);
 		
 		// afficher les statistiques
-		statsButton = initButton("Voir les statistiques");
-		statsButton.setBackground(Color.green); 
+		statsButton = initButton("Voir les statistiques",400,50);
+		//statsButton.setBackground(Color.green); 
 		menuPanel.add(statsButton);
 		
 		menuPanel.add(Box.createVerticalStrut(10));
 		
 		// quitter le jeu
-		quitButton = initButton("Quitter le jeu");
-		quitButton.setBackground(Color.red); 
+		quitButton = initButton("Quitter le jeu",400,50);
+		//quitButton.setBackground(Color.red); 
 		menuPanel.add(quitButton);
 		
 		menuPanel.add(Box.createVerticalGlue());
 		add(menuPanel,BorderLayout.CENTER);
 		menuPanel.setBackground(Color.BLACK);
 		setVisible(true);
+		
+		// Panel qui contient le bouton pour arrêter/reprendre le son
+		JPanel soundPanel = new JPanel();
+		BoxLayout boxLayout1 = new BoxLayout(soundPanel, BoxLayout.PAGE_AXIS);
+		soundPanel.setLayout(boxLayout1);
+		
+		soundPanel.add(Box.createVerticalGlue());
+		
+		offSound = initButton("Joué/Mute",200,50);	
+		soundPanel.add(offSound);
+		
+		soundPanel.add(Box.createVerticalGlue());
+		soundPanel.setBackground(Color.BLACK);
+		add(soundPanel, BorderLayout.SOUTH);
+		
+		setVisible(true);
+		
 	}
 	
 	/**
@@ -138,14 +163,14 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	 * @return
 	 * 		Bouton convenablement configuré. 
 	 */
-	private JButton initButton(String text)
+	private JButton initButton(String text, int width, int height)
 	{	JButton result = new JButton(text);
 	
 		Font font = getFont();
 		font = new Font(font.getName(),Font.PLAIN,25);
 		result.setFont(font);
 		
-		Dimension dim = new Dimension(400,50);
+		Dimension dim = new Dimension(width,height);
 		result.setMaximumSize(dim);
 		result.setMinimumSize(dim);
 		result.setPreferredSize(dim);
@@ -155,6 +180,24 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		
 		return result;
 	}
+	
+	/*private JButton initButtonSound(String text)
+	{	JButton result = new JButton(text);
+	
+		Font font = getFont();
+		font = new Font(font.getName(),Font.PLAIN,25);
+		result.setFont(font);
+		
+		Dimension dim = new Dimension(200,50);
+		result.setMaximumSize(dim);
+		result.setMinimumSize(dim);
+		result.setPreferredSize(dim);
+		result.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		result.addActionListener(this);
+		
+		return result;
+	}*/
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
@@ -207,5 +250,20 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		{	sound.clickSound(); // Son correspondant à un click
 			mainWindow.closeWindow();
 		}
+		else if(e.getSource()==MainWindow.publicBox)
+		{	// rien de spécial à faire
+		}
+		else if(e.getSource()==offSound)
+		{
+			if(soundIsWorking)
+			{	soundIsWorking = sound.backGroundMusic(false);
+			}
+			else if(!soundIsWorking)
+			{	soundIsWorking = sound.backGroundMusic(true);
+			}
+		}
+	
 	}
+
+	
 }

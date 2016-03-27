@@ -114,4 +114,5 @@ public abstract class AbstractConnectionPanel extends AbstractConfigurationPanel
 	 * 		Port TCP par défaut.
 	 */
 	public abstract int getDefaultPort();
+	
 }
