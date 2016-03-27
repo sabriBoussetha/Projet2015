@@ -7,14 +7,15 @@
 function majElo($issuePartie)
 {
 
+/*
 	//recuperation des elo dans la bdd
 	$elo = array(
 		101 => 2300,
 		102 => 2300,
 		103 => 1900,
-		);
+		);*/
 
-	/*
+	
 	//recupereation des donnes elo de la bdd
 	$elo = array();
 
@@ -29,7 +30,7 @@ function majElo($issuePartie)
 		var_dump($res);
 		$elo[ $res[0] ] = $res[1];
 	}
-	*/
+	
 
 //calcule du coefficient de reussite
 	foreach ($issuePartie as $i => $idJoueur)
@@ -45,7 +46,11 @@ function majElo($issuePartie)
 		$elo[$idJoueur] = newElo($ancien_elo, $coef_reussite, $proba_succes);
 	}
 
-	var_dump($elo);
+	foreach ($elo as $id => $elo) {
+	    $date = date('d-m-Y, H:i:s');
+	    $sql = "INSERT INTO stat_elo (id,date_,score_elo) VALUES($id,$date,$elo)";
+	    $connection->doExec($sql);
+	}
 
 }
 //calculer la probabilite moyenne de succes pour un joueur

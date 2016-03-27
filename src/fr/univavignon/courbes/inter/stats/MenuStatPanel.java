@@ -67,7 +67,14 @@ public class MenuStatPanel extends AbstractConfigurationPanel{
 			
 			//on reajoute tout les elements composant la page du graphique
 			initTitle("ELO");
-			this.add(new graphEloPanel());
+			
+			LinkedList listId = listeJoueursPanel.modele.getIdChecked();
+			for (int i = 0; i < listId.size(); i++)
+			{
+				System.out.println(listId.get(i));
+			}
+			
+			this.add(new graphEloPanel(listId));
 			add(Box.createVerticalGlue());
 			initButtons();
 			nextButton.setEnabled(false);
@@ -76,11 +83,8 @@ public class MenuStatPanel extends AbstractConfigurationPanel{
 			this.repaint();
 			
 			//on affiche en console la lite des id selectioinne
-			LinkedList listId = listeJoueursPanel.modele.getIdChecked();
-			for (int i = 0; i < listId.size(); i++)
-			{
-				System.out.println(listId.get(i));
-			}
+			
+			
 			
 		}
 		
