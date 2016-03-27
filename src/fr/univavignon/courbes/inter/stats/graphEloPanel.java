@@ -3,6 +3,7 @@ package fr.univavignon.courbes.inter.stats;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
+import java.util.LinkedList;
 
 import javax.swing.JPanel;
 
@@ -39,10 +40,10 @@ import org.jfree.ui.RectangleInsets;
  */
 public class graphEloPanel extends JPanel{
 	
-	public graphEloPanel() 
+	public graphEloPanel(LinkedList listId) 
     {
         super();
-        JFreeChart chart = createChart(createDataset());
+        JFreeChart chart = createChart(createDataset(listId));
         ChartPanel panel = new ChartPanel(chart);
         panel.setFillZoomRectangle(true);
         panel.setMouseWheelEnabled(true);
@@ -52,7 +53,7 @@ public class graphEloPanel extends JPanel{
     }
 	
 	//fonction qui construit un dataset en dur
-	private static XYDataset createDataset() {
+	private static XYDataset createDataset(LinkedList listId) {
 
     	//une timeSeries sont une serie d'elements chronoliques
         TimeSeries s1 = new TimeSeries("Charlie");
