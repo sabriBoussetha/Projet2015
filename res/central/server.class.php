@@ -138,5 +138,60 @@
             $sql = "INSERT INTO stat_elo (id,date_,score_elo) VALUES('$id_joueur','$date','$elo_joueur')";
             $res = $connection->doExec($sql);
         }
+        
+        
+        //fonction à appeller après une manche non-gagné
+        public function update_round(){
+        	$parse_update_round = explode("|", $_POST['update_round']);
+        	$id_player = $parse_update_round[0];
+        	$player_round_points = $parse_update_round[1];
+        	
+        	$connection = new dbconnection();
+        	
+        	$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_points = nb_Points + '$player_round_points', moy_points_manche = (nb_points + '$player_round_points')/(nb_manche + 1) WHERE id ='$id_player'";
+        	
+        	$res = $connection->doExec($sql);
+        }
+        
+        
+        //fonction a appelle à la fin d'une manche gagné
+        public function update_won_round(){
+        	$parse_update_won_round = explode("|", $_POST['update_won_round']);
+        	$id_player = $parse_update_won_round[0];
+        	$player_round_points = $parse_update_won_round[1];
+        	
+        	$connection = new dbconnection();
+        	
+        	$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_manche_premier = nb_manche_premier + 1, nb_points = nb_Points + '$player_round_points', moy_points_manche = (nb_points + '$player_round_points')/(nb_manche + 1) WHERE id ='$id_player'";
+        	
+        	$res = $connection->doExec($sql);
+        }
+        
+        
+        //fonction a appeller au début d'une partie
+        public function update_match(){
+        	$parse_update_match = explode("|", $_POST['update_match']);
+        	$id_player = $parse_update_match[0];
+        	
+        	$connection = new dbconnection();
+        	
+        	$sql = "UPDATE stat_joueur SET nb_partie = nb_partie + 1, moy_points_partie = nb_Points/(nb_partie + 1) WHERE id = '$id_player'";
+        	
+        	$res = $connection->doExec($sql);
+        }
+        
+        //on l'appelle toujours après la fonction update round si le joueur a gagné car (update round) met à jour le nb_points
+        public function update_won_match(){
+        	$parse_update_won_match = explode("|", $_POST['update_won_match']);
+        	$id_player = $parse_update_won_match[0];
+        	
+        	$connection = new dbconnection();
+        	
+        	$sql = "UPDATE stat_joueur SET nb_partie_premier = nb_partie_premier + 1, moy_points_partie = nb_points/nb_partie WHERE id = '$id_player'";
+        	
+        	$res = $connection->doExec($sql);
+        }
+        
+        
 
     }
