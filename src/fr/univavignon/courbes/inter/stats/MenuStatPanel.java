@@ -16,6 +16,7 @@ import com.orsoncharts.util.json.parser.ParseException;
 import fr.univavignon.courbes.inter.simpleimpl.AbstractConfigurationPanel;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
+import fr.univavignon.courbes.network.central.simpleimpl.PhpCommunication;
 
 /**
  * Panel qui represente le contenu central du menu statistiques (listeJoueurPanel ou graphEloPanel)
@@ -35,6 +36,11 @@ public class MenuStatPanel extends AbstractConfigurationPanel{
 	public MenuStatPanel(MainWindow mainWindow) {
 		super(mainWindow, "Statistiques de joueurs");
 		// TODO Auto-generated constructor stub
+		
+		//TEST DIVERS
+		PhpCommunication a = new PhpCommunication();
+		
+		//FIN TEST DIVERS
 		
 	}
 	
@@ -67,7 +73,16 @@ public class MenuStatPanel extends AbstractConfigurationPanel{
 			
 			//on reajoute tout les elements composant la page du graphique
 			initTitle("ELO");
-			this.add(new graphEloPanel());
+			
+			
+			LinkedList listId = listeJoueursPanel.modele.getIdChecked();
+			/*
+			for (int i = 0; i < listId.size(); i++)
+			{
+				System.out.println(listId.get(i));
+			}*/
+			
+			this.add(new graphEloPanel(listId));
 			add(Box.createVerticalGlue());
 			initButtons();
 			nextButton.setEnabled(false);
@@ -76,11 +91,8 @@ public class MenuStatPanel extends AbstractConfigurationPanel{
 			this.repaint();
 			
 			//on affiche en console la lite des id selectioinne
-			LinkedList listId = listeJoueursPanel.modele.getIdChecked();
-			for (int i = 0; i < listId.size(); i++)
-			{
-				System.out.println(listId.get(i));
-			}
+			
+			
 			
 		}
 		

@@ -31,45 +31,68 @@ class TabStat extends AbstractTableModel{
 
 		String  title[] = 
 		{"classement ELO", "pseudo", "nombre de parties joués", "ratio de victoires","SELECT"};
-		
+
+	
 		//TRAITEMENT JSON
 		
-		 String s = "["+
-					"{\"id\" : 101, \"score_elo\" : 2100, \"pseudo\" : \"charlie\" 	,\"nb_partie\" : 10, \"nb_partie_premier\" : 5, \"date_\" : 2016},"+
-					"{\"id\" : 102, \"score_elo\" : 1900, \"pseudo\" : \"alex\" 		,\"nb_partie\" : 10, \"nb_partie_premier\" : 4, \"date_\" : 2016},"+
-					"{\"id\" : 103, \"score_elo\" : 1800, \"pseudo\" : \"sabri\" 	,\"nb_partie\" : 10, \"nb_partie_premier\" : 3, \"date_\" : 2016},"+
-					"{\"id\" : 104, \"score_elo\" : 1700, \"pseudo\" : \"nathan\" 	,\"nb_partie\" : 10, \"nb_partie_premier\" : 2, \"date_\" : 2016},]";
-		 
-		JSONParser parser = new JSONParser();
-		   
-		JSONArray tab = null;
+		//on recuupere le JSON dans la chaine test
+		String test = null;
 		try {
-			tab = (JSONArray) parser.parse(s);
+			test = PhpCommunication.getPlayer();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		JSONParser parser = new JSONParser();
+		  
+		//on recupere la table principale depuis la chaine
+		JSONArray tabPrincipale = null;
+		try {
+			tabPrincipale = (JSONArray) parser.parse(test);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
-        JSONObject ligne;
+		
+		
+		JSONArray tabLigne;
+		JSONObject ligne;
+		
+		//on remplis le tableau qui sera affiché a partir des données JSON
+        data = new Object[tabPrincipale.size()][5];
+        tabId = new int[tabPrincipale.size()];
         
-        //on remplis le tableau qui sera affiché a partir des données JSON
-        data = new Object[tab.size()][5];
-        tabId = new int[tab.size()];
+		}
+		
+		
+		JSONArray tabLigne;
+		JSONObject ligne;
+		
+		//on remplis le tableau qui sera affiché a partir des données JSON
+        data = new Object[tabPrincipale.size()][5];
+        tabId = new int[tabPrincipale.size()];
         
         //on enumere les elements du tableau
-        for (int i = 0; i < tab.size(); i++)
+        for (int i = 0; i < tabPrincipale.size(); i++)
         {
-        	ligne = (JSONObject)tab.get(i);
+        	tabLigne = (JSONArray)tabPrincipale.get(i);
+    		ligne = (JSONObject) tabLigne.get(0);
         	
         	data[i][0] = (int) (long) ligne.get("score_elo");
         	data[i][1] = (String) ligne.get("pseudo");
         	data[i][2] = (int) (long) ligne.get("nb_partie");
-        	data[i][3] = (double) (long) ligne.get("nb_partie_premier") / (long) ligne.get("nb_partie");
+        	if ((int) (long) ligne.get("nb_partie") == 0)
+        		data[i][3] = 0;
+        	else
+        		data[i][3] = (double) (long) ligne.get("nb_partie_premier") / (long) ligne.get("nb_partie");
         	data[i][4] = new Boolean(false);
         	
         	tabId[i] =  (int) (long) ligne.get("id");
 
-        } 
-		//FIN TRAITEMENT JSON
+        }
+		
+		//FINT TRAITEMENT JSON
         
 		this.data = data;
 		this.title = title;
