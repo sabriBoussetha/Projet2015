@@ -28,7 +28,7 @@ public class listeJoueurPanel extends JPanel{
 	{
 		this.setLayout(new BorderLayout());
 		
-		this.add(new JLabel("TABLEAU DE JOUEUR. en construction..."), BorderLayout.NORTH);
+		//this.add(new JLabel("TABLEAU DE JOUEUR. en construction..."), BorderLayout.NORTH);
 		
 		//Les données du tableau
 		
