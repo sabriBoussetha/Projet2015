@@ -183,7 +183,7 @@ public class PhpCommunication implements CentralCommunication{
 	
 	public static String getPlayer() throws IOException{
 		String data = "get_player=" + URLEncoder.encode("UTF-8");
-		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402561/server/server.php");
+		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
 	    String result = ""; 
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    try {
@@ -208,10 +208,11 @@ public class PhpCommunication implements CentralCommunication{
             }
 	    	in.close();
 	    	connection.disconnect();
-            System.out.println(result);
+            //System.out.println(result);
 	    }catch(Throwable t) {
 	        System.out.println("Error: " + t.getMessage());
 	    }
+
 		return result;
 	}
 }
