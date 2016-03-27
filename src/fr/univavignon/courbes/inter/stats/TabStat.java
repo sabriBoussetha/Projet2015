@@ -2,6 +2,7 @@ package fr.univavignon.courbes.inter.stats;
 
 import java.awt.Component;
 import java.awt.List;
+import java.io.IOException;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -14,6 +15,8 @@ import com.orsoncharts.util.json.JSONArray;
 import com.orsoncharts.util.json.JSONObject;
 import com.orsoncharts.util.json.parser.JSONParser;
 import com.orsoncharts.util.json.parser.ParseException;
+
+import fr.univavignon.courbes.network.central.simpleimpl.PhpCommunication;
 
 /**
  * Classe creant un modele de table qui contient les donnees statistiques des joueurs
@@ -67,6 +70,7 @@ class TabStat extends AbstractTableModel{
 		
 		
 		JSONArray tabLigne;
+		
 		JSONObject ligne;
 		
 		//on remplis le tableau qui sera affiché a partir des données JSON

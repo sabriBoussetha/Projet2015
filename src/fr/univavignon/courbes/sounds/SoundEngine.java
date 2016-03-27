@@ -43,7 +43,7 @@ public interface SoundEngine {
 	void clickSound();
 	/**
 	 * Fonction qui lance le son en arrière plan durant tout le jeu 
-	 * 
+	 * renvoie boolean {@true} is le son en arrière plan est entrain de jouer sinon {@false}
 	 */
 	boolean backGroundMusic(boolean play);
 	

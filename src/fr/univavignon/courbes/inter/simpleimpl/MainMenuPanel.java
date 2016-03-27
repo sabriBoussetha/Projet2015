@@ -47,9 +47,9 @@ import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
 public class MainMenuPanel extends JPanel implements ActionListener
 {	/** Numéro de série de la classe */
 	private static final long serialVersionUID = 1L;
-	
+	/** Instance de la classe SoundEffect nécessaire pour lancer le son en arrière plan*/
 	private SoundEffect sound;
-	
+	/** Boolean indiquant si le son en arrière plan est entrain de jouer ou pas */
 	private boolean soundIsWorking;
 	/**
 	 * Crée le menu principal et tous ses composants graphiques.
@@ -160,6 +160,10 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	 * 
 	 * @param text
 	 * 		Texte à inclure dans le bouton.
+	 * @param width
+	 * 		Correspond à la largeur du bouton
+	 * @param height
+	 * 		La longueur du bouton
 	 * @return
 	 * 		Bouton convenablement configuré. 
 	 */
@@ -180,24 +184,6 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		
 		return result;
 	}
-	
-	/*private JButton initButtonSound(String text)
-	{	JButton result = new JButton(text);
-	
-		Font font = getFont();
-		font = new Font(font.getName(),Font.PLAIN,25);
-		result.setFont(font);
-		
-		Dimension dim = new Dimension(200,50);
-		result.setMaximumSize(dim);
-		result.setMinimumSize(dim);
-		result.setPreferredSize(dim);
-		result.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		result.addActionListener(this);
-		
-		return result;
-	}*/
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
@@ -249,9 +235,6 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		else if(e.getSource()==quitButton)
 		{	sound.clickSound(); // Son correspondant à un click
 			mainWindow.closeWindow();
-		}
-		else if(e.getSource()==MainWindow.publicBox)
-		{	// rien de spécial à faire
 		}
 		else if(e.getSource()==offSound)
 		{

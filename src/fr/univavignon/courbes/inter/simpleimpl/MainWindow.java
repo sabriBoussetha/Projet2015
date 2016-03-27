@@ -64,17 +64,12 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 	private static final String GAME_NAME = "Courbes";
 	/** Version du jeu */
 	private static final String GAME_VERSION = "1";
-	/** Instance de la classe SoundEffect nécessaire pour lancer le son en arrière plan*/
-	private SoundEffect sound;
-	
-	public static JCheckBox publicBox;
+
 	/**
 	 * Crée le menu principal et tous ses composants graphiques.
 	 */
 	public MainWindow()
 	{	super();
-		sound = new SoundEffect();
-		//sound.backGroundMusic();
 		initWindow();
 	}
 	
