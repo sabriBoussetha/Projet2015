@@ -11,7 +11,7 @@
     else if(isset($_POST['search_game'])){
         JavaCommunication::searchGame();
     }
-	else if(isset($_POST['search_game_json'])){
+    else if(isset($_POST['search_game_json'])){
         JavaCommunication::searchGameListJson();
     }
     else if(isset($_POST['reset_game'])){
@@ -27,7 +27,7 @@
         JavaCommunication::modifPlayer();
     } 
     else if(isset($_POST['add_player'])){
-        echo "Ajout d'un joueurs dans la table";
+        //echo "Ajout d'un joueurs dans la table";
         JavaCommunication::addPlayer();
     }
     else if(isset($_POST['add_elo'])){
@@ -36,5 +36,22 @@
     else if(isset($_POST['get_player'])){
         JavaCommunication::getPlayer();
     }
+    else if(isset($_POST['get_elo'])){
+        JavaCommunication::getElo();
+    }
+    else if(isset($_POST['get_pseudo']))
+    {
+        JavaCommunication::getPseudo();
+    }
+    else if(isset($_POST['update_match'])){
+        JavaCommunication::update_match();
+    }
+    else if(isset($_POST['update_won_match'])){
+        JavaCommunication::update_won_match();
+    }
+    else if(isset($_POST['delete_player'])){
+        JavaCommunication::deletePlayer();
+    }
+
     
 ?>

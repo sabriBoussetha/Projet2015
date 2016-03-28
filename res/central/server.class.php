@@ -1,5 +1,6 @@
 <?php
     include_once 'dbconnection.class.php';
+
     class JavaCommunication{
         public function addNewGame(){
             $parse_new_game = explode("|",$_POST['new_game']);
@@ -95,6 +96,7 @@
                 return false ;
             return $res;
         }
+        /*
         public function addPlayer(){
             $parse_add_player = explode("|",$_POST['add_player']);
             $pseudo = $parse_add_player[0];
@@ -103,23 +105,88 @@
             $connection = new dbconnection();
 
 
-            //d'abord on voit si le pseudo existe deja
-            $res = $connection->doExec("SELECT count(pseudo) from player where pseudo='$pseudo'");
-            
-            echo var_dump($res);
-            /*return;
-            
             $sql = "INSERT INTO player (pseudo, country,password) VALUES('$pseudo','$country','$password')";
-            $res = $connection->doExec($sql);
+            $connection->doExec($sql);
+
+            //$res = $connection->doExec($sql);
+            
+            //$sql1 = "SELECT id FROM player WHERE pseudo = '$pseudo'";
+            //$res1 = $connection->doQuery($sql1);
+            
+
+            //$id_joueur = $connection->mysql_insert_id();
             $sql1 = "SELECT id FROM player WHERE pseudo = '$pseudo'";
-            $res1 = $connection->doQuery($sql1);
+            $res1 = $connection->doExec($sql1);
             $id_joueur = $res1[0]['id'];
+
+            //insertion des stat
             $sql2 = "INSERT INTO stat_joueur (id) VALUES ('$id_joueur')";
             $res2 = $connection->doExec($sql2);
             $date = date('d-m-Y, H:i:s');
             $sql3 = "INSERT INTO stat_elo (id,date_) VALUES ('$id_joueur','$date')";
-            $res3 = $connection->doExec($sql3);*/
+            $res3 = $connection->doExec($sql3);
+
+            echo $id_joueur;
+        }*/
+
+        public function addPlayer(){
+            $parse_add_player = explode("|",$_POST['add_player']);
+            $pseudo = $parse_add_player[0];
+            $country = $parse_add_player[1];
+            $password = sha1($parse_add_player[2]);
+            $connection = new dbconnection();
+
+            //d'abord on voit si le pseudo existe deja
+            $res = $connection->doQuery("SELECT count(pseudo) from player where pseudo='$pseudo'");
+            
+            if ($res[0]["count"] > 0)
+            {
+                echo -1;
+            }
+            else
+            {
+                $sql = "INSERT INTO player (pseudo, country,password) VALUES('$pseudo','$country','$password')";
+                $res = $connection->doExec($sql);
+                $sql1 = "SELECT id FROM player WHERE pseudo = '$pseudo'";
+                $res1 = $connection->doQuery($sql1);
+                $id_joueur = $res1[0]['id'];
+                $sql2 = "INSERT INTO stat_joueur (id) VALUES ('$id_joueur')";
+                $res2 = $connection->doExec($sql2);
+                $date = date('d-m-Y, H:i:s');
+                $sql3 = "INSERT INTO stat_elo (id,date_) VALUES ('$id_joueur','$date')";
+                $res3 = $connection->doExec($sql3);
+
+                echo "$id_joueur"; 
+            }
+
         }
+
+        public function deletePlayer()
+        {
+            $id = $_POST["delete_player"];
+            $connection = new dbconnection();
+
+            /*
+            $sql = "INSERT INTO player (pseudo, country,password) VALUES('$pseudo','$country','$password')";
+
+            $sql2 = "INSERT INTO stat_joueur (id) VALUES ('$id_joueur')";
+
+            $sql3 = "INSERT INTO stat_elo (id,date_) VALUES ('$id_joueur','$date')";
+            */
+
+            $sql1 = "DELETE FROM player WHERE id=$id";
+            $connection-> doQuery($sql1);
+            $sql2 = "DELETE FROM stat_joueur WHERE id=$id";
+            $connection-> doQuery($sql2);
+            $sql3 = "DELETE FROM stat_elo WHERE id=$id";
+            $connection-> doQuery($sql3);
+
+            echo "delete player lancé";
+
+
+        }
+
+
         public function getPlayer(){
             $connection = new dbconnection();
             $sql = "SELECT id FROM player";
@@ -146,60 +213,154 @@
             $sql = "INSERT INTO stat_elo (id,date_,score_elo) VALUES('$id_joueur','$date','$elo_joueur')";
             $res = $connection->doExec($sql);
         }
-        
-        
-        //fonction à appeller après une manche non-gagné
-        public function update_round(){
-        	$parse_update_round = explode("|", $_POST['update_round']);
-        	$id_player = $parse_update_round[0];
-        	$player_round_points = $parse_update_round[1];
-        	
-        	$connection = new dbconnection();
-        	
-        	$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_points = nb_Points + '$player_round_points', moy_points_manche = (nb_points + '$player_round_points')/(nb_manche + 1) WHERE id ='$id_player'";
-        	
-        	$res = $connection->doExec($sql);
+
+        public function getElo()
+        {
+            $id = $_POST['get_elo'];
+
+            $connection = new dbconnection();
+            $sql = "SELECT score_elo, date_ FROM stat_elo where id=$id order by date_ asc";
+            $res = $connection->doQuery($sql);
+
+            //res est un tableau de tableau associatif
+            //on va le mettre dans un tableau classique
+
+            /*
+            foreach ($res as $i => $ligne) {
+                $tab[] = $ligne["score_elo"];
+            }*/
+
+            echo json_encode($res); 
         }
-        
-        
-        //fonction a appelle à la fin d'une manche gagné
-        public function update_won_round(){
-        	$parse_update_won_round = explode("|", $_POST['update_won_round']);
-        	$id_player = $parse_update_won_round[0];
-        	$player_round_points = $parse_update_won_round[1];
-        	
-        	$connection = new dbconnection();
-        	
-        	$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_manche_premier = nb_manche_premier + 1, nb_points = nb_Points + '$player_round_points', moy_points_manche = (nb_points + '$player_round_points')/(nb_manche + 1) WHERE id ='$id_player'";
-        	
-        	$res = $connection->doExec($sql);
+
+        public function getPseudo()
+        {
+            $id = $_POST['get_pseudo'];
+
+            $connection = new dbconnection();
+            $sql = "SELECT pseudo FROM player where id=$id";
+            $res = $connection->doQuery($sql);
+
+            echo $res[0]['pseudo'];
         }
-        
-        
-        //fonction a appeller au début d'une partie
+
         public function update_match(){
-        	$parse_update_match = explode("|", $_POST['update_match']);
-        	$id_player = $parse_update_match[0];
-        	
-        	$connection = new dbconnection();
-        	
-        	$sql = "UPDATE stat_joueur SET nb_partie = nb_partie + 1, moy_points_partie = nb_Points/(nb_partie + 1) WHERE id = '$id_player'";
-        	
-        	$res = $connection->doExec($sql);
+                $id_player =$_POST['update_match'];
+                //echo "hahahaha";
+                $connection = new dbconnection();
+                
+                $sql = "UPDATE stat_joueur SET nb_partie = nb_partie + 1 WHERE id = '$id_player'";
+                
+                $res = $connection->doExec($sql);
         }
-        
-        //on l'appelle toujours après la fonction update round si le joueur a gagné car (update round) met à jour le nb_points
+
         public function update_won_match(){
-        	$parse_update_won_match = explode("|", $_POST['update_won_match']);
-        	$id_player = $parse_update_won_match[0];
-        	
-        	$connection = new dbconnection();
-        	
-        	$sql = "UPDATE stat_joueur SET nb_partie_premier = nb_partie_premier + 1, moy_points_partie = nb_points/nb_partie WHERE id = '$id_player'";
-        	
-        	$res = $connection->doExec($sql);
+            $id_player =$_POST['update_won_match'];
+            
+            $connection = new dbconnection();
+            
+            $sql = "UPDATE stat_joueur SET nb_partie_premier = nb_partie_premier + 1 WHERE id = '$id_player'";
+            
+            //$sql = "UPDATE stat_joueur SET nb_partie_premier = nb_partie_premier + 1, moy_points_partie = nb_points/nb_partie WHERE id = '$id_player'";
+            
+            $res = $connection->doExec($sql);
         }
-        
-        
+
+        //DEBUT ELO
+
+
+        //met a jour les elos a l'issue d'une partie
+        //issue partie est le classement de la partie
+        //[0] -> premier [1] -> second, ...
+        //le tableau contient les id des joueurs
+        public function majElo($issuePartie)
+        {
+
+
+
+        /*
+            //recuperation des elo dans la bdd
+            $elo = array(
+                101 => 2300,
+                102 => 2300,
+                103 => 1900,
+                );*/
+
+            
+            //recupereation des donnes elo de la bdd
+            $elo = array();
+
+            $connection = new dbconnection();
+            foreach ($issuePartie as $key => $idJoueur) {
+                $sql = 
+                 "SELECT id, score_ELO 
+                  from player natural join stat_elo 
+                  where id=$idJoueur AND date_ >= ALL (SELECT date_ FROM stat_elo WHERE id=$idJoueur)";
+
+                $res = $connection->doQuery($sql);
+                var_dump($res);
+                $elo[ $res[0] ] = $res[1];
+            }
+            
+
+        //calcule du coefficient de reussite
+            foreach ($issuePartie as $i => $idJoueur)
+            {
+                echo "<p style='color:red'> id : $i  idjoueur : $idJoueur elo : $elo[$idJoueur]</p>"; 
+                //pour chaque joueurs
+                $proba_succes = proba_succes_multi($elo, $idJoueur);
+                echo "<p> proba succes : $proba_succes</p>";
+                $coef_reussite = coef_reussite(count($issuePartie), $i+1);
+                echo "<p> coef reussite : $coef_reussite </p>";
+                $ancien_elo = $elo[$idJoueur];
+                echo "<p> ancien elo : $ancien_elo </p>";
+                $elo[$idJoueur] = newElo($ancien_elo, $coef_reussite, $proba_succes);
+            }
+
+            foreach ($elo as $id => $elo) {
+                $date = date('d-m-Y, H:i:s');
+                $sql = "INSERT INTO stat_elo (id,date_,score_elo) VALUES($id,$date,$elo)";
+                $connection->doExec($sql);
+            }
+
+        }
+        //calculer la probabilite moyenne de succes pour un joueur
+        //on a juste besoin des elo des joueurs
+        function proba_succes_multi($elo, $idJoueur)
+        {
+            $proba_succes = 0;
+
+            //on enumere les elos de tout les joueurs autres que idJoueur
+            foreach ($elo as $id => $eloValue) {
+                if ($idJoueur != $id)
+                {
+                    //on fait la somme de la proba de succes du joueurs contre tout les autres
+                    $proba_succes += proba_succes_1vs1($eloValue, $elo[$idJoueur]);
+                }
+            }
+
+            return $proba_succes / (count($elo) * ((count($elo) -1) / 2));
+        }
+
+        //calcule un nouveau classement elo a partir de son ancient, de son coeficient de reussite et de sa probabilité de succès
+        function newElo($lastElo, $coef_reussite, $proba_succes)
+        {
+            return (int) ($lastElo + 30 * ($coef_reussite - $proba_succes));
+        }
+
+        //renvoie la probabilité de succès du joueur ayant un classement elo1
+        //quand il joue contre un joueur ayant un classement elo2
+        function proba_succes_1vs1($elo1, $elo2)
+        {
+            return 1.0 / (1.0 + pow(10, ($elo1 - $elo2)/400));
+        }
+
+        //calcule du coefficient de reussite
+        function coef_reussite($nbJoueur, $classement)
+        {
+            return ($nbJoueur - $classement) / (($nbJoueur * ($nbJoueur-1))/2);
+        }
+
+        //FIN ELO
 
     }
