@@ -68,11 +68,14 @@ public class ProfileManager
 	 * sur les noms ou emails des utilisateurs. La liste modifiée est
 	 * enregistrée.
 	 * 
+	 * AJOUT CHARLIE ALEX : retourne false si le pseudo est dans la bdd
 	 * @param profile
 	 * 		Utilisateur à rajouter.
 	 */
 	public static boolean addProfile(Profile profile)
 	{	
+		//CHARLIE ALEX
+		
 		//ACCEE BDD
 		Integer id = null;
 		try {

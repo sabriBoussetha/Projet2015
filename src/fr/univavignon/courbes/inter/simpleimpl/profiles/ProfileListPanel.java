@@ -31,6 +31,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -205,12 +206,18 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 			profile.eloRank = ProfileManager.getProfiles().size()+1;
 			profile.password = password;
 			
-			// on le rajoute à la liste
+			//AJOUT ALEX ET CHARLIE
+			// si addProfile return false, c'est que le pseudo existe deja
 			if(ProfileManager.addProfile(profile))
 			{
 				// on le rajoute dans la table
 				ProfileTableModel model = (ProfileTableModel) playerTable.getModel();
 				model.addProfile(profile);
+			}
+			else
+			{
+				//si false, on affiche une fenetre
+				JOptionPane.showMessageDialog(mainWindow, "Le pseudo existe déjà !");
 			}
 			
 			
