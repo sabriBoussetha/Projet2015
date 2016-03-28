@@ -39,8 +39,10 @@ public class listeJoueurPanel extends JPanel{
 	    
 	    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 	    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+	    
 	    tableau.setDefaultRenderer(String.class, centerRenderer);
 	    tableau.setDefaultRenderer(Integer.class, centerRenderer);
+	   // tableau.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
 		//on ajoute le table au panel
 		this.add(new JScrollPane( tableau),BorderLayout.CENTER);
