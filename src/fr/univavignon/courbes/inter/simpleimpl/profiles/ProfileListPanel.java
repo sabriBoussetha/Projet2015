@@ -42,6 +42,7 @@ import fr.univavignon.courbes.common.Profile;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
+import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
 
 /**
  * Panel destiné à afficher la liste des profils existants.
@@ -58,6 +59,8 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 	
 	private static final String DEFAULT_PASSWORD = "Mot de passe ";
 	
+	protected SoundEffect sound;
+	
 	/**
 	 * Crée un nouveau panel destiné à afficher la liste des profils.
 	 * 
@@ -67,7 +70,7 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 	public ProfileListPanel(MainWindow mainWindow)
 	{	super();
 		this.mainWindow = mainWindow;
-		
+		sound = new SoundEffect();
 		init();
 	}
 	
@@ -217,6 +220,7 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 			else
 			{
 				//si false, on affiche une fenetre
+				sound.errorSound();
 				JOptionPane.showMessageDialog(mainWindow, "Le pseudo existe déjà !");
 			}
 			
