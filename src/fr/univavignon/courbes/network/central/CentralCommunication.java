@@ -26,5 +26,5 @@ public interface CentralCommunication {
 			
 	String searchGame(String choice) throws IOException;
 	
-	void addPlayer(String pseudo,String country,String password) throws IOException;
+	Integer addPlayer(String pseudo,String country,String password) throws IOException;
 }

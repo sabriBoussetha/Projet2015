@@ -72,7 +72,8 @@ public class ProfileManager
 	 * 		Utilisateur à rajouter.
 	 */
 	public static void addProfile(Profile profile)
-	{	if(PROFILES.isEmpty())
+	{	
+		if(PROFILES.isEmpty())
 			profile.profileId = 0;
 		else
 		{	Profile mx = Collections.max(PROFILES);
@@ -82,8 +83,9 @@ public class ProfileManager
 		recordProfiles();
 		
 		 //Ajout dans la base de donnée
+		
 		try {
-			player.addPlayer(profile.userName,profile.country,profile.password);
+			System.out.println(" id recupere depuis la bdd -> : " + player.addPlayer(profile.userName,profile.country,profile.password));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

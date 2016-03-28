@@ -146,7 +146,7 @@ public class PhpCommunication implements CentralCommunication{
 	 * @param password
 	 * @throws IOException
 	 */
-	public void addPlayer(String pseudo, String country,String password) throws IOException{
+	public Integer addPlayer(String pseudo, String country,String password) throws IOException{
 		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
 	    String result = "";
 	    String data = "add_player=" + URLEncoder.encode(pseudo+"|"+country+"|"+password, "UTF-8");
@@ -173,10 +173,12 @@ public class PhpCommunication implements CentralCommunication{
             }
 	    	in.close();
 	    	connection.disconnect();
-            System.out.println(result);
+            //System.out.println(result);
 	    }catch(Throwable t) {
 	        System.out.println("Error: " + t.getMessage());
-	    }		
+	    }
+	    
+	    return Integer.parseInt(result);
 	}
 	
 	public static String getPlayer() throws IOException{
