@@ -117,12 +117,22 @@ public class ProfileManager
 	/**
 	 * Supprime un profil de la liste, et enregistre.
 	 * 
+	 * AJOUT ALEX CHARLIE return true et try catch
 	 * @param profile
 	 * 		Le profil à supprimer.
 	 */
-	public static void removeProfile(Profile profile)
-	{	PROFILES.remove(profile);
+	public static boolean removeProfile(Profile profile)
+	{	
+		PROFILES.remove(profile);
 		recordProfiles();
+		// AJOUT CHARLIE ALEX
+		try {
+			PhpCommunication.deletePlayer(profile.profileId);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 	
 	/**
@@ -138,7 +148,7 @@ public class ProfileManager
 			
 			for(Profile profile: PROFILES)
 			{	writer.write
-				(	profile.profileId + SEPARATOR + 
+				(	profile.profileId + SEPARATOR + //AJOUT CHARLIE ALEX
 					profile.userName + SEPARATOR + 
 					profile.country + SEPARATOR +
 					profile.eloRank + SEPARATOR +

@@ -221,7 +221,7 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 			{
 				//si false, on affiche une fenetre
 				sound.errorSound();
-				JOptionPane.showMessageDialog(mainWindow, "Le pseudo existe déjà !");
+				JOptionPane.showMessageDialog(mainWindow, "Le pseudo \"" + profile.userName +"\" existe déjà !");
 			}
 			
 			
@@ -249,6 +249,8 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 			// on le supprime de la table
 			ProfileTableModel model = (ProfileTableModel) playerTable.getModel();
 			model.removeProfile(selected);
+			sound.errorSound();
+			JOptionPane.showMessageDialog(mainWindow,"Le profile \"" + profile.userName + "\" a bien été supprimé!");
 		}
 	}
 	
