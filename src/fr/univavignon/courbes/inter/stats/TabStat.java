@@ -34,7 +34,7 @@ class TabStat extends AbstractTableModel{
 
 		System.out.println("on construit la tab");
 		String  title[] = 
-		{"classement ELO", "pseudo", "nombre de parties joués", "ratio de victoires","SELECT"};
+		{"ELO", "Pseudo", "Nb parties", "% Victoire", "Nb manches", "% Victoire", "Points", "mort Bord", "autre","soi même"," "};
 
 	
 		//TRAITEMENT JSON
@@ -47,6 +47,8 @@ class TabStat extends AbstractTableModel{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		System.out.println(test);
 
 		JSONParser parser = new JSONParser();
 		  
@@ -64,7 +66,7 @@ class TabStat extends AbstractTableModel{
 		JSONObject ligne;
 		
 		//on remplis le tableau qui sera affiché a partir des données JSON
-        data = new Object[tabPrincipale.size()][5];
+        data = new Object[tabPrincipale.size()][title.length];
         tabId = new int[tabPrincipale.size()];
 
         
@@ -75,13 +77,17 @@ class TabStat extends AbstractTableModel{
     		ligne = (JSONObject) tabLigne.get(0);
         	
         	data[i][0] = (int) (long) ligne.get("score_elo");
-        	data[i][1] = (String) ligne.get("pseudo");
+        	data[i][1] = ligne.get("pseudo");
         	data[i][2] = (int) (long) ligne.get("nb_partie");
-        	if ((int) (long) ligne.get("nb_partie") == 0)
-        		data[i][3] = 0;
-        	else
-        		data[i][3] = (double) (long) ligne.get("nb_partie_premier") / (long) ligne.get("nb_partie");
-        	data[i][4] = new Boolean(false);
+        	data[i][3] = pourcentage((long) ligne.get("nb_partie_premier"), (long) ligne.get("nb_partie"));
+        	data[i][4] = (int) (long) ligne.get("nb_manche");
+        	data[i][5] = pourcentage((long) ligne.get("nb_manche_premier"), (long) ligne.get("nb_manche"));
+        	data[i][6] = (int) (long) ligne.get("nb_points");
+        	data[i][7] = (int) (long) ligne.get("mort_bord");
+        	data[i][8] = (int) (long) ligne.get("mort_autre");
+        	data[i][9] = (int) (long) ligne.get("mort_soi_meme");
+        	data[i][title.length-1] = new Boolean(false);
+        	
         	
         	tabId[i] =  (int) (long) ligne.get("id");
 
@@ -91,6 +97,12 @@ class TabStat extends AbstractTableModel{
         
 		this.data = data;
 		this.title = title;
+	}
+	
+	public String pourcentage(long a, long b)
+	{
+		if (b == 0) return "0%";
+		return "" + 100*a/b + "%";
 	}
   
   
@@ -146,8 +158,8 @@ class TabStat extends AbstractTableModel{
 		LinkedList listId = new LinkedList();
 		for (int i = 0; i < getRowCount(); i++)
 		{
-			//on recupere la valeur a la ligne i et a la colonne 4
-			if ((boolean) data[i][4])
+			//on recupere la valeur a la ligne i et a la derniere colonne
+			if ((boolean) data[i][this.getColumnCount()-1])
 			{
 				listId.add(tabId[i]);
 			}
