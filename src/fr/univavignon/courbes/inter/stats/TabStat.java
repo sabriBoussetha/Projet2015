@@ -32,6 +32,7 @@ class TabStat extends AbstractTableModel{
 	//Constructeur
 	public TabStat(){
 
+		System.out.println("on construit la tab");
 		String  title[] = 
 		{"classement ELO", "pseudo", "nombre de parties joués", "ratio de victoires","SELECT"};
 
@@ -65,17 +66,7 @@ class TabStat extends AbstractTableModel{
 		//on remplis le tableau qui sera affiché a partir des données JSON
         data = new Object[tabPrincipale.size()][5];
         tabId = new int[tabPrincipale.size()];
-        
-		}
-		
-		
-		JSONArray tabLigne;
-		
-		JSONObject ligne;
-		
-		//on remplis le tableau qui sera affiché a partir des données JSON
-        data = new Object[tabPrincipale.size()][5];
-        tabId = new int[tabPrincipale.size()];
+
         
         //on enumere les elements du tableau
         for (int i = 0; i < tabPrincipale.size(); i++)
