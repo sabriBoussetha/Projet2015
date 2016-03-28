@@ -243,7 +243,8 @@ public class ClientGameWaitPanel extends AbstractConfigurationPanel implements R
 		SwingUtilities.invokeLater(new Runnable()
 		{	@Override
 			public void run()
-			{	JOptionPane.showMessageDialog(mainWindow, 
+			{	sound.errorSound();
+				JOptionPane.showMessageDialog(mainWindow, 
 					"<html>Le serveur a rejeté le joueur sélectionné, soit personnellement,"
 					+ "<br/>soit parce que son profil était déjà utilisé dans cette partie.</html>");
 				previousStep();
@@ -261,7 +262,8 @@ public class ClientGameWaitPanel extends AbstractConfigurationPanel implements R
 	{	SwingUtilities.invokeLater(new Runnable()
 		{	@Override
 			public void run()
-			{	JOptionPane.showMessageDialog(mainWindow, 
+			{	sound.errorSound();
+				JOptionPane.showMessageDialog(mainWindow, 
 					"<html>La connexion avec le serveur a été perdue.</html>");
 				previousStep();
 			}

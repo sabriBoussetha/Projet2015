@@ -107,7 +107,8 @@ public class ClientGameServerConnectionPanel extends AbstractConnectionPanel imp
 	{	SwingUtilities.invokeLater(new Runnable()
 		{	@Override
 			public void run()
-			{	JOptionPane.showMessageDialog(mainWindow, 
+			{	sound.errorSound();
+				JOptionPane.showMessageDialog(mainWindow, 
 					"<html>Le serveur a rejeté votre candidature, car il ne reste "
 					+ "<br/>pas de place dans la partie en cours de configuration.</html>");
 			}
@@ -140,7 +141,8 @@ public class ClientGameServerConnectionPanel extends AbstractConnectionPanel imp
 		}
 		
 		else
-		{	JOptionPane.showMessageDialog(mainWindow, 
+		{	sound.errorSound();
+			JOptionPane.showMessageDialog(mainWindow, 
 				"<html>Il n'a pas été possible d'établir la moindre connexion avec le serveur.</html>");
 		}
 	}

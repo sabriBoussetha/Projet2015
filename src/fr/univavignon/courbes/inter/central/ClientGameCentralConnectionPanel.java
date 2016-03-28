@@ -1,6 +1,9 @@
 package fr.univavignon.courbes.inter.central;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
@@ -42,7 +45,7 @@ import fr.univavignon.courbes.network.simpleimpl.client.ClientCommunicationImpl;
 /**
  * @author sabri
  * 
- * 	Cette classe corréspond à la fênetre d'attente d'une partie publique sur le serveur central
+ * 	Cette classe correspond à la fênetre d'attente d'une partie publique sur le serveur central
  * 
  * */
 
@@ -62,8 +65,8 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 	private int numberServers;
 	
 	JPanel panel;
-	JButton join;
-	JLabel serverLabel;
+	JButton []join;
+	JLabel []serverLabel;
 	
 	/**
 	 * @param mainWindow
@@ -71,19 +74,19 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 	public ClientGameCentralConnectionPanel(MainWindow mainWindow)
 	{	
 		super(mainWindow, TITLE);
-		///JLabel lab1 = new JLabel("User Name", JLabel.LEFT);
-		//this.add(new JLabel("Hiiiiiii"));
+		JLabel lab1 = new JLabel("User Name", JLabel.LEFT);
 		search = new PhpCommunication();
-		/*boolean connected = connect();
+		boolean connected = connect();
 		
 		if(connected)
 		{	// on désactive les boutons le temps de l'attente
-			//backButton.setEnabled(false);
-			//nextButton.setEnabled(false);
+			backButton.setEnabled(false);
+			nextButton.setEnabled(true);
 			System.out.println("yo");
+			//this.removeAll();
 			// puis on se contente d'attendre la réponse : acceptation ou rejet
 			// la méthode correspondante du handler sera automatiquement invoquée
-		}*/
+		}
 	}
 	
 	/**
@@ -123,24 +126,45 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		    while (scan.hasNext())
 		        str += scan.nextLine();		// Mettre le contenu du fichier dans une chaine de charactère
 		    scan.close();
-		    
+		    this.removeAll();
 		    //JSONObject objectJson = new JSONObject(str);
 		    JSONArray arrayJSON = new JSONArray(str);			// Création d'un object JSONArray à partir la variable String
 		    numberServers = arrayJSON.length();
 		    servers = new CentralAvailableServers[arrayJSON.length()];		
 		    JSONObject tmp;
-			//this.removeAll();
+			this.removeAll();
+			initContent();
+			
+			BorderLayout borderLayout = new BorderLayout();
+			setLayout(borderLayout);
+			panel = new JPanel();
+			BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.LINE_AXIS);
+			panel.setLayout(boxLayout);
+			
+			panel.add(Box.createVerticalGlue());
 		    // Pour tout les elements du JSONArray
+			serverLabel = new JLabel[arrayJSON.length()];
+			join = new JButton[arrayJSON.length()];
 		    for(int i=0; i<arrayJSON.length(); i++)	
 		    {
 		    	tmp=arrayJSON.getJSONObject(i);
 		    	servers[i] = new CentralAvailableServers();
 		    	servers[i].setIpHost(tmp.getString("ip_host"));
 		    	servers[i].setAvailablePlaces(tmp.getInt("available_places"));
+		    	ipStr = servers[i].getIpHost();
 		    	
+		    	serverLabel[i] = new JLabel("Adresse IP : " + servers[i].getIpHost() + " Places disponibles : " + servers[i].getAvailablePlaces());
 		    	System.out.println(tmp.getString("ip_host") + " | " + tmp.getInt("available_places"));
-		    	//this.add(new JLabel(servers[i].getIpHost() + " " + servers[i].getAvailablePlaces()));
+		    	panel.add(serverLabel[i]);
+		    	
+		    	join[i] = new JButton();
+		    	join[i] = initButton("Joindre",20,200);
+		    	panel.add(join[i]);
+		    	panel.add(Box.createVerticalStrut(10));
+		    	//panel.add(new JLabel(servers[i].getIpHost() + " " + servers[i].getAvailablePlaces()));
 		    }
+		    panel.add(Box.createVerticalGlue());
+		    add(panel, BorderLayout.WEST);
 		    this.validate();
 			this.repaint();
 			// On enlève une place disponible dans la table	
@@ -148,20 +172,19 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
-//		ipStr = ipTextField.getText();
+		}
 		clientCom.setIp(ipStr);
 		SettingsManager.setLastServerIp(ipStr);
 		
 		// On récupère le numéro de port
 		int port = 9999;
-//		String portStr = portTextField.getText();
-//		int port = Integer.parseInt(portStr);
+
 		clientCom.setPort(port);
 		SettingsManager.setLastServerPort(port);
 		
 		// puis on se connecte
 		boolean result = clientCom.launchClient();
+		System.out.println(result);
 		return result;
 	}
 	
@@ -234,85 +257,28 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 	/**
 	 * Panel contenant la liste des serveurs disponibles
 	 * */
-	
-
-	
 	@Override
 	protected void initContent(){	
 		super.initContent();
-		//boolean connected = connect();
 		ipTextField.setEnabled(false);	// je désactive le text field	
-		
-		panel = new JPanel();
-		BoxLayout layout = new BoxLayout(panel, BoxLayout.PAGE_AXIS);
-		panel.setLayout(layout);
-		add(panel);
-		
-		JPanel titlePanel = new JPanel();
-		layout = new BoxLayout(titlePanel, BoxLayout.LINE_AXIS);
-		titlePanel.setLayout(layout);
-		panel.add(titlePanel);
-		int height = 20;
-		Dimension dim;
-		Border border = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
-		
-		JLabel serverLabel = new JLabel("Servers");
-		serverLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		dim = new Dimension(500,height);
-		serverLabel.setPreferredSize(dim);
-		serverLabel.setMaximumSize(dim);
-		serverLabel.setMinimumSize(dim);
-		serverLabel.setBorder(border);
-		titlePanel.add(serverLabel);
-
-		titlePanel.add(Box.createHorizontalGlue());
-		
-		
-		/*JLabel leftLabel = new JLabel("Rejeter");
-		leftLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		dim = new Dimension(200,height);
-		leftLabel.setPreferredSize(dim);
-		leftLabel.setMaximumSize(dim);
-		leftLabel.setMinimumSize(dim);
-		leftLabel.setBorder(border);
-		titlePanel.add(leftLabel);*/
-		
-		add(Box.createHorizontalGlue());
-		System.out.println(numberServers);
-
-		join = new JButton("Joindre Ce Serveur");
-		join.addActionListener(this);
-		dim = new Dimension(200,height);
-		join.setPreferredSize(dim);
-		join.setMaximumSize(dim);
-		join.setMinimumSize(dim);
-		join.setBackground(Constants.PLAYER_COLORS[2]);
-		add(this.join);
-		join.setEnabled(false);
-			
-			/*dim = new Dimension(200,height);
-			//serverLabel.setPreferredSize(dim);
-			serverLabel.setMaximumSize(dim);
-			serverLabel.setMinimumSize(dim);
-			//serverLabel.setBackground(Constants.PLAYER_COLORS[player.playerId]);
-			serverLabel.setOpaque(true);
-			add(serverLabel);*/
-			
-			//add(Box.createHorizontalGlue());
-		boolean connected = connect();
-		if(connected){
-			for(int i=0; i<servers.length; i++)
-			{
-				this.add(new JLabel(servers[i].getIpHost() + " " + servers[i].getAvailablePlaces()));
-			}
-		}
-			
 	}
 	
+	private JButton initButton(String text, int width, int height)
+	{	JButton result = new JButton(text);
 	
-	protected void intPlayerPanel()
-	{
+		Font font = getFont();
+		font = new Font(font.getName(),Font.PLAIN,25);
+		result.setFont(font);
 		
+		Dimension dim = new Dimension(width,height);
+		result.setMaximumSize(dim);
+		result.setMinimumSize(dim);
+		result.setPreferredSize(dim);
+		result.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		result.addActionListener(this);
+		
+		return result;
 	}
 
 }

@@ -254,7 +254,8 @@ if(!lastEliminated.isEmpty())
 		{	@Override
 			public void run()
 			{	if(!matchOver)
-				{	JOptionPane.showMessageDialog(mainWindow, 
+				{	sound.errorSound();
+					JOptionPane.showMessageDialog(mainWindow, 
 						"<html>La connexion avec le serveur a été perdue.</html>");
 					clientCom.closeClient();
 					clientCom.setGameHandler(null);

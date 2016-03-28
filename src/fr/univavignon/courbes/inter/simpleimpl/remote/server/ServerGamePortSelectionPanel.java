@@ -142,6 +142,7 @@ public class ServerGamePortSelectionPanel extends AbstractConnectionPanel implem
 					mainWindow.displayPanel(PanelName.SERVER_GAME_LOCAL_PLAYER_SELECTION);
 				}
 				else{
+					sound.errorSound();
 					JOptionPane.showMessageDialog(mainWindow, 
 							"<html>Accès au serveur central impossible.<br/>"
 							+ "Vérifier votre connection internet.</html>");

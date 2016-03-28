@@ -50,7 +50,9 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	/** Instance de la classe SoundEffect nécessaire pour lancer le son en arrière plan*/
 	private SoundEffect sound;
 	/** Boolean indiquant si le son en arrière plan est entrain de jouer ou pas */
-	private boolean soundIsWorking;
+	private boolean soundIsWorking = false;
+	/** Index indiquant du morceau en cours */
+	private static int indexOfSound = 0;
 	/**
 	 * Crée le menu principal et tous ses composants graphiques.
 	 * 
@@ -62,7 +64,7 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		
 		this.mainWindow = mainWindow;
 		sound = new SoundEffect();
-		soundIsWorking = sound.backGroundMusic(true);
+		soundIsWorking = sound.backGroundMusic(true,indexOfSound);
 		initMenu();
 	}
 	
@@ -83,6 +85,8 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	private JButton quitButton;
 	/** Bouton pour arrêter/reprendre le son en arrière plan */
 	private JButton offSound;
+	/** Bouton pour passer au morceau suivant */
+	private JButton nextSoundTrack;
 	
 	
 	/**
@@ -139,13 +143,16 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		
 		// Panel qui contient le bouton pour arrêter/reprendre le son
 		JPanel soundPanel = new JPanel();
-		BoxLayout boxLayout1 = new BoxLayout(soundPanel, BoxLayout.PAGE_AXIS);
+		BoxLayout boxLayout1 = new BoxLayout(soundPanel, BoxLayout.LINE_AXIS);
 		soundPanel.setLayout(boxLayout1);
 		
 		soundPanel.add(Box.createVerticalGlue());
 		
-		offSound = initButton("Joué/Mute",200,50);	
+		offSound = initButton("Mute",100,50);	
 		soundPanel.add(offSound);
+		
+		nextSoundTrack = initButton("next",100,50);	
+		soundPanel.add(nextSoundTrack);
 		
 		soundPanel.add(Box.createVerticalGlue());
 		soundPanel.setBackground(Color.BLACK);
@@ -237,12 +244,29 @@ public class MainMenuPanel extends JPanel implements ActionListener
 			mainWindow.closeWindow();
 		}
 		else if(e.getSource()==offSound)
-		{
+		{	
 			if(soundIsWorking)
-			{	soundIsWorking = sound.backGroundMusic(false);
+			{	soundIsWorking = sound.backGroundMusic(false,indexOfSound);
+				offSound.setText("Son");	// Changer le texte du bouton
 			}
-			else if(!soundIsWorking)
-			{	soundIsWorking = sound.backGroundMusic(true);
+			else// if(!soundIsWorking)
+			{	soundIsWorking = sound.backGroundMusic(true,indexOfSound);
+				offSound.setText("Mute");
+			}
+		}
+		else if(e.getSource()==nextSoundTrack)
+		{	
+			if(indexOfSound==sound.soundTrack.length-1)
+			{	soundIsWorking = sound.backGroundMusic(false,indexOfSound);
+				indexOfSound = 0;
+				soundIsWorking = sound.backGroundMusic(true, 0);
+				offSound.setText("Mute");	// Changer le texte du bouton
+			}
+			else
+			{	soundIsWorking = sound.backGroundMusic(false,indexOfSound);
+				indexOfSound += 1;
+				soundIsWorking = sound.backGroundMusic(true, indexOfSound);
+				offSound.setText("Mute");	// Changer le texte du bouton
 			}
 		}
 	

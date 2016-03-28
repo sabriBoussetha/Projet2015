@@ -337,7 +337,8 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 			
 		}
 		else
-		{	JOptionPane.showMessageDialog(mainWindow, 
+		{	sound.errorSound();
+			JOptionPane.showMessageDialog(mainWindow, 
 				"<html>Tous les joueurs distants n'ont pas été sélectionnés.<br/>"
 				+ "Ajoutez de nouveaux joueurs ou diminuez le nombre de joueurs distants.</html>");
 		}

@@ -90,7 +90,8 @@ public class ServerGameLocalPlayerSelectionPanel extends AbstractLocalPlayerSele
 			mainWindow.displayPanel(PanelName.SERVER_GAME_REMOTE_PLAYER_SELECTION);
 		}
 		else
-		{	JOptionPane.showMessageDialog(mainWindow, 
+		{	sound.errorSound();
+			JOptionPane.showMessageDialog(mainWindow, 
 				"<html>Les données des joueurs locaux ne sont pas correctement remplies. Vérifiez que :" +
 				"<br/>- tous les profils sont définis et différents, et que" +
 				"<br/>- toutes les commandes sont définies et différentes.</html>");

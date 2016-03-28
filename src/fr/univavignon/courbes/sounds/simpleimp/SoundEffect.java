@@ -19,7 +19,8 @@ public class SoundEffect implements SoundEngine {
 	private static final long serialVersionUID = 1L;
 	/** Instance de la classe Sound nécessaire pour la manipulation du son */
 	public Sound sound;
-	
+	/** */
+	public String []soundTrack = new String[]{"res/sounds/Happy.wav","res/sounds/Clapps.wav","res/sounds/Bonus.wav"};
 	/**
 	 * Jouer le son correspondant à la collision avec un snake
 	 */
@@ -99,24 +100,27 @@ public class SoundEffect implements SoundEngine {
 	 * @param play 
 	 * 		En fonction de cette variable booléenne on joue ou on arrête
 	 * 		le morceau joué en arrière plan
+	 * @param soundNumber 
+	 * 		Indiquant l'indice du morceau en cours dans le tableau soundTrack
 	 * 
 	 * @return boolean 
 	 * 		Si le morceau joue elle retourne {@true} sinon {@false}
 	 * */
 	@Override
-	public boolean backGroundMusic(boolean play)
+	public boolean backGroundMusic(boolean play, int soundNumber)
 	{	
 		if(play)
 		{
-			sound = new Sound("res/sounds/Happy.wav");
+			sound = new Sound(soundTrack[soundNumber]);
 			sound.play(true);
 			return true;
 		}
-		else
+		else if(!play)
 		{
 			sound.stopC();
 			return false;
 		}
+		return play;
 	}
 	/**
 	 * Fonction qui lance le son d'erreur lors d'un message d'erreur qui apparait

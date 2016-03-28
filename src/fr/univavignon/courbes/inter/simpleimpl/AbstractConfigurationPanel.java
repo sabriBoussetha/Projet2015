@@ -46,7 +46,7 @@ public abstract class AbstractConfigurationPanel extends JPanel implements Actio
 	private static final long serialVersionUID = 1L;
 	
 	/** Instance de la classe SoundEffect nécessaire pour lancer le son */ 
-	private SoundEffect sound;
+	public SoundEffect sound;
 	
 	/**
 	 * Crée et initialise le panel permettant de sélectionner

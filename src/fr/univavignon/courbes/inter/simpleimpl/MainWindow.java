@@ -257,7 +257,9 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 		SwingUtilities.invokeLater(new Runnable()
 		{	@Override
 			public void run()
-			{	JOptionPane.showMessageDialog(window, errorMessage, "Erreur", JOptionPane.WARNING_MESSAGE);
+			{	SoundEffect sound = new SoundEffect();
+				sound.errorSound();
+				JOptionPane.showMessageDialog(window, errorMessage, "Erreur", JOptionPane.WARNING_MESSAGE);
 				System.out.println("ERROR: "+errorMessage);
 			}
 		});
