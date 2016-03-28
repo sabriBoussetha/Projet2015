@@ -185,25 +185,24 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				JOptionPane.showMessageDialog(mainWindow, "Le joueur "+name+"a gagné la partie !");
+				JOptionPane.showMessageDialog(mainWindow, "Le joueur "+name+" a gagné la partie !");
 				
 				//TODO perso stat fin partie
 				if (envoyerStat)
 				{
-					/*
-					System.out.println("afficahge stat partie!");
 					
-					System.out.println("prID \t rndScr \t eliminate by \t premier");
-					// raisonMort;
+					System.out.println("Afficahge stat Partie!");
+					
+					System.out.println("prID \t gameScr \t eliminate by \t premier");
 					for (Player p : players)
-					{
-						if (eliminatedBy[p.playerId] == -1) raisonMort = "bord";
-						else if (eliminatedBy[p.playerId] == null) raisonMort = "en vie";
+					{	if (eliminatedBy[p.playerId] == null) raisonMort = "en vie";
+						else if (eliminatedBy[p.playerId] == -1) raisonMort = "bord";
 						else if (eliminatedBy[p.playerId] == p.playerId) raisonMort = "lui meme";
 						else raisonMort = "autre";
 						
-						System.out.println(p.profile.profileId + "\t" + p.roundScore + "\t" + raisonMort + (raisonMort == "en vie"));
-					}*/
+						System.out.println(p.profile.profileId + "\t" + totalPoints[p.playerId] + "\t" + raisonMort + (raisonMort == "en vie"));
+						System.out.println(players[maxIdx].profile.userName + " a gagné le match !");
+					}
 				}
 				//FIN
 			}

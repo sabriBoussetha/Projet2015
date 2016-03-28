@@ -55,7 +55,7 @@ public class Constants
 	////	VITESSE DE DEPLACEMENT
 	////////////////////////////////////////////////////////////////
 	/** Vitesse de déplacement initiale (i.e. sans l'effet d'un item) des serpents, exprimée en pixels par ms */
-	public static final float BASE_MOVING_SPEED = 2f;//0.08f;
+	public static final float BASE_MOVING_SPEED = 0.08f;
 	/** Coefficient multiplicatif/diviseur appliqué à la vitesse de déplacement pour l'augmenter/la diminuer */
 	public static final float MOVING_SPEED_COEFF = 2f;
 	
