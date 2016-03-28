@@ -1,1 +1,2 @@
-46,d,d,2,null,d
+48,charlie,france,1,null,a
+49,bernie,allemagne,2,null,aa

@@ -61,7 +61,8 @@ public abstract class AbstractConfigurationPanel extends JPanel implements Actio
 	{	super();
 		this.mainWindow = mainWindow;
 		sound = new SoundEffect();
-		init(title);
+		//AJOUT CHARLIE POUR AFFICHER LE CHEMIN DU PANEL
+		init(title + " | " + this.getClass().getName() );
 	}
 	
 	/** Fenêtre contenant ce panel */
