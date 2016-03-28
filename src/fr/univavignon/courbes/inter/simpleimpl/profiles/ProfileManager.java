@@ -46,7 +46,7 @@ public class ProfileManager
 	/** Liste des profils */
 	private static final TreeSet<Profile> PROFILES = new TreeSet<Profile>();
 	/** Nombre de champs à lire par profil */
-	private static final int PROFILE_FIELD_NBR = 5;
+	private static final int PROFILE_FIELD_NBR = 6;
 	
 	static PhpCommunication player = new PhpCommunication();
 	
@@ -73,23 +73,28 @@ public class ProfileManager
 	 */
 	public static void addProfile(Profile profile)
 	{	
+		//ACCEE BDD
+		Integer id = null;
+		try {
+			id = player.addPlayer(profile.userName,profile.country,profile.password);
+			//System.out.println("Id recupere depuis la bdd -> : " + );
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		profile.profileId = id;
+		/*
 		if(PROFILES.isEmpty())
 			profile.profileId = 0;
 		else
 		{	Profile mx = Collections.max(PROFILES);
 			profile.profileId = mx.profileId + 1;
-		}	
+		}*/
 		PROFILES.add(profile);
 		recordProfiles();
 		
-		 //Ajout dans la base de donnée
-		
-		try {
-			System.out.println(" id recupere depuis la bdd -> : " + player.addPlayer(profile.userName,profile.country,profile.password));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 	}
 	
 	/**
@@ -116,7 +121,8 @@ public class ProfileManager
 			
 			for(Profile profile: PROFILES)
 			{	writer.write
-				(	profile.userName + SEPARATOR + 
+				(	profile.profileId + SEPARATOR + 
+					profile.userName + SEPARATOR + 
 					profile.country + SEPARATOR +
 					profile.eloRank + SEPARATOR +
 					profile.email + SEPARATOR +
@@ -147,19 +153,24 @@ public class ProfileManager
 			while(scanner.hasNext())
 			{	String line = scanner.nextLine();
 				String elem[] = line.split(SEPARATOR);
+				
 				if(elem.length == PROFILE_FIELD_NBR)
 				{	// on crée le profil et on l'initialise
 					Profile profile = new Profile();
-					profile.profileId = profileId;
-					profile.userName = elem[0].trim();
-					profile.country = elem[1].trim();
-					profile.eloRank = Integer.parseInt(elem[2].trim());
-					profile.email = elem[3].trim();
-					profile.password = elem[4].trim();
+					//profile.profileId = profileId;
+					profile.profileId = Integer.parseInt(elem[0].trim());
+					profile.userName = elem[1].trim();
+					profile.country = elem[2].trim();
+					profile.eloRank = Integer.parseInt(elem[3].trim());
+					profile.email = elem[4].trim();
+					profile.password = elem[5].trim();
 					PROFILES.add(profile);
 				}
 				else
 					System.err.println("Erreur à la ligne "+(profileId+1)+" : elle contient " + elem.length + " éléments au lieu des "+PROFILE_FIELD_NBR+" attendus");
+				
+				
+				//System.out.println(elem[1]);
 				
 				profileId++;
 			}
