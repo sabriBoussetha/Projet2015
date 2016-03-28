@@ -71,7 +71,7 @@ public class ProfileManager
 	 * @param profile
 	 * 		Utilisateur à rajouter.
 	 */
-	public static void addProfile(Profile profile)
+	public static boolean addProfile(Profile profile)
 	{	
 		//ACCEE BDD
 		Integer id = null;
@@ -83,16 +83,30 @@ public class ProfileManager
 			e.printStackTrace();
 		}
 		
-		profile.profileId = id;
-		/*
-		if(PROFILES.isEmpty())
-			profile.profileId = 0;
-		else
-		{	Profile mx = Collections.max(PROFILES);
-			profile.profileId = mx.profileId + 1;
-		}*/
-		PROFILES.add(profile);
-		recordProfiles();
+		
+		//on n'ajoute au fichier texte le player que si id != -1,
+		//cad que le pseudo entré n'existe pas deja
+		if (id != -1)
+		{
+			System.out.println("dans le if id : " + id);
+			/*
+			if(PROFILES.isEmpty())
+				profile.profileId = 0;
+			else
+			{	Profile mx = Collections.max(PROFILES);
+				profile.profileId = mx.profileId + 1;
+			}*/
+			profile.profileId = id;
+			
+			PROFILES.add(profile);
+			recordProfiles();
+			
+			return true;
+		}
+		
+		return false;
+		
+		
 		
 
 	}

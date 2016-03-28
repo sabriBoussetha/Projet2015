@@ -206,11 +206,14 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 			profile.password = password;
 			
 			// on le rajoute à la liste
-			ProfileManager.addProfile(profile);
+			if(ProfileManager.addProfile(profile))
+			{
+				// on le rajoute dans la table
+				ProfileTableModel model = (ProfileTableModel) playerTable.getModel();
+				model.addProfile(profile);
+			}
 			
-			// on le rajoute dans la table
-			ProfileTableModel model = (ProfileTableModel) playerTable.getModel();
-			model.addProfile(profile);
+			
 			
 			// on réinitialise les champs texte
 			nameField.setText(DEFAULT_NAME);

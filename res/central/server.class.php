@@ -101,6 +101,14 @@
             $country = $parse_add_player[1];
             $password = sha1($parse_add_player[2]);
             $connection = new dbconnection();
+
+
+            //d'abord on voit si le pseudo existe deja
+            $res = $connection->doExec("SELECT count(pseudo) from player where pseudo='$pseudo'");
+            
+            echo var_dump($res);
+            /*return;
+            
             $sql = "INSERT INTO player (pseudo, country,password) VALUES('$pseudo','$country','$password')";
             $res = $connection->doExec($sql);
             $sql1 = "SELECT id FROM player WHERE pseudo = '$pseudo'";
@@ -110,7 +118,7 @@
             $res2 = $connection->doExec($sql2);
             $date = date('d-m-Y, H:i:s');
             $sql3 = "INSERT INTO stat_elo (id,date_) VALUES ('$id_joueur','$date')";
-            $res3 = $connection->doExec($sql3);
+            $res3 = $connection->doExec($sql3);*/
         }
         public function getPlayer(){
             $connection = new dbconnection();

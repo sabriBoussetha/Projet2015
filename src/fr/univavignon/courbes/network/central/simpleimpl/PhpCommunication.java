@@ -177,7 +177,7 @@ public class PhpCommunication implements CentralCommunication{
 	    }catch(Throwable t) {
 	        System.out.println("Error: " + t.getMessage());
 	    }
-	    
+	    System.out.println(result);
 	    return Integer.parseInt(result);
 	}
 	
