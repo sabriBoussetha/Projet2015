@@ -91,7 +91,7 @@ public class ClientGameRoundPanel extends AbstractRoundPanel implements ClientGa
 	@Override
 	public void run()
 	{	// on joue la partie (i.e. plusieurs manches)
-		playMatch();
+		playMatch(false);
 		
 		// TODO la mise à jour des stats devrait aller ici
 		// (soit calcul local, soit synchronisation avec le serveur)

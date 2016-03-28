@@ -91,7 +91,7 @@ public class ServerGameRoundPanel extends AbstractRoundPanel implements ServerGa
 	@Override
 	public void run()
 	{	// on joue la partie (i.e. plusieurs manches)
-		playMatch();
+		playMatch(true);
 		
 		// TODO la mise à jour des stats irait ici
 		

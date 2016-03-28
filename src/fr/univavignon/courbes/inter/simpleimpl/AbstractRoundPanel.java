@@ -141,8 +141,10 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	
 	/**
 	 * Effectue la partie tout entière, i.e. plusieurs manches.
+	 * 
+	 * CHARLIE : ajout d'un bool pour spécifier si il faut, ou non, d'envoyer les stat
 	 */
-	protected void playMatch()
+	protected void playMatch(boolean envoyerStat)
 	{	totalPoints = new int[round.players.length];
 		Arrays.fill(totalPoints, 0);
 
@@ -158,7 +160,8 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 				totalPoints[i] = players[i].totalScore;
 			
 			
-			// TODO stat fin de manche
+			
+			
 
 			// on compare le score le plus élevé et la limite
 			int maxIdx = 0;
@@ -166,6 +169,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 			{	if(totalPoints[i]>totalPoints[maxIdx])
 					maxIdx = i;
 			}
+			
 			matchOver = totalPoints[maxIdx]>=Constants.POINT_LIMIT_FOR_PLAYER_NBR.get(totalPoints.length);
 			
 			// on affiche éventuellement le vainqueur de la partie
@@ -180,6 +184,10 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 					e.printStackTrace();
 				}
 				JOptionPane.showMessageDialog(mainWindow, "Le joueur "+name+"a gagné la partie !");
+				
+				//TODO perso stat fin partie
+				
+				//FIN
 			}
 			
 			// ou bien celui de la manche, et on recommence
@@ -193,8 +201,29 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 				String name = profile.userName;
 				JOptionPane.showMessageDialog(mainWindow, "Le joueur "+name+" a gagné la manche !");
 				
+				//TODO perso stat fin manche
+				
+				//on n'envoie les stats que si cela est demandé
+				if (envoyerStat)
+				{
+					System.out.println("afficahge stat");
+					
+					System.out.println("prID \t plID \t rndScr \t eliminate by");
+					for (Player p : players)
+					{
+						System.out.println(p.profile.profileId + "\t" + p.playerId + "\t" + p.roundScore + "\t" + eliminatedBy[p.playerId]);
+					}
+				}
+				
+				//FIN
+				
 				resetRound();
+				
+				
 			}
+			
+			
+			
 		}
 		while(!matchOver);
 	}

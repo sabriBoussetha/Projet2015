@@ -50,13 +50,11 @@ public class LocalGameRoundPanel extends AbstractRoundPanel
 
 	@Override
 	public void run()
-	{	playMatch();
+	{	playMatch(true);
 		
 		// TODO la mise à jour des stats devrait être faite ici
+		
 	
-		
-		
-		
 		// on repart au menu principal
 		mainWindow.currentRound = null;
 		mainWindow.displayPanel(PanelName.MAIN_MENU);
