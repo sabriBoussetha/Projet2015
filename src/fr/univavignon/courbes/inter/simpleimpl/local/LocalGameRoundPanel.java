@@ -53,6 +53,9 @@ public class LocalGameRoundPanel extends AbstractRoundPanel
 	{	playMatch();
 		
 		// TODO la mise à jour des stats devrait être faite ici
+	
+		
+		
 		
 		// on repart au menu principal
 		mainWindow.currentRound = null;

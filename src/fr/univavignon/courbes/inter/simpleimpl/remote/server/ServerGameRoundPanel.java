@@ -95,6 +95,9 @@ public class ServerGameRoundPanel extends AbstractRoundPanel implements ServerGa
 		
 		// TODO la mise à jour des stats irait ici
 		
+		//this.showStats
+	
+		
 		// on repart au menu principal
 		serverCom.closeServer();
 		serverCom.setGameHandler(null);

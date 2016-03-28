@@ -156,6 +156,9 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 			Player[] players = round.players;
 			for(int i=0;i<players.length;i++)
 				totalPoints[i] = players[i].totalScore;
+			
+			
+			// TODO stat fin de manche
 
 			// on compare le score le plus élevé et la limite
 			int maxIdx = 0;

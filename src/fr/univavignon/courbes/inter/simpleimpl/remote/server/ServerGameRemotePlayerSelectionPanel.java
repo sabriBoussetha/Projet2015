@@ -334,6 +334,7 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 			}
 			mainWindow.displayPanel(PanelName.SERVER_GAME_PLAY);
 //			mainWindow.serverCom.sendRound(round);
+			
 		}
 		else
 		{	JOptionPane.showMessageDialog(mainWindow, 
