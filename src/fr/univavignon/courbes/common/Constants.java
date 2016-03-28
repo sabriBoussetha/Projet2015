@@ -45,11 +45,11 @@ public class Constants
 	////	DUREES ASSOCIEES AUX ETATS DE LA MANCHE
 	////////////////////////////////////////////////////////////////
 	/** Durée de la période, au début d'une manche, pendant laquelle les collisions sont désactivées */
-	public static final long ENTRANCE_DURATION = 3000;//5000; 	//TODO à confirmer
+	public static final long ENTRANCE_DURATION = 100;//3000;//5000; 	//TODO à confirmer
 	/** Durée de la période, au début d'une manche, pendant laquelle les collisions sont désactivées */
-	public static final long PRESENTATION_DURATION = 3000; 	//TODO à confirmer
+	public static final long PRESENTATION_DURATION = 0;//3000; 	//TODO à confirmer
 	/** Durée de la période, à la fin d'une manche, pendant laquelle il ne reste qu'un seul joueur en lice */
-	public static final long END_DURATION = 3000; 	//TODO à confirmer
+	public static final long END_DURATION = 100;//3000; 	//TODO à confirmer
 	
 	////////////////////////////////////////////////////////////////
 	////	VITESSE DE DEPLACEMENT

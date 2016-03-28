@@ -108,6 +108,8 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	/** Indique quel serpent a été éliminé par quoi : {@code null} pour pas éliminé, une <i>valeur négative</i> pour la bordure, et {@code playerId} pour un serpent (possiblement le joueur lui-même) */
 	protected Integer[] eliminatedBy;
 	
+	protected String raisonMort;
+	
 	/**
 	 * Initialise le panel et les objets qu'il utilise.
 	 */
@@ -186,7 +188,23 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 				JOptionPane.showMessageDialog(mainWindow, "Le joueur "+name+"a gagné la partie !");
 				
 				//TODO perso stat fin partie
-				
+				if (envoyerStat)
+				{
+					/*
+					System.out.println("afficahge stat partie!");
+					
+					System.out.println("prID \t rndScr \t eliminate by \t premier");
+					// raisonMort;
+					for (Player p : players)
+					{
+						if (eliminatedBy[p.playerId] == -1) raisonMort = "bord";
+						else if (eliminatedBy[p.playerId] == null) raisonMort = "en vie";
+						else if (eliminatedBy[p.playerId] == p.playerId) raisonMort = "lui meme";
+						else raisonMort = "autre";
+						
+						System.out.println(p.profile.profileId + "\t" + p.roundScore + "\t" + raisonMort + (raisonMort == "en vie"));
+					}*/
+				}
 				//FIN
 			}
 			
@@ -206,12 +224,26 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 				//on n'envoie les stats que si cela est demandé
 				if (envoyerStat)
 				{
-					System.out.println("afficahge stat");
 					
-					System.out.println("prID \t plID \t rndScr \t eliminate by");
+					System.out.println("afficahge stat manche!");
+					
+					System.out.println("prID \t rndScr \t eliminate by \t premier");
+					
+					//String raisonMort;
 					for (Player p : players)
 					{
-						System.out.println(p.profile.profileId + "\t" + p.playerId + "\t" + p.roundScore + "\t" + eliminatedBy[p.playerId]);
+						/*
+						System.out.println(p.playerId + " : " + eliminatedBy[p.playerId]);
+						System.out.println((null == eliminatedBy[p.playerId]));
+						*/
+						
+						if (eliminatedBy[p.playerId] == null) raisonMort = "en vie";
+						else if (eliminatedBy[p.playerId] == -1)  raisonMort = "bord";
+						else if (eliminatedBy[p.playerId] == p.playerId) raisonMort = "lui meme";
+						else raisonMort = "autre";
+						
+						System.out.println(p.profile.profileId + " \t " + p.roundScore + " \t\t " + raisonMort + " \t\t " + (raisonMort == "en vie"));
+						
 					}
 				}
 				
