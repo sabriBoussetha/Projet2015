@@ -244,15 +244,26 @@
             echo $res[0]['pseudo'];
         }
 
-        public function update_match(){
-                $id_player =$_POST['update_match'];
-                //echo "hahahaha";
-                $connection = new dbconnection();
+        
+        public function update_manche(){
+               $parse_update_manche = explode("|",$_POST['update_manche']);
+       		$id = $parse_update_manche[0];
+            	$score = $parse_update_manche[1];
+            	$gagne = $parse_update_manche[2];
+            	$raison_mort = $parse_update_manche[3];
+               
+               echo " id = var_dump($id), score = var_dump($score), gagne = var_dump($gagne), raison = var_dump($raison_mort)";
+               
+               /*
+               $connection = new dbconnection();
                 
                 $sql = "UPDATE stat_joueur SET nb_partie = nb_partie + 1 WHERE id = '$id_player'";
                 
                 $res = $connection->doExec($sql);
+                */
         }
+        
+        
 
         public function update_won_match(){
             $id_player =$_POST['update_won_match'];

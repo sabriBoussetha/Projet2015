@@ -243,6 +243,12 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 						
 						System.out.println(p.profile.profileId + " \t " + p.roundScore + " \t\t " + raisonMort + " \t\t " + (raisonMort == "en vie"));
 						
+						try {
+							PhpCommunication.updateManche(p.profile.profileId, p.roundScore, (raisonMort == "en vie"), raisonMort);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
 				
