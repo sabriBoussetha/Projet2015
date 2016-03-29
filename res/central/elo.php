@@ -1,5 +1,6 @@
 <?php
 
+
 //met a jour les elos a l'issue d'une partie
 //issue partie est le classement de la partie
 //[0] -> premier [1] -> second, ...
@@ -20,21 +21,23 @@ function majElo($issuePartie)
 	$elo = array();
 
 	$connection = new dbconnection();
-	foreach ($issuePartie as $key => $idJoueur) {
+	$
+	for ($issuePartie as $idJoueur){
 		$sql = 
-		 "SELECT id, score_ELO 
+		 "SELECT id, score_elo 
 		  from player natural join stat_elo 
 		  where id=$idJoueur AND date_ >= ALL (SELECT date_ FROM stat_elo WHERE id=$idJoueur)";
-
+		
 		$res = $connection->doQuery($sql);
-		var_dump($res);
-		$elo[ $res[0] ] = $res[1];
+		$elo[ $res[0]["id"] ] = $res[0]["score_elo"];
 	}
 	
 
 //calcule du coefficient de reussite
-	foreach ($issuePartie as $i => $idJoueur)
+	for ($i = 0; $i < count($issuePartie); $i++)
 	{
+		$idJoueur = $issuePartie[$i];
+
 		echo "<p style='color:red'> id : $i  idjoueur : $idJoueur elo : $elo[$idJoueur]</p>"; 
 		//pour chaque joueurs
 		$proba_succes = proba_succes_multi($elo, $idJoueur);
@@ -46,7 +49,10 @@ function majElo($issuePartie)
 		$elo[$idJoueur] = newElo($ancien_elo, $coef_reussite, $proba_succes);
 	}
 
-	foreach ($elo as $id => $elo) {
+	for ($i=0; $i < count($elo); $i++)
+	{
+		$id = 
+	//foreach ($elo as $id => $elo) {
 	    $date = date('d-m-Y, H:i:s');
 	    $sql = "INSERT INTO stat_elo (id,date_,score_elo) VALUES($id,$date,$elo)";
 	    $connection->doExec($sql);
