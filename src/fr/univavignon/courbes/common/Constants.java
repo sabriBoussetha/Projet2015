@@ -45,9 +45,9 @@ public class Constants
 	////	DUREES ASSOCIEES AUX ETATS DE LA MANCHE
 	////////////////////////////////////////////////////////////////
 	/** Durée de la période, au début d'une manche, pendant laquelle les collisions sont désactivées */
-	public static final long ENTRANCE_DURATION = 100;//3000;//5000; 	//TODO à confirmer
+	public static final long ENTRANCE_DURATION = 3000;//5000; 	//TODO à confirmer
 	/** Durée de la période, au début d'une manche, pendant laquelle les collisions sont désactivées */
-	public static final long PRESENTATION_DURATION = 100;//3000; 	//TODO à confirmer
+	public static final long PRESENTATION_DURATION = 3000; 	//TODO à confirmer
 	/** Durée de la période, à la fin d'une manche, pendant laquelle il ne reste qu'un seul joueur en lice */
 	public static final long END_DURATION = 3000; 	//TODO à confirmer
 	
@@ -55,7 +55,7 @@ public class Constants
 	////	VITESSE DE DEPLACEMENT
 	////////////////////////////////////////////////////////////////
 	/** Vitesse de déplacement initiale (i.e. sans l'effet d'un item) des serpents, exprimée en pixels par ms */
-	public static final float BASE_MOVING_SPEED = 100;//0.08f;
+	public static final float BASE_MOVING_SPEED = 0.08f;
 	/** Coefficient multiplicatif/diviseur appliqué à la vitesse de déplacement pour l'augmenter/la diminuer */
 	public static final float MOVING_SPEED_COEFF = 2f;
 	
@@ -147,7 +147,7 @@ public class Constants
 	/** Limite de points à atteindre */
 	public static final Map<Integer,Integer> POINT_LIMIT_FOR_PLAYER_NBR = new HashMap<Integer,Integer>();
 	static
-	{	POINT_LIMIT_FOR_PLAYER_NBR.put(2,10);
+	{	POINT_LIMIT_FOR_PLAYER_NBR.put(2,1);
 		POINT_LIMIT_FOR_PLAYER_NBR.put(3,20);
 		POINT_LIMIT_FOR_PLAYER_NBR.put(4,30);
 		POINT_LIMIT_FOR_PLAYER_NBR.put(5,40);
