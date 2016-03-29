@@ -1,6 +1,7 @@
 package fr.univavignon.courbes.inter.simpleimpl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /*
  * Courbes
@@ -21,6 +22,8 @@ import java.io.IOException;
  */
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.Box;
@@ -110,6 +113,20 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	
 	protected String raisonMort;
 	
+    //AJOUT CHARLIE
+	/** Compare deux joueurs en fonction de leur rang */
+	private final static Comparator<Player> PLR_COMP = new Comparator<Player>()
+	{	
+		public int compare(Player player1, Player player2)
+		{	int result = player2.totalScore - player1.totalScore;
+			if(result==0)
+				result = player2.playerId - player1.playerId;
+			return result;
+		}
+	};
+
+
+	
 	/**
 	 * Initialise le panel et les objets qu'il utilise.
 	 */
@@ -190,18 +207,22 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 				//TODO perso stat fin partie
 				if (envoyerStat)
 				{
+					//on determine la table du classement CHARLIE
+					List<Player> sortedPlayers = new ArrayList<Player>(Arrays.asList(round.players));
+					Collections.sort(sortedPlayers,PLR_COMP);
+					int classement[] = new int[players.length];
+					int i = 0;
+					for (Player pl : sortedPlayers){
+						classement[i] = pl.profile.profileId;
+						i++;
+					}
 					
-					System.out.println("Afficahge stat Partie!");
-					
-					System.out.println("prID \t gameScr \t eliminate by \t premier");
-					for (Player p : players)
-					{	if (eliminatedBy[p.playerId] == null) raisonMort = "en vie";
-						else if (eliminatedBy[p.playerId] == -1) raisonMort = "bord";
-						else if (eliminatedBy[p.playerId] == p.playerId) raisonMort = "lui meme";
-						else raisonMort = "autre";
-						
-						System.out.println(p.profile.profileId + "\t" + totalPoints[p.playerId] + "\t" + raisonMort + (raisonMort == "en vie"));
-						System.out.println(players[maxIdx].profile.userName + " a gagné le match !");
+					//on appelle updateMatch
+					try {
+						PhpCommunication.updateMatch(classement);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 				//FIN
@@ -227,13 +248,9 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 					System.out.println("afficahge stat manche!");
 					
 					System.out.println("prID \t rndScr \t eliminate by \t premier");
-					Integer [] tab = new Integer [players.length];
-					int i = 0;
 					//String raisonMort;
 					for (Player p : players)
 					{
-							tab[i] = p.profile.profileId;
-							i++;
 						/*
 						System.out.println(p.playerId + " : " + eliminatedBy[p.playerId]);
 						System.out.println((null == eliminatedBy[p.playerId]));
@@ -252,48 +269,16 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						
-						try {
-							PhpCommunication.updateMatch(tab);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
 					}
 				}
-				//on determine la table du classement 
-				List<Player> sortedPlayers = new ArrayList<Player>(Arrays.asList(round.players));
-				Collections.sort(sortedPlayers,PLR_COMP);
-				int classement[] = new int[players.length];
-				int i = 0;
-				for (Player pl : sortedPlayers){
-					classement[i] = pl.profile.profileId; i++;
-				}
-				System.out.println("classement de la partie : ");
-				for (int id : classement){
-					System.out.print(id + " ");
-				}
-				System.out.println("");
 				
-				try {
-					PhpCommunication.updateMatch(classement);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				}
+			}
 				
-				//FIN
-				
+				//FIN	
 				resetRound();
 				
 				
-			}
-			
-			
-			
-		}
-		while(!matchOver);
+		}while(!matchOver);
 	}
 	
 	/**
