@@ -44,7 +44,6 @@ public class PhpCommunication implements CentralCommunication{
      * @param choix
      * @throws IOException
      * 
-     * @author Sabri
      * @author Nathan
      */
     
@@ -104,15 +103,30 @@ public class PhpCommunication implements CentralCommunication{
 	        return false;
 	    }
 	}	
+	
 	/**
-	 * 
-	 * @author Nathan
-	 */
+     * Fonction permettant l'envoie d'information au serveur central
+     * 
+     * Fonction permettant la recherche automatique des parties disponible
+     * 
+     * Si le String choice = "All servers" --> On retourne un fichier JSON afin d'établir une liste des serveurs disponible
+     * et d'en afficher une liste avec la possibilité pour le joueur de choisir son serveur
+     * 
+     * Si le String choice = "server" --> La fonction PHP appellée renvoi seulement le premier serveur disponible 
+     * 
+     * @param choice
+     * @param userName
+     * @param password
+     * @throws IOException
+     * 
+     * @author Sabri
+     * @author Nathan
+     */
 	@Override
 	public String searchGame(String choice, String userName, String password) throws IOException{
 		String data = null;
 		if(choice=="All servers")
-			data = "search_game_json"/*+ URLEncoder.encode(userName+"|"+password, "UTF-8")*/;
+			data = "search_game_json"+ URLEncoder.encode(userName+"|"+password, "UTF-8");
 		else if(choice=="server")
 			data = "search_game" + URLEncoder.encode(userName+"|"+password, "UTF-8");
 		URL url = new URL(servAdr);
@@ -196,12 +210,16 @@ public class PhpCommunication implements CentralCommunication{
 	
 	
 	/**
+	 * 
+	 * Fonction permettant de retourner la liste des joueurs ainsi que toute les données liées
+	 * de la base de données player,stat_joueur et stat_elo
+	 * 
 	 * @author Nathan
-	 * @return
+	 * @return infos joueur
 	 * @throws IOException
 	 */
 	public static String getPlayer() throws IOException{
-		String data = "get_player=" + URLEncoder.encode("UTF-8");
+		String data = "get_player=";
 		URL url = new URL(servAdr);
 	    String result = ""; 
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -241,9 +259,9 @@ public class PhpCommunication implements CentralCommunication{
 	 * Fonction qui envoie une reqûte de suppression de joueur
 	 * 
 	 * @author Charlie
-	 * @author alexandre
+	 * @author Alexandre
 	 * 
-	 * @param id du joueur
+	 * @param id
 	 * @throws IOException
 	 */
 	public static void deletePlayer(Integer id) throws IOException{
@@ -283,7 +301,7 @@ public class PhpCommunication implements CentralCommunication{
 	 * Fonction qui recupere les classement ELO d'un joueur, associré a leurs dates
 	 * 
 	 * @author Charlie
-	 * @param identifiant du joueur
+	 * @param id 
 	 * @return tableau associant les classements elo a leurs dates sous format JSON
 	 * @throws IOException
 	 */
@@ -329,6 +347,7 @@ public class PhpCommunication implements CentralCommunication{
 	 * @return le pseudonyme du joueur
 	 * @throws IOException
 	 * @author Charlie
+	 * @param id 
 	 */
 	public static String getPseudo(Integer id) throws IOException{
 		String data = "get_pseudo=" +URLEncoder.encode("" + id, "UTF-8");
@@ -373,7 +392,8 @@ public class PhpCommunication implements CentralCommunication{
      * @param id : le profileId d'un joueur
      * @param score : le score d'un joueur pendant une manche
      * @param gagne : un boolean renvoyant si le joueur a gagné la manche ou pas (mais ce n'est pas vraiment utilisé)
-     * @throws raisonMort : String indiquant la raison de mort d'un joueur
+	 * @throws IOException 
+     * @param raisonMort : String indiquant la raison de mort d'un joueur
      */
 	
 	public static void updateManche(Integer id, Integer score, boolean gagne, String raisonMort) throws IOException{
@@ -418,6 +438,7 @@ public class PhpCommunication implements CentralCommunication{
      * @author : Alexandre Latif
      * 
      * @param idPlayer : un tableau contenant les id des joueurs par ordre décroissant de points totaux
+	 * @throws IOException 
      */	
 	public static void updateMatch(int [] idPlayer) throws IOException{
 		//on met le nombre de joueurs au début du string d'infos qu'on va envoyer au serveur central
