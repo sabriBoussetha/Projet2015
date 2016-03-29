@@ -281,10 +281,7 @@
             for ($id=1; $id <= $nb_joueur; $id++){
             	$tab[$id] = (int)$parse_update_match[$id];
             }
-            echo var_dump($tab);
-            
-            for ($id = 1, )
-            
+            echo var_dump($tab);            
             
             foreach ($tab as $classement => $id){
             	if ($classement == 0){
