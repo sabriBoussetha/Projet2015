@@ -110,7 +110,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	protected boolean matchOver = false;
 	/** Indique quel serpent a été éliminé par quoi : {@code null} pour pas éliminé, une <i>valeur négative</i> pour la bordure, et {@code playerId} pour un serpent (possiblement le joueur lui-même) */
 	protected Integer[] eliminatedBy;
-	
+	/** String indiquant si à la fin d'une manche, le joueur est mort à cause d'un bord, d'un autre joueurn, de lui même OU si il est encore en vie */
 	protected String raisonMort;
 	
     //AJOUT CHARLIE
@@ -161,6 +161,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	/**
 	 * Effectue la partie tout entière, i.e. plusieurs manches.
 	 * 
+	 * @param envoyerStat : un boolean pour voir si c'est l'hôte qui joue, on permet l'envoie des stats, mais pour l'instant il est mis en true pour les joueurs locals aussi.
 	 * CHARLIE : ajout d'un bool pour spécifier si il faut, ou non, d'envoyer les stat
 	 */
 	protected void playMatch(boolean envoyerStat)
@@ -169,7 +170,6 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 
 		do
 		{		
-			//sound.newGameSound();
 			// on joue le round
 			playRound();
 			sound.endGameSound();
@@ -178,10 +178,6 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 			for(int i=0;i<players.length;i++)
 				totalPoints[i] = players[i].totalScore;
 			
-			
-			
-			
-
 			// on compare le score le plus élevé et la limite
 			int maxIdx = 0;
 			for(int i=0;i<totalPoints.length;i++)
@@ -204,7 +200,6 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 				}
 				JOptionPane.showMessageDialog(mainWindow, "Le joueur "+name+" a gagné la partie !");
 				
-				//TODO perso stat fin partie
 				if (envoyerStat)
 				{
 					//on determine la table du classement CHARLIE
@@ -217,15 +212,13 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 						i++;
 					}
 					
-					//on appelle updateMatch
+					//on appelle updateMatch pour mettre à jour la BDD après une partie
 					try {
 						PhpCommunication.updateMatch(classement);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
-				//FIN
 			}
 			
 			// ou bien celui de la manche, et on recommence
@@ -238,53 +231,35 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 				Profile profile = players[maxIdx2].profile;
 				String name = profile.userName;
 				JOptionPane.showMessageDialog(mainWindow, "Le joueur "+name+" a gagné la manche !");
-				
-				//TODO perso stat fin manche
-				
-				//on n'envoie les stats que si cela est demandé
+								
+				//on n'envoie les stats que si cela est demandé (i.e c'est l'hôte qui joue)
 				if (envoyerStat)
 				{
-					
-					System.out.println("afficahge stat manche!");
-					
-					System.out.println("prID \t rndScr \t eliminate by \t premier");
-					//String raisonMort;
 					for (Player p : players)
 					{
-						/*
-						System.out.println(p.playerId + " : " + eliminatedBy[p.playerId]);
-						System.out.println((null == eliminatedBy[p.playerId]));
-						*/
-						
-						if (eliminatedBy[p.playerId] == null) raisonMort = "en vie";
-						else if (eliminatedBy[p.playerId] == -1)  raisonMort = "bord";
-						else if (eliminatedBy[p.playerId] == p.playerId) raisonMort = "lui meme";
-						else raisonMort = "autre";
-						
-						System.out.println(p.profile.profileId + " \t " + p.roundScore + " \t\t " + raisonMort + " \t\t " + (raisonMort == "en vie"));
-						
+						//on met à jour les stats d'une manche
 						try {
 							PhpCommunication.updateManche(p.profile.profileId, p.roundScore, (raisonMort == "en vie"), raisonMort);
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
 				}
 				
 			}
-				
-				//FIN	
 				resetRound();
 				
 				
 		}while(!matchOver);
 	}
 	
+	
+	
 	/**
 	 * Effectue une manche du jeu.
 	 */
 	public abstract void playRound();
+	
 	
 	/**
 	 * Recalcule les points des joueurs en fonction des éliminations
