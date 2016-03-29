@@ -277,9 +277,6 @@
             $res = $connection->doExec($sql);
         }
 
-        //DEBUT ELO
-
-
         //met a jour les elos a l'issue d'une partie
         //issue partie est le classement de la partie
         //[0] -> premier [1] -> second, ...
