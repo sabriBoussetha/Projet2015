@@ -25,9 +25,9 @@ import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
  *
  */
 public class PhpCommunication implements CentralCommunication{
-
+	/** Adresse du serveur contentant le fichier PHP qui reçoit la requette HTTP */
 	static String servAdr = "https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php";
-
+	/** Instance de la classe ServerCommunicationImpl pour récupérer l'adresse ip de la machine */
     ServerCommunicationImpl server = new ServerCommunicationImpl();
 	
     /**
@@ -44,6 +44,7 @@ public class PhpCommunication implements CentralCommunication{
      * @param choix
      * @throws IOException
      * 
+     * @author Sabri
      * @author Nathan
      */
     
