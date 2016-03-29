@@ -117,7 +117,7 @@ public class SoundEffect implements SoundEngine, Serializable {
 		{
 			sound = new Sound(soundTrack[soundNumber]);
 			sound.play(true);
-			return true;
+			return true;	
 		}
 		else if(!play)
 		{
