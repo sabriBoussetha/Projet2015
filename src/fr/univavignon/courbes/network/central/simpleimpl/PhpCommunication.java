@@ -361,10 +361,10 @@ public class PhpCommunication implements CentralCommunication{
 	
 	
 	
-	public static void updateMatch(Integer [] idPlayer) throws IOException{
+	public static void updateMatch(int [] idPlayer) throws IOException{
 		
 		String info = "" + idPlayer.length + "|";
-		for (Integer id : idPlayer){
+		for (int id : idPlayer){
 			info += id + "|";
 		}
 		

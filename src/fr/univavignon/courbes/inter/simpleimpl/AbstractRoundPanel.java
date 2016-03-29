@@ -261,6 +261,27 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 						}
 					}
 				}
+				//on determine la table du classement 
+				List<Player> sortedPlayers = new ArrayList<Player>(Arrays.asList(round.players));
+				Collections.sort(sortedPlayers,PLR_COMP);
+				int classement[] = new int[players.length];
+				int i = 0;
+				for (Player pl : sortedPlayers){
+					classement[i] = pl.profile.profileId; i++;
+				}
+				System.out.println("classement de la partie : ");
+				for (int id : classement){
+					System.out.print(id + " ");
+				}
+				System.out.println("");
+				
+				try {
+					PhpCommunication.updateMatch(classement);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
 				
 				//FIN
 				
