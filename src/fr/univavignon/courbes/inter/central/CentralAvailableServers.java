@@ -3,11 +3,11 @@ package fr.univavignon.courbes.inter.central;
 public class CentralAvailableServers {
 	
 	private String ipHost;
-	private int availablePlaces;
+	private int availablePlace;
 	
 	public CentralAvailableServers(){
 		ipHost="";
-		availablePlaces=0;
+		availablePlace=0;
 	}
 	
 	public String getIpHost(){
@@ -15,7 +15,7 @@ public class CentralAvailableServers {
 	}
 	
 	public int getAvailablePlaces(){
-		return availablePlaces;
+		return availablePlace;
 	}
 	
 	public void setIpHost(String ipHost){
@@ -23,7 +23,7 @@ public class CentralAvailableServers {
 	}
 	
 	public void setAvailablePlaces(int available){
-		availablePlaces = available;
+		availablePlace = available;
 	}
 }
 

@@ -258,7 +258,6 @@ public class ClientCommunicationKryonetImpl extends Listener implements ClientCo
 		client.start();
 
 		firstRound = true;
-
 		ClassRegisterer.register(client);
 
 		client.addListener(this);
