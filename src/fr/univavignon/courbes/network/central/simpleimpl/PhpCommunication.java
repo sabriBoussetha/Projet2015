@@ -13,6 +13,7 @@ import java.net.URLEncoder;
 
 import fr.univavignon.courbes.common.Constants;
 import fr.univavignon.courbes.common.Profile;
+import fr.univavignon.courbes.inter.simpleimpl.AbstractRoundPanel;
 import fr.univavignon.courbes.network.ClientCommunication;
 import fr.univavignon.courbes.network.central.CentralCommunication;
 import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
@@ -184,6 +185,8 @@ public class PhpCommunication implements CentralCommunication{
 	    return Integer.parseInt(result);
 	}
 	
+	
+	
 	public static String getPlayer() throws IOException{
 		String data = "get_player=" + URLEncoder.encode("UTF-8");
 		URL url = new URL(servAdr);
@@ -325,6 +328,17 @@ public class PhpCommunication implements CentralCommunication{
 		return result;
 	}
 	
+	/**
+     * Fonction static qui envoie au server les informations à mettre à jour après une manche
+     * 
+     * @author : Alexandre Latif
+     * 
+     * @param id : le profileId d'un joueur
+     * @param score : le score d'un joueur pendant une manche
+     * @param gagne : un boolean renvoyant si le joueur a gagné la manche ou pas (mais ce n'est pas vraiment utilisé)
+     * @throws raisonMort : String indiquant la raison de mort d'un joueur
+     */
+	
 	public static void updateManche(Integer id, Integer score, boolean gagne, String raisonMort) throws IOException{
 		String data = "update_manche=" +URLEncoder.encode("" + id + "|" + score + "|" + gagne + "|" + raisonMort, "UTF-8");
 		URL url = new URL(servAdr);
@@ -360,50 +374,18 @@ public class PhpCommunication implements CentralCommunication{
 	}
 	
 	
-	
-	public static void updateMatch(Integer [] idPlayer) throws IOException{
 		
+	/**
+     * Fonction static qui envoie au server les informations à mettre à jour après une partie
+     * 
+     * @author : Alexandre Latif
+     * 
+     * @param idPlayer : un tableau contenant les id des joueurs par ordre décroissant de points totaux
+     */	
+	public static void updateMatch(int [] idPlayer) throws IOException{
+		//on met le nombre de joueurs au début du string d'infos qu'on va envoyer au serveur central
 		String info = "" + idPlayer.length + "|";
-		for (Integer id : idPlayer){
-			info += id + "|";
-		}
-		
-		String data = "update_match=" +URLEncoder.encode("" + info, "UTF-8");
-		URL url = new URL(servAdr);
-	    String result = "";
-	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-	    try {
-	        connection.setDoInput(true);
-	        connection.setDoOutput(true);
-	        connection.setUseCaches(false);
-	        connection.setRequestMethod("POST");
-	        connection.setRequestProperty("Content-Type",
-	                "application/x-www-form-urlencoded");
-	        // Envoyer les données en POST
-
-	        DataOutputStream dataOut = new DataOutputStream(
-	                connection.getOutputStream());
-	        dataOut.writeBytes(data);
-	        dataOut.flush();
-	        dataOut.close();
-
-            String line;
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            while ((line = in.readLine()) != null) {
-            	result += line;
-            }
-	    	in.close();
-	    	connection.disconnect();
-            System.out.println("AAAAA" + result);
-	    }catch(Throwable t) {
-	        System.out.println("Error: " + t.getMessage());
-	    }
-	    
-	}
-	
-		public static void updateMatch(int [] idPlayer) throws IOException{
-		
-		String info = "" + idPlayer.length + "|";
+		//puis on rajoute le profileId de chaque joueur par ordre, séparés par un pipe pour les parser côté serveur
 		for (int id : idPlayer){
 			info += id + "|";
 		}
@@ -420,25 +402,25 @@ public class PhpCommunication implements CentralCommunication{
 	        connection.setRequestProperty("Content-Type",
 	                "application/x-www-form-urlencoded");
 	        // Envoyer les données en POST
-
+	
 	        DataOutputStream dataOut = new DataOutputStream(
 	                connection.getOutputStream());
 	        dataOut.writeBytes(data);
 	        dataOut.flush();
 	        dataOut.close();
-
-            String line;
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            while ((line = in.readLine()) != null) {
-            	result += line;
-            }
+	
+	        String line;
+	        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+	        while ((line = in.readLine()) != null) {
+	        	result += line;
+	        }
 	    	in.close();
 	    	connection.disconnect();
-            System.out.println("AAAAA" + result);
+	        System.out.println("AAAAA" + result);
 	    }catch(Throwable t) {
 	        System.out.println("Error: " + t.getMessage());
 	    }
-	    
+    
 	}
 	
 	
