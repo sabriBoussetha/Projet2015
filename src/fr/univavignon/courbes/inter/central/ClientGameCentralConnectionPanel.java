@@ -114,9 +114,9 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		String ipStr = null, allServers = null;
 		
 		try {
-			ipStr = search.searchGame("All servers");
+			ipStr = search.searchGame("server");
 			// URL du fichier qui se trouve dans le serveur est qui contient la liste des serveurs disponible
-			allServers = "https://pedago02a.univ-avignon.fr/~uapv1501163/server/listServers.json";
+			/*allServers = "https://pedago02a.univ-avignon.fr/~uapv1501163/server/listServers.json";
 			
 		    URL url = new URL(allServers);
 			 
@@ -166,7 +166,7 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		    panel.add(Box.createVerticalGlue());
 		    add(panel, BorderLayout.WEST);
 		    this.validate();
-			this.repaint();
+			this.repaint();*/
 			// On enlève une place disponible dans la table	
 			search.sendInformation(ipStr, -1, 3);
 		} catch (IOException e) {

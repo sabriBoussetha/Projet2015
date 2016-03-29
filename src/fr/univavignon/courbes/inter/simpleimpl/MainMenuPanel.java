@@ -50,7 +50,7 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	/** Instance de la classe SoundEffect nécessaire pour lancer le son en arrière plan*/
 	private SoundEffect sound;
 	/** Boolean indiquant si le son en arrière plan est entrain de jouer ou pas */
-	private boolean soundIsWorking = false;
+	private boolean soundIsWorking;
 	/** Index indiquant du morceau en cours */
 	private static int indexOfSound = 0;
 	/**
@@ -259,7 +259,7 @@ public class MainMenuPanel extends JPanel implements ActionListener
 			if(indexOfSound==sound.soundTrack.length-1)
 			{	soundIsWorking = sound.backGroundMusic(false,indexOfSound);
 				indexOfSound = 0;
-				soundIsWorking = sound.backGroundMusic(true, 0);
+				soundIsWorking = sound.backGroundMusic(true, indexOfSound);
 				offSound.setText("Mute");	// Changer le texte du bouton
 			}
 			else

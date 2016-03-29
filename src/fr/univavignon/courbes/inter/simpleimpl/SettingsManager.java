@@ -210,7 +210,7 @@ public class SettingsManager
 	 * 		Largeur de la fenêtre.
 	 */
 	public static int getWindowWidth()
-	{	int result = Constants.WINDOW_MARGIN + boardWidth + Constants.WINDOW_MARGIN + Constants.SCORE_WIDTH + Constants.WINDOW_MARGIN;
+	{	int result = Constants.WINDOW_MARGIN + boardWidth + Constants.WINDOW_MARGIN + Constants.SCORE_WIDTH + Constants.WINDOW_MARGIN-200;
 		return result;
 	}
 	
@@ -221,7 +221,7 @@ public class SettingsManager
 	 * 		Hauteur de la fenêtre.
 	 */
 	public static int getWindowHeight()
-	{	int result = Constants.WINDOW_MARGIN + boardHeight + Constants.WINDOW_MARGIN;
+	{	int result = Constants.WINDOW_MARGIN + boardHeight + Constants.WINDOW_MARGIN-200;
 		return result;
 	}
 	

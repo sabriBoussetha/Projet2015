@@ -15,7 +15,7 @@ import javax.sound.sampled.*;
  * @author Sabri
  *
  */
-public class SoundEffect implements SoundEngine {
+public class SoundEffect implements SoundEngine, Serializable {
 	private static final long serialVersionUID = 1L;
 	/** Instance de la classe Sound nécessaire pour la manipulation du son */
 	public Sound sound;

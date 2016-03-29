@@ -4,6 +4,7 @@ import java.applet.Applet;
 
 import java.applet.AudioClip;
 import java.io.File;
+import java.io.Serializable;
 import java.net.URL;
 
 import javax.sound.sampled.AudioFormat;
@@ -21,7 +22,7 @@ import javax.swing.*;
  *
  */
 
-public class Sound{
+public class Sound implements Serializable {
 	/** Numéro de série de la classe */
 	private static final long serialVersionUID = 1L;
 	/** Clip nécessaire pour le lancement du son */
