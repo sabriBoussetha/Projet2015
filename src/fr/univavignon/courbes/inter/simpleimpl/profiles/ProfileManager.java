@@ -68,14 +68,13 @@ public class ProfileManager
 	 * sur les noms ou emails des utilisateurs. La liste modifiée est
 	 * enregistrée.
 	 * 
-	 * AJOUT de charlie et alex : retourne false si le pseudo est dans la bdd
+	 * AJOUT de charlie et Alexandre : retourne false si le pseudo est dans la bdd
 	 * et acces a la base de donnée pour ajouter le joueur.
 	 * @param profile
 	 * 		Utilisateur à rajouter.
 	 */
 	public static boolean addProfile(Profile profile)
 	{	
-		//ajout de charlie et alex
 		
 		//acces a la base de donnée
 		//on recupere l'id produit par la base sql
@@ -102,7 +101,7 @@ public class ProfileManager
 	/**
 	 * Supprime un profil de la liste, et enregistre.
 	 * 
-	 * Ajout charlie et alex : retourne true et supprime le joueur sur la bdd
+	 * Ajout charlie et Alexandre : retourne true et supprime le joueur sur la bdd
 	 * @param profile
 	 * 		Le profil à supprimer.
 	 */
@@ -125,7 +124,7 @@ public class ProfileManager
 	 * texte, dans lequel chaque ligne représente un profil,
 	 * et les champs d'un profil sont séparés par {@link #SEPARATOR}.
 	 * 
-	 * AJOUT charlie et alex : ecriture du profileId dans le fichier texte
+	 * AJOUT charlie et Alexandre : écriture du profileId dans le fichier texte
 	 */
 	private static void recordProfiles()
 	{	try

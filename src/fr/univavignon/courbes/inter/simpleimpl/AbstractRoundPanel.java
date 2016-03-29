@@ -197,11 +197,11 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 				
 				JOptionPane.showMessageDialog(mainWindow, "Le joueur "+name+" a gagné la partie !");
 				
-				//AJOUT stat charlie et alex
+				//AJOUT stat Charlie et Alexandre
 				//on n'envoie les stats que si cela est demandé (i.e c'est l'hôte qui joue)
 				if (envoyerStat)
 				{
-					//on determine la table du classement
+					//on determine la table du classement par ordre décroissant des points totaux
 					List<Player> sortedPlayers = new ArrayList<Player>(Arrays.asList(round.players));
 					Collections.sort(sortedPlayers,PLR_COMP);
 					int classement[] = new int[players.length];
@@ -233,7 +233,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 				String name = profile.userName;
 				JOptionPane.showMessageDialog(mainWindow, "Le joueur "+name+" a gagné la manche !");
 				
-				//AJOUT stat charlie et alex
+				//AJOUT stats Alexandre et Charlie
 				//on n'envoie les stats que si cela est demandé (i.e c'est l'hôte qui joue)
 				if (envoyerStat)
 				{

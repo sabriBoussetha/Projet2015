@@ -2,7 +2,7 @@
 
 //Algorithmique et implémentation des méthodes réalisé par Charlie
 
-//recuperation et envoi avec la base de donnée réalisé par Charlie et Alex
+//recuperation et envoi avec la base de donnée réalisé par Charlie et Alexandre
 //une fois la base de donnée finalisé
 
 
