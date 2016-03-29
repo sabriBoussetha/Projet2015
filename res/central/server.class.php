@@ -232,7 +232,7 @@
         
         public function updateManche(){
                $parse_update_manche = explode("|",$_POST['update_manche']);
-       		   $id = $parse_update_manche[0];
+       		$id = $parse_update_manche[0];
             	$score = $parse_update_manche[1];
             	$raison_mort = $parse_update_manche[3];
             	
@@ -241,23 +241,23 @@
             	
             	if ($raison_mort == "en vie"){
             	echo "en vie";
-            		$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_manche_premier = nb_manche_premier + 1 , nb_points = nb_points + $score, moy_points_manche = cast(nb_points + $score AS float)/(nb_manche + 1) WHERE id=$id";
+            		$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_manche_premier = nb_manche_premier + 1 , nb_points = nb_points + $score, moy_points_manche = cast(nb_points + $score AS FLOAT)/(nb_manche + 1) WHERE id=$id";
             	}
             	
             	else{
             		if($raison_mort == "bord"){
             		echo "bord";
-            			$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_points = nb_points + $score, moy_points_manche = cast(nb_points + $score AS float)/(nb_manche + 1), mort_bord = mort_bord + 1 WHERE id=$id";
+            			$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_points = nb_points + $score, moy_points_manche = cast(nb_points + $score AS FLOAT)/(nb_manche + 1), mort_bord = mort_bord + 1 WHERE id=$id";
             		}
             		
             		else if ($raison_mort = "lui meme"){
             		echo "lui meme";
-            			$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_points = nb_points + $score, moy_points_manche = cast(nb_points + $score AS float)/(nb_manche + 1), mort_soi_meme = mort_soi_meme + 1 WHERE id=$id";
+            			$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_points = nb_points + $score, moy_points_manche = cast(nb_points + $score AS FLOAT)/(nb_manche + 1), mort_soi_meme = mort_soi_meme + 1 WHERE id=$id";
             		}
             		
             		else{
             		echo "autre";
-            			$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_points = nb_points + $score, moy_points_manche = cast(nb_points + $score AS float)/(nb_manche + 1), mort_autre = mort_autre + 1 WHERE id=$id";
+            			$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_points = nb_points + $score, moy_points_manche = cast(nb_points + $score AS FLOAT)/(nb_manche + 1), mort_autre = mort_autre + 1 WHERE id=$id";
             		}
             	
             	}
@@ -269,8 +269,33 @@
         
         
 
-        public function update_won_match(){
-            $id_player =$_POST['update_won_match'];
+        public function updateMatch(){
+			$parse_update_match = explode("|",$_POST['update_match']);
+            $nb_joueur = (int)$parse_update_match[0];
+            
+            echo "nb_joueur = $nb_joueur";
+            echo var_dump($parse_update_match);
+            $tab = array();
+            for ($id=1; $id <= $nb_joueur; $id++){
+            	$tab[$id] = (int)$parse_update_match[$id];
+            }
+            echo var_dump($tab);
+            
+            for ($id = 1, )
+            
+            
+            foreach ($tab as $classement => $id){
+            	if ($classement == 0){
+            		$sql = "UPDATE stat_joueur SET nb_partie = nb_partie + 1, nb_partie_premier = nb_partie_premier + 1, moy_points_partie = cast(nb_points AS FLOAT)/(nb_partie + 1) WHERE id=$id";
+            		
+            	}
+            	else{
+            		$sql = "UPDATE stat_joueur SET nb_partie = nb_partie + 1, moy_points_partie = cast(nb_points AS FLOAT)/(nb_partie + 1) WHERE id=$id";
+            	}
+            }
+            
+            
+            /*
             
             $connection = new dbconnection();
             
@@ -279,6 +304,8 @@
             //$sql = "UPDATE stat_joueur SET nb_partie_premier = nb_partie_premier + 1, moy_points_partie = nb_points/nb_partie WHERE id = '$id_player'";
             
             $res = $connection->doExec($sql);
+            
+            */
         }
 
         //met a jour les elos a l'issue d'une partie

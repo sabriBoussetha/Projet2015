@@ -227,10 +227,13 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 					System.out.println("afficahge stat manche!");
 					
 					System.out.println("prID \t rndScr \t eliminate by \t premier");
-					
+					Integer [] tab = new Integer [players.length];
+					int i = 0;
 					//String raisonMort;
 					for (Player p : players)
 					{
+							tab[i] = p.profile.profileId;
+							i++;
 						/*
 						System.out.println(p.playerId + " : " + eliminatedBy[p.playerId]);
 						System.out.println((null == eliminatedBy[p.playerId]));
@@ -245,6 +248,13 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 						
 						try {
 							PhpCommunication.updateManche(p.profile.profileId, p.roundScore, (raisonMort == "en vie"), raisonMort);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						try {
+							PhpCommunication.updateMatch(tab);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
