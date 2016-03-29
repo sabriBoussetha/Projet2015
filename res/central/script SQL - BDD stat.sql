@@ -16,7 +16,7 @@ moy_points_partie FLOAT DEFAULT 0,
 moy_points_manche FLOAT DEFAULT 0,
 mort_bord INT DEFAULT 0,
 mort_autre INT DEFAULT 0,
-MORT_SOI_MEME INT DEFAULT 0
+mort_soi_meme INT DEFAULT 0
 );
 
 

@@ -173,7 +173,7 @@ public class graphEloPanel extends JPanel{
     	//un chart semble contenir d'interessant un objet xyplot
     	
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Classement Elo exemple",  // titre
+            " ",   				  // titre
             "temps",             // titre des abscisses
             "ELO",  			 // titre des ordonnées
             dataset,            // data
@@ -183,8 +183,7 @@ public class graphEloPanel extends JPanel{
         );
 
         //parametrage de l'affichage du graphique
-        
-        chart.setBackgroundPaint(Color.white);
+        chart.setBackgroundPaint(new Color(213,216,222));
         XYPlot plot = (XYPlot) chart.getPlot();
         //parametrage des couleurs arriere plan, les cadrillages en colonne et ligne
         plot.setBackgroundPaint(Color.lightGray); //arriere plan
