@@ -82,11 +82,16 @@
             }
         }
         public function searchGameListJson(){
-            $connection = new dbconnection();
-            $sql = "SELECT ip_host,available_place FROM parties where available_place > 0";
-            $available_game = $connection->doQuery($sql);
-            $listServers = fopen('listServers.json', 'r+');
-            fputs($listServers, json_encode($available_game));        
+            $parse_search_game = explode("|",$_POST['search_game']);
+            $login = $parse_search_game[0];
+            $pass = $parse_search_game[1];
+            if(JavaCommunication::getUserByLoginAndPass($login,$pass)){
+                $connection = new dbconnection();
+                $sql = "SELECT ip_host,available_place FROM parties where available_place > 0";
+                $available_game = $connection->doQuery($sql);
+                $listServers = fopen('listServers.json', 'r+');
+                fputs($listServers, json_encode($available_game)); 
+            else echo "false";         
         }
         public function resetGame(){
             $ip_host = $_POST['reset_game'];
@@ -123,7 +128,6 @@
             $password = sha1($parse_add_player[2]);
             $connection = new dbconnection();
 
-            //d'abord on voit si le pseudo existe deja
             $res = $connection->doQuery("SELECT count(pseudo) from player where pseudo='$pseudo'");
             
             if ($res[0]["count"] > 0)
@@ -143,7 +147,6 @@
                 $sql3 = "INSERT INTO stat_elo (id,date_) VALUES ('$id_joueur','$date')";
                 $res3 = $connection->doExec($sql3);
 
-                echo "$id_joueur"; 
             }
 
         }
@@ -153,22 +156,12 @@
             $id = $_POST["delete_player"];
             $connection = new dbconnection();
 
-            /*
-            $sql = "INSERT INTO player (pseudo, country,password) VALUES('$pseudo','$country','$password')";
-
-            $sql2 = "INSERT INTO stat_joueur (id) VALUES ('$id_joueur')";
-
-            $sql3 = "INSERT INTO stat_elo (id,date_) VALUES ('$id_joueur','$date')";
-            */
-
             $sql1 = "DELETE FROM player WHERE id=$id";
             $connection-> doQuery($sql1);
             $sql2 = "DELETE FROM stat_joueur WHERE id=$id";
             $connection-> doQuery($sql2);
             $sql3 = "DELETE FROM stat_elo WHERE id=$id";
             $connection-> doQuery($sql3);
-
-            echo "delete player lancé";
 
 
         }
@@ -209,21 +202,13 @@
             $sql = "SELECT score_elo, date_ FROM stat_elo where id=$id order by date_ asc";
             $res = $connection->doQuery($sql);
 
-            //res est un tableau de tableau associatif
-            //on va le mettre dans un tableau classique
-
-            /*
-            foreach ($res as $i => $ligne) {
-                $tab[] = $ligne["score_elo"];
-            }*/
-
             echo json_encode($res); 
         }
 
         public function getPseudo()
         {
             $id = $_POST['get_pseudo'];
-
+            
             $connection = new dbconnection();
             $sql = "SELECT pseudo FROM player where id=$id";
             $res = $connection->doQuery($sql);
@@ -233,8 +218,8 @@
 
         
         public function updateManche(){
-               $parse_update_manche = explode("|",$_POST['update_manche']);
-       		$id = $parse_update_manche[0];
+               	$parse_update_manche = explode("|",$_POST['update_manche']);
+       			$id = $parse_update_manche[0];
             	$score = $parse_update_manche[1];
             	$raison_mort = $parse_update_manche[3];
             	
@@ -242,30 +227,24 @@
             	$connection = new dbconnection();
             	
             	if ($raison_mort == "en vie"){
-            	echo "en vie";
             		$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_manche_premier = nb_manche_premier + 1 , nb_points = nb_points + $score, moy_points_manche = cast(nb_points + $score AS FLOAT)/(nb_manche + 1) WHERE id=$id";
             	}
             	
             	else{
             		if($raison_mort == "bord"){
-            		echo "bord";
             			$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_points = nb_points + $score, moy_points_manche = cast(nb_points + $score AS FLOAT)/(nb_manche + 1), mort_bord = mort_bord + 1 WHERE id=$id";
             		}
             		
             		else if ($raison_mort = "lui meme"){
-            		echo "lui meme";
             			$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_points = nb_points + $score, moy_points_manche = cast(nb_points + $score AS FLOAT)/(nb_manche + 1), mort_soi_meme = mort_soi_meme + 1 WHERE id=$id";
             		}
             		
             		else{
-            		echo "autre";
             			$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_points = nb_points + $score, moy_points_manche = cast(nb_points + $score AS FLOAT)/(nb_manche + 1), mort_autre = mort_autre + 1 WHERE id=$id";
             		}
             	
             	}
-               echo "sql : $sql";
                $res = $connection->doExec($sql);
-               //echo " id = var_dump($id), score = var_dump($score), gagne = var_dump($gagne), raison = var_dump($raison_mort)";
                
         }
         
@@ -275,36 +254,27 @@
 			$parse_update_match = explode("|",$_POST['update_match']);
             $nb_joueur = (int)$parse_update_match[0];
             
-            echo "nb_joueur = $nb_joueur";
-            echo var_dump($parse_update_match);
-            $tab = array();
-            for ($id=1; $id <= $nb_joueur; $id++){
-            	$tab[$id] = (int)$parse_update_match[$id];
-            }
-            echo var_dump($tab);            
+            $connection = new dbconnection();
             
-            foreach ($tab as $classement => $id){
+            $tab = array();
+            for ($id=0; $id < $nb_joueur; $id++){
+            	$tab[$id] = (int)$parse_update_match[$id+1];
+            }
+            
+            for ($classement=0; $classement < $nb_joueur; $classement++){
+            	
             	if ($classement == 0){
-            		$sql = "UPDATE stat_joueur SET nb_partie = nb_partie + 1, nb_partie_premier = nb_partie_premier + 1, moy_points_partie = cast(nb_points AS FLOAT)/(nb_partie + 1) WHERE id=$id";
+            		$sql = "UPDATE stat_joueur SET nb_partie = nb_partie + 1, nb_partie_premier = nb_partie_premier + 1, moy_points_partie = cast(nb_points AS FLOAT)/(nb_partie + 1) WHERE id=$tab[$classement]";
             		
             	}
             	else{
-            		$sql = "UPDATE stat_joueur SET nb_partie = nb_partie + 1, moy_points_partie = cast(nb_points AS FLOAT)/(nb_partie + 1) WHERE id=$id";
+            		$sql = "UPDATE stat_joueur SET nb_partie = nb_partie + 1, moy_points_partie = cast(nb_points AS FLOAT)/(nb_partie + 1) WHERE id=$tab[$classement]";
             	}
+
+           		$res = $connection->doExec($sql);
             }
             
             
-            /*
-            
-            $connection = new dbconnection();
-            
-            $sql = "UPDATE stat_joueur SET nb_partie_premier = nb_partie_premier + 1 WHERE id = '$id_player'";
-            
-            //$sql = "UPDATE stat_joueur SET nb_partie_premier = nb_partie_premier + 1, moy_points_partie = nb_points/nb_partie WHERE id = '$id_player'";
-            
-            $res = $connection->doExec($sql);
-            
-            */
         }
 
         //met a jour les elos a l'issue d'une partie

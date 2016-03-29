@@ -70,7 +70,7 @@ public class PhpCommunication implements CentralCommunication{
 		else if(choix == 5){
 			data = "delete_game=" + URLEncoder.encode(server.getIp(), "UTF-8");
 		}
-	    try {
+	    try  {
 	        connection.setDoInput(true);
 	        connection.setDoOutput(true);
 	        connection.setUseCaches(false);
