@@ -194,12 +194,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 			{	Profile profile = players[maxIdx].profile;
 				String name = profile.userName;
 				System.out.println("end game");
-				try {
-					endGame.sendInformation("NULL", 0, 5);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 				JOptionPane.showMessageDialog(mainWindow, "Le joueur "+name+" a gagné la partie !");
 				
 				//AJOUT stat charlie et alex
@@ -218,6 +213,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 					
 					//on appelle updateMatch pour mettre à jour la BDD après une partie
 					try {
+						endGame.sendInformation("NULL", 0, 5);
 						PhpCommunication.updateMatch(classement);
 					} catch (IOException e) {
 						e.printStackTrace();
