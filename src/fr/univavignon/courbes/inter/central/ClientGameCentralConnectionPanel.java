@@ -108,7 +108,7 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 			ipStr = search.searchGame("All servers",mainWindow.clientPlayer.profile.userName,mainWindow.clientPlayer.profile.password);
 			// URL du fichier qui se trouve dans le serveur est qui contient la liste des serveurs disponible
 			allServers = "https://pedago02a.univ-avignon.fr/~uapv1402577/server/listServers.json";
-			
+			System.out.println(ipStr);
 		    URL url = new URL(allServers);
 			 
 		    // Lecture à partir du fichier JSON
