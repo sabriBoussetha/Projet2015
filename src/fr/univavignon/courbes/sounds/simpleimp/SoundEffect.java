@@ -41,19 +41,19 @@ public class SoundEffect implements SoundEngine, Serializable {
 	@Override
 	public void collisionWithItemSound(ItemType item) {
 		switch (item) {
-			case USER_FAST: sound = new Sound("res/sounds/item_sound/eat_sound.wav");
+			case USER_FAST: sound = new Sound("res/sounds/item_sound/Weeeeeeeeeee.wav");
 							break;
 			case USER_SLOW: sound = new Sound("res/sounds/item_sound/eat_sound.wav");
 							break;
-			case USER_FLY: sound = new Sound("res/sounds/item_sound/eat_sound.wav");
+			case USER_FLY: sound = new Sound("res/sounds/item_sound/Weeeeeeeeeee.wav");
 							break;
-			case OTHERS_FAST: sound = new Sound("res/sounds/item_sound/eat_sound.wav");
+			case OTHERS_FAST: sound = new Sound("res/sounds/item_sound/Weeeeeeeeeee.wav");
 							break;	
-			case OTHERS_THICK: sound = new Sound("res/sounds/item_sound/eat_sound.wav");
+			case OTHERS_THICK: sound = new Sound("res/sounds/item_sound/Weeeeeeeeeee.wav");
 							break;
-			case OTHERS_SLOW: sound = new Sound("res/sounds/item_sound/eat_sound.wav");
+			case OTHERS_SLOW: sound = new Sound("res/sounds/item_sound/Weeeeeeeeeee.wav");
 							break;
-			default: sound = new Sound("res/sounds/item_sound/eat_sound.wav");
+			default: sound = new Sound("res/sounds/item_sound/Weeeeeeeeeee.wav");
 					 break;
 			
 		}
