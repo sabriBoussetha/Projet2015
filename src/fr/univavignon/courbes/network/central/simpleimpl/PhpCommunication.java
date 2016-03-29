@@ -103,9 +103,24 @@ public class PhpCommunication implements CentralCommunication{
 	        return false;
 	    }
 	}	
+	
 	/**
-	 * @author Nathan
-	 */
+     * Fonction permettant l'envoie d'information au serveur central
+     * 
+     * Fonction permettant la recherche automatique des parties disponible
+     * 
+     * Si le String choice = "All servers" --> On retourne un fichier JSON afin d'établir une liste des serveurs disponible
+     * et d'en afficher une liste avec la possibilité pour le joueur de choisir son serveur
+     * 
+     * Si le String choice = "server" --> La fonction PHP appellée renvoi seulement le premier serveur disponible 
+     * 
+     * @param choice
+     * @param userName
+     * @param password
+     * @throws IOException
+     * 
+     * @author Sabri
+     */
 	@Override
 	public String searchGame(String choice, String userName, String password) throws IOException{
 		String data = null;
@@ -194,6 +209,9 @@ public class PhpCommunication implements CentralCommunication{
 	
 	
 	/**
+	 * 
+	 * Fonction permettant de retourner un joueur
+	 * 
 	 * @author Nathan
 	 * @return
 	 * @throws IOException
@@ -239,7 +257,7 @@ public class PhpCommunication implements CentralCommunication{
 	 * Fonction qui envoie une reqûte de suppression de joueur
 	 * 
 	 * @author Charlie
-	 * @author alexandre
+	 * @author Alexandre
 	 * 
 	 * @param id du joueur
 	 * @throws IOException

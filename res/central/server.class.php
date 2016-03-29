@@ -2,6 +2,12 @@
     include_once 'dbconnection.class.php';
     include('elo.php');
     class JavaCommunication{
+        /******* Fonctions écrites par Nathan Cheval *******/
+        
+        /*
+            Fonction permettant la vérification du login et du mot de passe local (dans le fichier profils.txt) 
+            avec ceux stockés dans la base de données player            
+        */
         public static function getUserByLoginAndPass($login,$pass){
             $connection = new dbconnection() ;
             $sql = "select * from player where pseudo='".$login."' and password='".sha1($pass)."'" ;
@@ -12,6 +18,9 @@
 
             return $res ;
         }
+        /*
+            Fonction permettant l'ajout d'une nouvelle partie dans la base de données parties
+        */
         public function addNewGame(){
             $parse_new_game = explode("|",$_POST['new_game']);
             $ip_host = $parse_new_game[0];
@@ -30,6 +39,9 @@
             }
             return false;
         }
+        /*
+            Fonction permettant la suppression d'une partie, dans la base de donnée parties,à la fin de celle-ci
+        */
         public function deleteGame(){
             $ip_host = $_POST['delete_game'];
             
@@ -40,6 +52,9 @@
                 return false ;
             return $res ;
         }
+        /*
+            Fonction qui vérifie l'existence d'un serveur afin d'éviter les doublons dans la base de données parties
+        */
         public function ifServerExist($ip){
             $bdd = new PDO('pgsql:host=localhost dbname=etd user=uapv1402577 password=jenYv1');
             $ifExist = $bdd -> query("SELECT * FROM parties WHERE ip_host = '$ip'")->fetchColumn();
@@ -47,6 +62,9 @@
                 return false ;
             return true;  
         }
+        /*
+            
+        */
         public function updateGame(){
             $parse_update_game = explode("|",$_POST['new_nb_player']);
             $ip_host = $parse_update_game[0];
@@ -152,24 +170,6 @@
             }
 
         }
-        //fonction faite par charlie
-        //supprime le player de la bdd
-        //en supprimant aussi ces valeurs statistiques
-        public function deletePlayer()
-        {
-            $id = $_POST["delete_player"];
-            $connection = new dbconnection();
-
-            $sql1 = "DELETE FROM player WHERE id=$id";
-            $connection-> doQuery($sql1);
-            $sql2 = "DELETE FROM stat_joueur WHERE id=$id";
-            $connection-> doQuery($sql2);
-            $sql3 = "DELETE FROM stat_elo WHERE id=$id";
-            $connection-> doQuery($sql3);
-
-
-        }
-
         
         public function getPlayer(){
             $connection = new dbconnection();
@@ -198,7 +198,26 @@
             $res = $connection->doExec($sql);
         }
 
-        //fonction fait par charlie
+        
+        /******* Fonctions écrites par Charlie Brugvin *******/
+                
+        //supprime le player de la bdd
+        //en supprimant aussi ces valeurs statistiques
+        public function deletePlayer()
+        {
+            $id = $_POST["delete_player"];
+            $connection = new dbconnection();
+
+            $sql1 = "DELETE FROM player WHERE id=$id";
+            $connection-> doQuery($sql1);
+            $sql2 = "DELETE FROM stat_joueur WHERE id=$id";
+            $connection-> doQuery($sql2);
+            $sql3 = "DELETE FROM stat_elo WHERE id=$id";
+            $connection-> doQuery($sql3);
+
+
+        }
+        
         //renvoie les elos associé a leurs dates dans le format JSON
         //pour un joueur donné
         public function getElo()
@@ -212,7 +231,6 @@
             echo json_encode($res); 
         }
 
-        //fonction faite par charlie
         //retourne le pseudo d'un id passé en post
         public function getPseudo()
         {
@@ -225,6 +243,7 @@
             echo $res[0]['pseudo'];
         }
 
+        /******* Fonctions écrites par Alexandre Latif *******/
         
         public function updateManche(){
                	$parse_update_manche = explode("|",$_POST['update_manche']);
