@@ -126,7 +126,7 @@ public class PhpCommunication implements CentralCommunication{
 	public String searchGame(String choice, String userName, String password) throws IOException{
 		String data = null;
 		if(choice=="All servers")
-			data = "search_game_json"+ URLEncoder.encode(userName+"|"+password, "UTF-8");
+			data = "search_game_json"/*+ URLEncoder.encode(userName+"|"+password, "UTF-8")*/;
 		else if(choice=="server")
 			data = "search_game" + URLEncoder.encode(userName+"|"+password, "UTF-8");
 		URL url = new URL(servAdr);
