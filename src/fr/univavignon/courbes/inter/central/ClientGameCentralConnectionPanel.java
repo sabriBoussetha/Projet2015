@@ -144,12 +144,12 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		    	servers[i].setAvailablePlaces(tmp.getInt("available_place"));
 		    	ipStr = servers[i].getIpHost();
 		    	
-		    	serverLabel[i] = new JLabel("Adresse IP : " + servers[i].getIpHost() + " Places disponibles : " + servers[i].getAvailablePlaces());
+		    	serverLabel[i] = new JLabel("Adresse IP : " + servers[i].getIpHost() + "----------- Places disponibles : " + servers[i].getAvailablePlaces());
 		    	System.out.println(tmp.getString("ip_host") + " | " + tmp.getInt("available_place"));
 		    	panel.add(serverLabel[i]);
 		    	
 		    	join[i] = new JButton();
-		    	join[i] = initButton("Joindre",200,50);
+		    	join[i] = initButton("Joindre",150,50);
 		    	panel.add(join[i]);
 		    	panel.add(Box.createVerticalStrut(10));
 		    }
@@ -162,7 +162,7 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 				search.sendInformation(servers[nbButton].getIpHost(), -1, 3);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Cannot coonect!");
 		}
 		
 		// puis on se connecte

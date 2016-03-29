@@ -20,7 +20,7 @@ public class SoundEffect implements SoundEngine, Serializable {
 	/** Instance de la classe Sound nécessaire pour la manipulation du son */
 	public Sound sound;
 	/** */
-	public String []soundTrack = new String[]{"res/sounds/Happy.wav","res/sounds/Clapps.wav","res/sounds/Bonus.wav"};
+	public String []soundTrack = new String[]{"res/sounds/background_sound/Happy.wav","res/sounds/background_sound/Bonus.wav"};
 	/**
 	 * Jouer le son correspondant à la collision avec un snake
 	 */
@@ -38,19 +38,19 @@ public class SoundEffect implements SoundEngine, Serializable {
 	@Override
 	public void collisionWithItemSound(ItemType item) {
 		switch (item) {
-			case USER_FAST: sound = new Sound("res/sounds/eat_sound.wav");
+			case USER_FAST: sound = new Sound("res/sounds/item_sound/eat_sound.wav");
 							break;
-			case USER_SLOW: sound = new Sound("res/sounds/eat_sound.wav");
+			case USER_SLOW: sound = new Sound("res/sounds/item_sound/eat_sound.wav");
 							break;
-			case USER_FLY: sound = new Sound("res/sounds/eat_sound.wav");
+			case USER_FLY: sound = new Sound("res/sounds/item_sound/eat_sound.wav");
 							break;
-			case OTHERS_FAST: sound = new Sound("res/sounds/eat_sound.wav");
+			case OTHERS_FAST: sound = new Sound("res/sounds/item_sound/eat_sound.wav");
 							break;	
-			case OTHERS_THICK: sound = new Sound("res/sounds/eat_sound.wav");
+			case OTHERS_THICK: sound = new Sound("res/sounds/item_sound/eat_sound.wav");
 							break;
-			case OTHERS_SLOW: sound = new Sound("res/sounds/eat_sound.wav");
+			case OTHERS_SLOW: sound = new Sound("res/sounds/item_sound/eat_sound.wav");
 							break;
-			default: sound = new Sound("res/sounds/eat_sound.wav");
+			default: sound = new Sound("res/sounds/item_sound/eat_sound.wav");
 					 break;
 			
 		}
