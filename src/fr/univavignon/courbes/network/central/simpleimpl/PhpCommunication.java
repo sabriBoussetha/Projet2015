@@ -210,7 +210,7 @@ public class PhpCommunication implements CentralCommunication{
 	
 	/**
 	 * 
-	 * Fonction permettant de retourner un joueur
+	 * Fonction permettant de retourner la liste des joueurs de la base de données player
 	 * 
 	 * @author Nathan
 	 * @return

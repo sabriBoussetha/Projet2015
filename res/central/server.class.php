@@ -63,7 +63,7 @@
             return true;  
         }
         /*
-            
+            Fonction qui permet de mettre à jour le nombre de places restantes en enlevant le nombre de joueux locaux dans une partie distante
         */
         public function updateGame(){
             $parse_update_game = explode("|",$_POST['new_nb_player']);
@@ -85,6 +85,10 @@
                 return false ;
             return $res ;
         }
+        /*
+            Fonction qui retourne la première partie disponible dans la table parties. Une partie disponible dispose d'un nombre de place disponible
+            supérieur à 0. Cette fonction n'est executable que si le joueur valide l'authentification
+        */
         public function searchGame(){
             $parse_search_game = explode("|",$_POST['search_game']);
             $login = $parse_search_game[0];
@@ -99,6 +103,10 @@
                 echo "false";
             }
         }
+        /*
+            Fonction qui retourne un fichier JSON contenant l'ensemble des parties disponibles pour permettre au client de choisir la partie qu'il 
+            souhaite rejoindre. Cette fonction n'est executable que si le joueur valide l'authentification
+        */
         public function searchGameListJson(){
             $parse_search_game = explode("|",$_POST['search_game_json']);
             $login = $parse_search_game[0];
@@ -111,8 +119,11 @@
                 fputs($listServers, json_encode($available_game)); 
             }
             else echo "false";
-
         }
+        /*
+            Fonction permettant de remettre le nombre de places disponibles au maximum (utile lors d'un retour après la selection du nombre de joueurs
+            locaux dans une partie distante)
+        */
         public function resetGame(){
             $ip_host = $_POST['reset_game'];
             $connection = new dbconnection();
@@ -125,6 +136,10 @@
                 return false ;
             return $res ;
         }
+        /*
+            Fonction permettant de rajouter ou d'enlever des places disponibles dans la table parties. Utilisée lors d'un kick ou lors de la connexion
+            d'un client distant
+        */
         public function modifPlayer(){
             $parse_modif_player = explode("|",$_POST['modif_player']);
             $ip_host = $parse_modif_player[0];
@@ -140,7 +155,10 @@
                 return false ;
             return $res;
         }
-
+        /*
+            Fonction qui ajoute à la table player un profil correspondant à celui ajouter via le jeu directement
+            Le mot de passe sera crypté en sha1
+        */
         public function addPlayer(){
             $parse_add_player = explode("|",$_POST['add_player']);
             $pseudo = $parse_add_player[0];
@@ -150,12 +168,10 @@
 
             $res = $connection->doQuery("SELECT count(pseudo) from player where pseudo='$pseudo'");
             
-            if ($res[0]["count"] > 0)
-            {
+            if ($res[0]["count"] > 0){  // Vérification de l'existence du profil
                 echo -1;
             }
-            else
-            {
+            else{
                 $sql = "INSERT INTO player (pseudo, country,password) VALUES('$pseudo','$country','$password')";
                 $res = $connection->doExec($sql);
                 $sql1 = "SELECT id FROM player WHERE pseudo = '$pseudo'";
@@ -170,7 +186,9 @@
             }
 
         }
-        
+        /*
+            Fonction permettant de retourner l'ensemble des profils des joueurs ainsi que toutes leurs données ELO sous forme de JSON. Utilisée pour la gestion des statistiques
+        */
         public function getPlayer(){
             $connection = new dbconnection();
             $sql = "SELECT id FROM player";
@@ -188,6 +206,9 @@
             }
             echo json_encode($array_player);            
         } 
+        /*
+            Fonction permettant de mettre à jour le score ELO d'un joueur
+        */
         public function addElo(){
             $parse_add_elo = explode("|",$_POST['add_elo']);
             $id_joueur = $parse_add_elo[0];
