@@ -60,8 +60,10 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 	private PhpCommunication search;
 	/** Tableau contenant tout les serveurs disponibles du le Central*/
 	private CentralAvailableServers []servers = null;
-	/** Panel centant l'ensemble de composantes de la fênetre*/
+	/** Panel contenant l'ensemble de composantes de la fênetre*/
 	JPanel panel;
+	/** Panel contenant le bouton retour */
+	JPanel southPanel;
 	/** Tableau de boutons corréspondant aux boutons 'joindre' de chaque serveur */
 	JButton []join;
 	/** Tableau de JLabel contenant l'adresse ip et le nombre de place disponible sur le serveur*/
@@ -82,7 +84,7 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 	/**
 	 * Métode permettant de se connecter à un serveur disponible sur la base de données du central.
 	 * Ainsi que l'affichage de la liste des serveurs disponibles en utilisant le parse
-	 * du fichier JSON qui contient les serveurs disponibles  
+	 * du JSON qui contient les serveurs disponibles  
 	 * 
 	 * @param nbButton
 	 * 		l'indice du bouton correspondant à un serveur disponible
@@ -111,22 +113,11 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		
 		try {
 			/* En appellant cette methode la méthode searchGameJson()
-			 *  mettra les serveurs disponible dans un fihcier JSON */
+			 *  renvoie les serveurs disponibles sous forme JSON */
 			ipStr = search.searchGame("All servers",mainWindow.clientPlayer.profile.userName,mainWindow.clientPlayer.profile.password);
-			// URL du fichier qui se trouve dans le serveur et qui contient la liste des serveurs disponibles
-			allServers = "https://pedago02a.univ-avignon.fr/~uapv1402577/server/listServers.json";
-			System.out.println(ipStr);
-		    URL url = new URL(allServers);
-			 
-		    // Lecture à partir du fichier JSON
-		    Scanner scan = new Scanner(url.openStream());
-		    String str = new String();
-		    while (scan.hasNext())
-		        str += scan.nextLine();		// Mettre le contenu du fichier dans une chaine de charactère
-		    scan.close();
 		    
 		    // Création d'un object JSONArray à partir la variable String
-		    JSONArray arrayJSON = new JSONArray(str);			
+		    JSONArray arrayJSON = new JSONArray(ipStr);			
 		    servers = new CentralAvailableServers[arrayJSON.length()];		
 		    JSONObject tmp;
 		    // Effacer le contenue de la fênetre 
@@ -151,8 +142,7 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		    	servers[i].setIpHost(tmp.getString("ip_host"));
 		    	servers[i].setAvailablePlaces(tmp.getInt("available_place"));
 		    	
-		    	serverLabel[i] = new JLabel("Adresse IP : " + servers[i].getIpHost() + "----------- Places disponibles : " + servers[i].getAvailablePlaces());
-		    	System.out.println(tmp.getString("ip_host") + " | " + tmp.getInt("available_place"));
+		    	serverLabel[i] = new JLabel("Adresse IP : " + servers[i].getIpHost() + "  --------------  Places disponibles : " + servers[i].getAvailablePlaces());
 		    	panel.add(serverLabel[i]);
 		    	
 		    	join[i] = new JButton();
@@ -161,11 +151,20 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		    	panel.add(Box.createVerticalStrut(10));
 		    }
 		    
-		    backButton.setEnabled(true);
-		    panel.add(backButton);
+		    
 		    panel.add(Box.createVerticalGlue());
 		    add(panel, BorderLayout.CENTER);
 		    
+		    southPanel = new JPanel();
+			BoxLayout boxLayout1 = new BoxLayout(southPanel, BoxLayout.LINE_AXIS);
+			southPanel.setLayout(boxLayout1);
+			
+			
+			southPanel.add(Box.createVerticalGlue());
+		    backButton.setEnabled(true);
+		    southPanel.add(backButton);
+		    
+		    add(southPanel, BorderLayout.SOUTH);
 		    this.validate();
 			this.repaint();
 			// On enlève une place disponible dans la table	
@@ -270,16 +269,6 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		mainWindow.clientCom = null;
 		mainWindow.displayPanel(PanelName.CLIENT_GAME_PLAYER_SELECTION);
 		
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see fr.univavignon.courbes.inter.simpleimpl.remote.AbstractConnectionPanel#initContent()
-	 */
-	@Override
-	protected void initContent(){	
-		super.initContent();
-		ipTextField.setEnabled(false);	// je désactive le text field	
 	}
 	
 	/**

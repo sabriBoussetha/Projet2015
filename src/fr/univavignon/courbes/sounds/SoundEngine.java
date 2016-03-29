@@ -9,7 +9,6 @@ import fr.univavignon.courbes.common.ItemType;
  * @author Sabri
  */
 public interface SoundEngine {
-	
 	/**
 	 *	Cette fonction est appelée quand il y a une collision avec un autre snake ou avec 
 	 *  le snake même

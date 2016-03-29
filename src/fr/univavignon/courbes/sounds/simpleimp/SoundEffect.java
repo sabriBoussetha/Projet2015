@@ -16,6 +16,7 @@ import javax.sound.sampled.*;
  *
  */
 public class SoundEffect implements SoundEngine, Serializable {
+	/** Numéro de série de la classe */
 	private static final long serialVersionUID = 1L;
 	/** Instance de la classe Sound nécessaire pour la manipulation du son */
 	public Sound sound;
@@ -67,13 +68,11 @@ public class SoundEffect implements SoundEngine, Serializable {
 	@Override
 	public void collisionWithBordSound() {
 		sound = new Sound("res/sounds/collisionWithBoard.wav");
-		sound.play(false);
-		
+		sound.play(false);	
 	}
-	
 	/**
 	 * Cette fonction lance le son de commencement d'une manche
-	 * */
+	 */
 	@Override
 	public void newGameSound() {
 		sound = new Sound("res/sounds/background_sound/Bonus.wav");
@@ -93,7 +92,7 @@ public class SoundEffect implements SoundEngine, Serializable {
 	/**
 	 * Fonction qui lance le son lors d'un click sur la souris ou lors d'une
 	 * touche clavier
-	 * */
+	 */
 	@Override
 	public void clickSound(){
 		sound = new Sound("res/sounds/mouse_click.wav");
@@ -128,7 +127,7 @@ public class SoundEffect implements SoundEngine, Serializable {
 	}
 	/**
 	 * Fonction qui lance le son d'erreur lors d'un message d'erreur qui apparait
-	 * */
+	 */
 	@Override
 	public void errorSound() 
 	{

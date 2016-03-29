@@ -82,17 +82,10 @@
             }
         }
         public function searchGameListJson(){
-            $parse_search_game = explode("|",$_POST['search_game_json']);
-            $login = $parse_search_game[0];
-            $pass = $parse_search_game[1];
-            if(JavaCommunication::getUserByLoginAndPass($login,$pass)){
-                $connection = new dbconnection();
-                $sql = "SELECT ip_host,available_place FROM parties where available_place > 0";
-                $available_game = $connection->doQuery($sql);
-                $listServers = fopen('listServers.json', 'r+');
-                fputs($listServers, json_encode($available_game)); 
-            }
-            else echo "false";
+            $connection = new dbconnection();
+            $sql = "SELECT ip_host,available_place FROM parties where available_place > 0";
+            $available_game = $connection->doQuery($sql);
+            echo json_encode($available_game,JSON_HEX_AMP);
 
         }
         public function resetGame(){

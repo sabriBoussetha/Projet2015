@@ -64,8 +64,7 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		
 		this.mainWindow = mainWindow;
 		if(sound==null)
-		{
-			sound = new SoundEffect();
+		{	sound = new SoundEffect();
 			soundIsWorking = sound.backGroundMusic(true,indexOfSound);
 		}
 		initMenu();
@@ -154,7 +153,7 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		offSound = initButton("Mute",100,50);	
 		soundPanel.add(offSound);
 		
-		nextSoundTrack = initButton("next",100,50);	
+		nextSoundTrack = initButton("Next",100,50);	
 		soundPanel.add(nextSoundTrack);
 		
 		soundPanel.add(Box.createVerticalGlue());
