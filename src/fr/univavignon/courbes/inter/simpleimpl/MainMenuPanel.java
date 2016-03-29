@@ -63,8 +63,11 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	{	super();
 		
 		this.mainWindow = mainWindow;
-		sound = new SoundEffect();
-		soundIsWorking = sound.backGroundMusic(true,indexOfSound);
+		if(sound==null)
+		{
+			sound = new SoundEffect();
+			soundIsWorking = sound.backGroundMusic(true,indexOfSound);
+		}
 		initMenu();
 	}
 	

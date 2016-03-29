@@ -40,35 +40,33 @@ import fr.univavignon.courbes.network.central.simpleimpl.PhpCommunication;
 import fr.univavignon.courbes.network.kryonet.ClientCommunicationKryonetImpl;
 import fr.univavignon.courbes.network.simpleimpl.client.ClientCommunicationImpl;
 
-
-
-
-
 /**
- * @author sabri
  * 
- * 	Cette classe correspond à la fênetre d'attente d'une partie publique sur le serveur central
+ * 	Cette classe correspond à la fênetre qui affiche tout les parties publiques
+ *  disponibles sur le serveur central et ayant des places disponibles.
+ *  Elle permet ainsi de joindre le serveur souhaité 
  * 
- * */
+ * 
+ * 	@author sabri
+ */
 
 
 public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel implements ClientConnectionHandler{
-	
 	/** Numéro de série de la classe */
 	private static final long serialVersionUID = 1L;
-	
+	/** Nom de la fenêtre */
 	private static final String TITLE = "Connexion au serveur central";
-	
 	/** Instance de la classe PhpCommunication permetant de se connecter aux serveurs disponibles sur le central*/ 
 	private PhpCommunication search;
-	
+	/** Tableau contenant tout les serveurs disponibles du le Central*/
 	private CentralAvailableServers []servers = null;
-	
-	private int numberServers;
-	
+	/** Panel centant l'ensemble de composantes de la fênetre*/
 	JPanel panel;
+	/** Tableau de boutons corréspondant aux boutons 'joindre' de chaque serveur */
 	JButton []join;
+	/** Tableau de JLabel contenant l'adresse ip et le nombre de place disponible sur le serveur*/
 	JLabel []serverLabel;
+	/** Variable bouleénne permettant de décider de se connecter à un serveur dans la méthode connect(int) */
 	boolean joinServer=false;
 	
 	/**	
@@ -82,7 +80,14 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 	}
 	
 	/**
+	 * Métode permettant de se connecter à un serveur disponible sur la base de données du central.
+	 * Ainsi que l'affichage de la liste des serveurs disponibles en utilisant le parse
+	 * du fichier JSON qui contient les serveurs disponibles  
+	 * 
+	 * @param nbButton
+	 * 		l'indice du bouton correspondant à un serveur disponible
 	 * @return 
+	 * 		boolean {@true} si on arrive à se connecter au serveur 
 	 */
 	private boolean connect(int nbButton)
 	{	// on initialise le Moteur Réseau
@@ -105,8 +110,10 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		String ipStr = null, allServers = null;
 		
 		try {
+			/* En appellant cette methode la méthode searchGameJson()
+			 *  mettra les serveurs disponible dans un fihcier JSON */
 			ipStr = search.searchGame("All servers",mainWindow.clientPlayer.profile.userName,mainWindow.clientPlayer.profile.password);
-			// URL du fichier qui se trouve dans le serveur est qui contient la liste des serveurs disponible
+			// URL du fichier qui se trouve dans le serveur et qui contient la liste des serveurs disponibles
 			allServers = "https://pedago02a.univ-avignon.fr/~uapv1402577/server/listServers.json";
 			System.out.println(ipStr);
 		    URL url = new URL(allServers);
@@ -117,12 +124,12 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		    while (scan.hasNext())
 		        str += scan.nextLine();		// Mettre le contenu du fichier dans une chaine de charactère
 		    scan.close();
-
-		    JSONArray arrayJSON = new JSONArray(str);			// Création d'un object JSONArray à partir la variable String
-		    numberServers = arrayJSON.length();
+		    
+		    // Création d'un object JSONArray à partir la variable String
+		    JSONArray arrayJSON = new JSONArray(str);			
 		    servers = new CentralAvailableServers[arrayJSON.length()];		
 		    JSONObject tmp;
-		    
+		    // Effacer le contenue de la fênetre 
 		    this.removeAll();
 			initContent();
 			
@@ -133,16 +140,16 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 			panel.setLayout(boxLayout);
 				
 			panel.add(Box.createVerticalGlue());
-		    // Pour tout les elements du JSONArray
+		 
 			serverLabel = new JLabel[arrayJSON.length()];
 			join = new JButton[arrayJSON.length()];
+			// Pour tout les elements du JSONArray
 		    for(int i=0; i<arrayJSON.length(); i++)	
 		    {
 		    	tmp=arrayJSON.getJSONObject(i);
-		    	servers[i] = new CentralAvailableServers();
+		    	servers[i] = new CentralAvailableServers(); // Instancier un object pour stocker un serveur 
 		    	servers[i].setIpHost(tmp.getString("ip_host"));
 		    	servers[i].setAvailablePlaces(tmp.getInt("available_place"));
-		    	ipStr = servers[i].getIpHost();
 		    	
 		    	serverLabel[i] = new JLabel("Adresse IP : " + servers[i].getIpHost() + "----------- Places disponibles : " + servers[i].getAvailablePlaces());
 		    	System.out.println(tmp.getString("ip_host") + " | " + tmp.getInt("available_place"));
@@ -153,8 +160,12 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		    	panel.add(join[i]);
 		    	panel.add(Box.createVerticalStrut(10));
 		    }
+		    
+		    backButton.setEnabled(true);
+		    panel.add(backButton);
 		    panel.add(Box.createVerticalGlue());
 		    add(panel, BorderLayout.CENTER);
+		    
 		    this.validate();
 			this.repaint();
 			// On enlève une place disponible dans la table	
@@ -165,10 +176,10 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 			System.out.println("Cannot coonect!");
 		}
 		
-		// puis on se connecte
+		
 		boolean result=false;
-		if(joinServer)
-		{
+		if(joinServer)		
+		{	// puis on se connecte
 			clientCom.setIp(servers[nbButton].getIpHost());
 			SettingsManager.setLastServerIp(servers[nbButton].getIpHost());
 			
@@ -182,7 +193,10 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		}
 		return result;
 	}
-	
+	/*
+	 * (non-Javadoc)
+	 * @see fr.univavignon.courbes.inter.ClientConnectionHandler#gotRefused()
+	 */
 	@Override
 	public void gotRefused() {
 		SwingUtilities.invokeLater(new Runnable()
@@ -196,7 +210,10 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 	    });
 		
 	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see fr.univavignon.courbes.inter.ClientConnectionHandler#gotAccepted()
+	 */
 	@Override
 	public void gotAccepted() {
 		SwingUtilities.invokeLater(new Runnable()
@@ -207,38 +224,47 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 			}
 	    });		
 	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see fr.univavignon.courbes.inter.simpleimpl.remote.AbstractConnectionPanel#getDefaultIp()
+	 */
 	@Override
 	public String getDefaultIp() {
 		return null;	
 	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see fr.univavignon.courbes.inter.simpleimpl.remote.AbstractConnectionPanel#getDefaultPort()
+	 */
 	@Override
 	public int getDefaultPort() {
 		return 0;
 	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see fr.univavignon.courbes.inter.simpleimpl.AbstractConfigurationPanel#nextStep()
+	 */
 	@Override
-	protected void nextStep() throws IOException {
-		// on se connecte
-		//boolean connected = connect();
-		
+	protected void nextStep() throws IOException 
+	{
 		if(joinServer)
 		{	// on désactive les boutons le temps de l'attente
 			backButton.setEnabled(false);
-			nextButton.setEnabled(false);
+			nextButton.setEnabled(true);
 			// puis on se contente d'attendre la réponse : acceptation ou rejet
 				// la méthode correspondante du handler sera automatiquement invoquée
 		}
 		else
-		{	
-			sound.errorSound();
+		{	sound.errorSound();
 			JOptionPane.showMessageDialog(mainWindow, 
 				"<html>Il n'est pas possible d'établir une connexion avec le serveur.</html>");
 		}
 		
 	}
-
+	/**
+	 * (non-Javadoc)
+	 * @see fr.univavignon.courbes.inter.simpleimpl.AbstractConfigurationPanel#previousStep()
+	 */
 	@Override
 	protected void previousStep() {
 		mainWindow.clientCom = null;
@@ -246,16 +272,27 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 		
 	}
 	
-	/**
-	 * Panel contenant la liste des serveurs disponibles
-	 * */
+	/*
+	 * (non-Javadoc)
+	 * @see fr.univavignon.courbes.inter.simpleimpl.remote.AbstractConnectionPanel#initContent()
+	 */
 	@Override
 	protected void initContent(){	
 		super.initContent();
 		ipTextField.setEnabled(false);	// je désactive le text field	
 	}
+	
 	/**
+	 * Initialise chaque bouton de la même façon.
 	 * 
+	 * @param text
+	 * 		Texte à inclure dans le bouton.
+	 * @param width
+	 * 		Correspond à la largeur du bouton
+	 * @param height
+	 * 		La longueur du bouton
+	 * @return
+	 * 		Bouton convenablement configuré. 
 	 */
 	private JButton initButton(String text, int width, int height)
 	{	JButton result = new JButton(text);
@@ -279,15 +316,18 @@ public class ClientGameCentralConnectionPanel  extends AbstractConnectionPanel i
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e)
-	{
-		for(int i=0; i<join.length; i++)
+	{	sound.clickSound(); // Son correspondant à un click
+		// Parcourir le tableau des boutons
+		for(int i=0; i<join.length; i++)	
 		{
 			if(e.getSource()==join[i])	
-			{	sound.clickSound(); // Son correspondant à un click
-				joinServer=true;
+			{	joinServer=true;
 				boolean a = connect(i);
 				System.out.println(a);
 			}
+		}
+		if(e.getSource()==backButton){
+			mainWindow.displayPanel(PanelName.CLIENT_GAME_PLAYER_SELECTION);
 		}
 		
 	}

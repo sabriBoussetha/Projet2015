@@ -76,7 +76,7 @@ public class SoundEffect implements SoundEngine, Serializable {
 	 * */
 	@Override
 	public void newGameSound() {
-		sound = new Sound("res/sounds/Bonus.wav");
+		sound = new Sound("res/sounds/background_sound/Bonus.wav");
 		sound.play(false);
 		
 	}
