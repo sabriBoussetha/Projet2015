@@ -24,6 +24,8 @@ import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
  */
 public class PhpCommunication implements CentralCommunication{
 
+	static String servAdr = "https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php";
+
     ServerCommunicationImpl server = new ServerCommunicationImpl();
 	
     /**
@@ -399,6 +401,45 @@ public class PhpCommunication implements CentralCommunication{
 	    
 	}
 	
+		public static void updateMatch(int [] idPlayer) throws IOException{
+		
+		String info = "" + idPlayer.length + "|";
+		for (int id : idPlayer){
+			info += id + "|";
+		}
+		
+		String data = "update_match=" +URLEncoder.encode("" + info, "UTF-8");
+		URL url = new URL(servAdr);
+	    String result = "";
+	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	    try {
+	        connection.setDoInput(true);
+	        connection.setDoOutput(true);
+	        connection.setUseCaches(false);
+	        connection.setRequestMethod("POST");
+	        connection.setRequestProperty("Content-Type",
+	                "application/x-www-form-urlencoded");
+	        // Envoyer les données en POST
+
+	        DataOutputStream dataOut = new DataOutputStream(
+	                connection.getOutputStream());
+	        dataOut.writeBytes(data);
+	        dataOut.flush();
+	        dataOut.close();
+
+            String line;
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            while ((line = in.readLine()) != null) {
+            	result += line;
+            }
+	    	in.close();
+	    	connection.disconnect();
+            System.out.println("AAAAA" + result);
+	    }catch(Throwable t) {
+	        System.out.println("Error: " + t.getMessage());
+	    }
+	    
+	}
 	
 	
 	
