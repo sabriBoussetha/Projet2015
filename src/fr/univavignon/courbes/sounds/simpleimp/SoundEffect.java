@@ -20,7 +20,10 @@ public class SoundEffect implements SoundEngine, Serializable {
 	/** Instance de la classe Sound nécessaire pour la manipulation du son */
 	public Sound sound;
 	/** */
-	public String []soundTrack = new String[]{"res/sounds/background_sound/Happy.wav","res/sounds/background_sound/Bonus.wav"};
+	public String []soundTrack = new String[]{ "res/sounds/background_sound/adventure.wav",
+											   "res/sounds/background_sound/Happy.wav",
+											   "res/sounds/background_sound/Bonus.wav",
+											   "res/sounds/background_sound/piano.wav"};
 	/**
 	 * Jouer le son correspondant à la collision avec un snake
 	 */

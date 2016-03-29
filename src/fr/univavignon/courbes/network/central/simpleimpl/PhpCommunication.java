@@ -108,8 +108,8 @@ public class PhpCommunication implements CentralCommunication{
 		else if(choice=="server")
 			data = "search_game" + URLEncoder.encode(userName+"|"+password, "UTF-8");
 		URL url = new URL(servAdr);
-	    String result = ""; 
-	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		    String result = ""; 
+		    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    try {
 	        connection.setDoInput(true);
 	        connection.setDoOutput(true);
