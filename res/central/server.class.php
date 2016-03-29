@@ -2,8 +2,16 @@
     include_once 'dbconnection.class.php';
 
     class JavaCommunication{
-        public function verifUser(){
-            
+        public static function getUserByLoginAndPass($login,$pass){
+            $connection = new dbconnection() ;
+            $sql = "select * from player where pseudo='".$login."' and password='".sha1($pass)."'" ;
+
+            $res = $connection->doQuery( $sql );
+
+            if($res === false)
+              return false ;
+
+            return $res ;
         }
         public function addNewGame(){
             $parse_new_game = explode("|",$_POST['new_game']);
@@ -60,11 +68,16 @@
                 return false ;
             return $res ;
         }
-        public function searchGame(){
-            $connection = new dbconnection();
-            $sql = "SELECT ip_host FROM parties where available_place > 0 LIMIT 1";
-            $available_game = $connection->doQuery($sql);
-            echo $available_game[0]['ip_host'];
+        public function searchGame($login,$pass){
+            if(getUserByLoginAndPass($login,$pass)){
+                $connection = new dbconnection();
+                $sql = "SELECT ip_host FROM parties where available_place > 0 LIMIT 1";
+                $available_game = $connection->doQuery($sql);
+                echo $available_game[0]['ip_host'];   
+            }
+            else{
+                echo -1;
+            }
         }
         public function searchGameListJson(){
             $connection = new dbconnection();
