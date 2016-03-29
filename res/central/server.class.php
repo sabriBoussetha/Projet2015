@@ -152,7 +152,9 @@
             }
 
         }
-
+        //fonction faite par charlie
+        //supprime le player de la bdd
+        //en supprimant aussi ces valeurs statistiques
         public function deletePlayer()
         {
             $id = $_POST["delete_player"];
@@ -168,7 +170,7 @@
 
         }
 
-
+        
         public function getPlayer(){
             $connection = new dbconnection();
             $sql = "SELECT id FROM player";
@@ -196,6 +198,9 @@
             $res = $connection->doExec($sql);
         }
 
+        //fonction fait par charlie
+        //renvoie les elos associé a leurs dates dans le format JSON
+        //pour un joueur donné
         public function getElo()
         {
             $id = $_POST['get_elo'];
@@ -207,6 +212,8 @@
             echo json_encode($res); 
         }
 
+        //fonction faite par charlie
+        //retourne le pseudo d'un id passé en post
         public function getPseudo()
         {
             $id = $_POST['get_pseudo'];

@@ -21,6 +21,7 @@ import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
 /**
  * @author : Nathan Cheval
  * @author : Sabri Boussetha
+ * @author : Charlie Brugvin
  *
  */
 public class PhpCommunication implements CentralCommunication{
@@ -42,6 +43,8 @@ public class PhpCommunication implements CentralCommunication{
      * @param nbPlayer
      * @param choix
      * @throws IOException
+     * 
+     * @author Nathan
      */
     
 	@Override
@@ -100,7 +103,9 @@ public class PhpCommunication implements CentralCommunication{
 	        return false;
 	    }
 	}	
-	
+	/**
+	 * @author Nathan
+	 */
 	@Override
 	public String searchGame(String choice, String userName, String password) throws IOException{
 		String data = null;
@@ -149,6 +154,8 @@ public class PhpCommunication implements CentralCommunication{
 	 * @param ELO
 	 * @param password
 	 * @throws IOException
+	 * 
+	 * @author Nathan
 	 */
 	public Integer addPlayer(String pseudo, String country,String password) throws IOException{
 		URL url = new URL(servAdr);
@@ -186,7 +193,11 @@ public class PhpCommunication implements CentralCommunication{
 	}
 	
 	
-	
+	/**
+	 * @author Nathan
+	 * @return
+	 * @throws IOException
+	 */
 	public static String getPlayer() throws IOException{
 		String data = "get_player=" + URLEncoder.encode("UTF-8");
 		URL url = new URL(servAdr);
@@ -223,7 +234,16 @@ public class PhpCommunication implements CentralCommunication{
 	}
 	
 	
-	
+	/**
+	 * 
+	 * Fonction qui envoie une reqûte de suppression de joueur
+	 * 
+	 * @author Charlie
+	 * @author alexandre
+	 * 
+	 * @param id du joueur
+	 * @throws IOException
+	 */
 	public static void deletePlayer(Integer id) throws IOException{
 		String data = "delete_player=" + URLEncoder.encode("" + id, "UTF-8");
 		URL url = new URL(servAdr);
@@ -257,7 +277,14 @@ public class PhpCommunication implements CentralCommunication{
 	    }   
 	}	
 	
-	
+	/**
+	 * Fonction qui recupere les classement ELO d'un joueur, associré a leurs dates
+	 * 
+	 * @author Charlie
+	 * @param identifiant du joueur
+	 * @return tableau associant les classements elo a leurs dates sous format JSON
+	 * @throws IOException
+	 */
 	public static String getElo(Integer id) throws IOException{
 		String data = "get_elo=" +URLEncoder.encode("" + id, "UTF-8");
 		URL url = new URL(servAdr);
@@ -293,6 +320,14 @@ public class PhpCommunication implements CentralCommunication{
 		return result;
 	}
 	
+	/**
+	 * Fonction qui recupere le pseudo a partir de l'iendentifiant d'un joueur
+	 * 
+	 * @param identifiant d'un joueur
+	 * @return le pseudonyme du joueur
+	 * @throws IOException
+	 * @author Charlie
+	 */
 	public static String getPseudo(Integer id) throws IOException{
 		String data = "get_pseudo=" +URLEncoder.encode("" + id, "UTF-8");
 		URL url = new URL(servAdr);

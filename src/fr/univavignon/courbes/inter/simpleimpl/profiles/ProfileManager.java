@@ -68,56 +68,41 @@ public class ProfileManager
 	 * sur les noms ou emails des utilisateurs. La liste modifiée est
 	 * enregistrée.
 	 * 
-	 * AJOUT CHARLIE ALEX : retourne false si le pseudo est dans la bdd
+	 * AJOUT de charlie et alex : retourne false si le pseudo est dans la bdd
+	 * et acces a la base de donnée pour ajouter le joueur.
 	 * @param profile
 	 * 		Utilisateur à rajouter.
 	 */
 	public static boolean addProfile(Profile profile)
 	{	
-		//CHARLIE ALEX
+		//ajout de charlie et alex
 		
-		//ACCEE BDD
+		//acces a la base de donnée
+		//on recupere l'id produit par la base sql
 		Integer id = null;
 		try {
 			id = player.addPlayer(profile.userName,profile.country,profile.password);
-			//System.out.println("Id recupere depuis la bdd -> : " + );
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		
 		//on n'ajoute au fichier texte le player que si id != -1,
 		//cad que le pseudo entré n'existe pas deja
 		if (id != -1)
 		{
-			System.out.println("dans le if id : " + id);
-			/*
-			if(PROFILES.isEmpty())
-				profile.profileId = 0;
-			else
-			{	Profile mx = Collections.max(PROFILES);
-				profile.profileId = mx.profileId + 1;
-			}*/
 			profile.profileId = id;
 			
 			PROFILES.add(profile);
 			recordProfiles();
-			
 			return true;
 		}
-		
 		return false;
-		
-		
-		
-
 	}
 	
 	/**
 	 * Supprime un profil de la liste, et enregistre.
 	 * 
-	 * AJOUT ALEX CHARLIE return true et try catch
+	 * Ajout charlie et alex : retourne true et supprime le joueur sur la bdd
 	 * @param profile
 	 * 		Le profil à supprimer.
 	 */
@@ -125,11 +110,11 @@ public class ProfileManager
 	{	
 		PROFILES.remove(profile);
 		recordProfiles();
+		
 		// AJOUT CHARLIE ALEX
 		try {
 			PhpCommunication.deletePlayer(profile.profileId);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return true;
@@ -139,6 +124,8 @@ public class ProfileManager
 	 * Enregistre la liste des profils dans un fichier
 	 * texte, dans lequel chaque ligne représente un profil,
 	 * et les champs d'un profil sont séparés par {@link #SEPARATOR}.
+	 * 
+	 * AJOUT charlie et alex : ecriture du profileId dans le fichier texte
 	 */
 	private static void recordProfiles()
 	{	try

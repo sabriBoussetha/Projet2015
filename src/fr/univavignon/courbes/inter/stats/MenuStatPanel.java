@@ -28,8 +28,7 @@ import fr.univavignon.courbes.network.central.simpleimpl.PhpCommunication;
 public class MenuStatPanel extends AbstractConfigurationPanel{
 	
 	/** FALSE : on est sur la page du tableau
-	 * TRUE : on est sur le graphique ELO
-	 */
+	 * TRUE : on est sur le graphique ELO*/
 	boolean afficherGraphique = false;
 	
 	/**le tableau des joueurs**/ 
@@ -107,7 +106,5 @@ public class MenuStatPanel extends AbstractConfigurationPanel{
 			//on retourne au menu
 			mainWindow.displayPanel(PanelName.MAIN_MENU);
 		}
-		
 	}
-
 }

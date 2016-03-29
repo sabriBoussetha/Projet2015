@@ -1,5 +1,10 @@
 <?php
 
+//Algorithmique et implémentation des méthodes réalisé par Charlie
+
+//recuperation et envoi avec la base de donnée réalisé par Charlie et Alex
+//une fois la base de donnée finalisé
+
 
 //met a jour les elos a l'issue d'une partie
 //issue partie est le classement de la partie
@@ -8,16 +13,8 @@
 function majElo($issuePartie)
 {
 
-/*
-	//recuperation des elo dans la bdd
-	$elo = array(
-		101 => 2300,
-		102 => 2300,
-		103 => 1900,
-		);*/
-
-	
-	//recupereation des donnes elo de la bdd
+	//recuperation des donnes elo de la bdd
+	//dans un tablea associatif : id => derniere valeur elo
 	$elo = array();
 
 	$connection = new dbconnection();
@@ -31,29 +28,22 @@ function majElo($issuePartie)
 		$elo[ $res[0]["id"] ] = $res[0]["score_elo"];
 	}
 	
-	var_dump($elo);
-	
-
-//calcule du coefficient de reussite
+	//pour chaque joueurs
 	for ($i = 0; $i < count($issuePartie); $i++)
 	{
 		$idJoueur = $issuePartie[$i];
 
-		//echo "id : $i  idjoueur : $idJoueur elo : $elo[$idJoueur]"; 
-		//echo "\n";
-		//pour chaque joueurs
+		//calcul de sa probabilité de succès
 		$proba_succes = proba_succes_multi($elo, $idJoueur);
-		//echo "proba succes : $proba_succes";
-		//echo "\n";
+		//calcul de son coeficient de reussite
 		$coef_reussite = coef_reussite(count($issuePartie), $i+1);
-		//echo "coef reussite : $coef_reussite";
-		//echo "\n";
+		//recuperation de son ancien elo
 		$ancien_elo = $elo[$idJoueur];
-		//echo "ancien elo : $ancien_elo";
-		//echo "\n";
+		//mise a jour de son elo dans le tableau
 		$elo[$idJoueur] = newElo($ancien_elo, $coef_reussite, $proba_succes);
 	}
 
+	//enregistrement des nouveaux elo dans la base de donnée
 	foreach ($elo as $id => $valueElo) {
 	    $date = date('Y-m-d H:i:s');
 	    echo "id : $id, date : $date, elo : $valueElo";
@@ -63,6 +53,7 @@ function majElo($issuePartie)
 	}
 
 }
+
 //calculer la probabilite moyenne de succes pour un joueur
 //on a juste besoin des elo des joueurs
 function proba_succes_multi($elo, $idJoueur)
@@ -77,7 +68,7 @@ function proba_succes_multi($elo, $idJoueur)
 			$proba_succes += proba_succes_1vs1($eloValue, $elo[$idJoueur]);
 		}
 	}
-
+	//le numerateur correspond au nombre totale de sous parties
 	return $proba_succes / (count($elo) * ((count($elo) -1) / 2));
 }
 

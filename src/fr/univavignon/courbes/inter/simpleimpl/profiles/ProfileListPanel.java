@@ -194,6 +194,8 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 	
 	/**
 	 * Validation de l'ajout d'un nouveau profil.
+	 * 
+	 * AJOUT d'une fenetre pop-up si le pseudo exsite deja
 	 */
 	private void addPlayer()
 	{	String userName = nameField.getText();

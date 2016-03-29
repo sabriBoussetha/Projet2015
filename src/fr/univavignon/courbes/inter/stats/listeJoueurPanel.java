@@ -23,8 +23,10 @@ import javax.swing.table.TableColumn;
  */
 public class listeJoueurPanel extends JPanel{
 	
+	/** le tableau qui represente la liste des joueurs */
 	public JTable tableau; //le tableau 
-	public TabStat modele; //le modele du tableau, qui contient les donnees
+	/** le modele du tableau */
+	public TabStat modele;
 	
 	public listeJoueurPanel()
 	{

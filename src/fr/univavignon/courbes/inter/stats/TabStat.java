@@ -30,12 +30,13 @@ class TabStat extends AbstractTableModel{
 	
 	/** le titre des colonnes, dans l'ordre d'afficahge */
 	private String[] title;
-	/** le titre des id des joueurs */
+	/** les ids des joueurs, dans leurs ordre d'affichge des lignes*/
 	private int[] tabId; //les ids des joueurs, dans l'ordre d'affichage
   
 	//Constructeur
 	public TabStat()
 	{
+		//declaration des titres de colones
 		String  title[] = 
 		{"ELO", 
 		"Pseudo", 
@@ -50,9 +51,7 @@ class TabStat extends AbstractTableModel{
 		" "}; // colonne des checkbox
 
 	
-		//TRAITEMENT JSON
-		
-		//on recuupere le JSON dans la chaine test
+		//recuperation des
 		String test = null;
 		try {
 			test = PhpCommunication.getPlayer();

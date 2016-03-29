@@ -49,6 +49,8 @@ import fr.univavignon.courbes.sounds.simpleimp.SoundEffect;
  * Panel utilisé pour afficher le jeu proprement dit,
  * i.e. le panel de l'aire de jeu et celui des scores.
  * 
+ * Ajout charlie et alex :envoi eventuel des statistiques d'une manche et d'une partie a la base de donnée
+ * 
  * @author	L3 Info UAPV 2015-16
  */
 public abstract class AbstractRoundPanel extends JPanel implements Runnable
@@ -110,10 +112,10 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	protected boolean matchOver = false;
 	/** Indique quel serpent a été éliminé par quoi : {@code null} pour pas éliminé, une <i>valeur négative</i> pour la bordure, et {@code playerId} pour un serpent (possiblement le joueur lui-même) */
 	protected Integer[] eliminatedBy;
-	/** String indiquant si à la fin d'une manche, le joueur est mort à cause d'un bord, d'un autre joueurn, de lui même OU si il est encore en vie */
+	/** AJOUT String indiquant si à la fin d'une manche, le joueur est mort à cause d'un bord, d'un autre joueurn, de lui même OU si il est encore en vie */
 	protected String raisonMort;
 	
-    //AJOUT CHARLIE
+    //AJOUT on ajoute le comparateur ici, pour trier un tableau de players
 	/** Compare deux joueurs en fonction de leur rang */
 	private final static Comparator<Player> PLR_COMP = new Comparator<Player>()
 	{	
@@ -200,9 +202,11 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 				}
 				JOptionPane.showMessageDialog(mainWindow, "Le joueur "+name+" a gagné la partie !");
 				
+				//AJOUT stat charlie et alex
+				//on n'envoie les stats que si cela est demandé (i.e c'est l'hôte qui joue)
 				if (envoyerStat)
 				{
-					//on determine la table du classement CHARLIE
+					//on determine la table du classement
 					List<Player> sortedPlayers = new ArrayList<Player>(Arrays.asList(round.players));
 					Collections.sort(sortedPlayers,PLR_COMP);
 					int classement[] = new int[players.length];
@@ -219,6 +223,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 						e.printStackTrace();
 					}
 				}
+				//Fin stat
 			}
 			
 			// ou bien celui de la manche, et on recommence
@@ -231,7 +236,8 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 				Profile profile = players[maxIdx2].profile;
 				String name = profile.userName;
 				JOptionPane.showMessageDialog(mainWindow, "Le joueur "+name+" a gagné la manche !");
-								
+				
+				//AJOUT stat charlie et alex
 				//on n'envoie les stats que si cela est demandé (i.e c'est l'hôte qui joue)
 				if (envoyerStat)
 				{
@@ -245,9 +251,10 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 						}
 					}
 				}
-				
+				//fin stat
 			}
-				resetRound();
+			
+			resetRound();
 				
 				
 		}while(!matchOver);
