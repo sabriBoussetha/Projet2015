@@ -25,6 +25,8 @@ import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
 public class PhpCommunication implements CentralCommunication{
 
     ServerCommunicationImpl server = new ServerCommunicationImpl();
+    
+    static String servAdr = "https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php";
 	
     /**
      * Fonction permettant l'envoie d'information au serveur central
@@ -46,7 +48,7 @@ public class PhpCommunication implements CentralCommunication{
 		if(ip == "NULL"){
 			ip = server.getIp();
 		}
-		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
+		URL url = new URL(servAdr);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    String result = "";
 	    String data = "";
@@ -105,7 +107,7 @@ public class PhpCommunication implements CentralCommunication{
 			data = "search_game_json";
 		else if(choice=="server")
 			data = "search_game" + URLEncoder.encode(userName+"|"+password, "UTF-8");;
-		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
+		URL url = new URL(servAdr);
 	    String result = ""; 
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    try {
@@ -148,7 +150,7 @@ public class PhpCommunication implements CentralCommunication{
 	 * @throws IOException
 	 */
 	public Integer addPlayer(String pseudo, String country,String password) throws IOException{
-		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
+		URL url = new URL(servAdr);
 	    String result = "";
 	    String data = "add_player=" + URLEncoder.encode(pseudo+"|"+country+"|"+password, "UTF-8");
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -184,7 +186,7 @@ public class PhpCommunication implements CentralCommunication{
 	
 	public static String getPlayer() throws IOException{
 		String data = "get_player=" + URLEncoder.encode("UTF-8");
-		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
+		URL url = new URL(servAdr);
 	    String result = ""; 
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    try {
@@ -221,7 +223,7 @@ public class PhpCommunication implements CentralCommunication{
 	
 	public static void deletePlayer(Integer id) throws IOException{
 		String data = "delete_player=" + URLEncoder.encode("" + id, "UTF-8");
-		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
+		URL url = new URL(servAdr);
 	    String result = ""; 
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    try {
@@ -255,7 +257,7 @@ public class PhpCommunication implements CentralCommunication{
 	
 	public static String getElo(Integer id) throws IOException{
 		String data = "get_elo=" +URLEncoder.encode("" + id, "UTF-8");
-		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
+		URL url = new URL(servAdr);
 	    String result = "";
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    try {
@@ -290,7 +292,7 @@ public class PhpCommunication implements CentralCommunication{
 	
 	public static String getPseudo(Integer id) throws IOException{
 		String data = "get_pseudo=" +URLEncoder.encode("" + id, "UTF-8");
-		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
+		URL url = new URL(servAdr);
 	    String result = "";
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    try {
@@ -325,7 +327,7 @@ public class PhpCommunication implements CentralCommunication{
 	
 	public static void updateManche(Integer id, Integer score, boolean gagne, String raisonMort) throws IOException{
 		String data = "update_manche=" +URLEncoder.encode("" + id + "|" + score + "|" + gagne + "|" + raisonMort, "UTF-8");
-		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
+		URL url = new URL(servAdr);
 	    String result = "";
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    try {
@@ -367,7 +369,7 @@ public class PhpCommunication implements CentralCommunication{
 		}
 		
 		String data = "update_match=" +URLEncoder.encode("" + info, "UTF-8");
-		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
+		URL url = new URL(servAdr);
 	    String result = "";
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    try {
