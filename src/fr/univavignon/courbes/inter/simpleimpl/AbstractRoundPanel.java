@@ -214,7 +214,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 					//on appelle updateMatch pour mettre à jour la BDD après une partie
 					try {
 						endGame.sendInformation("NULL", 0, 5);
-						PhpCommunication.updateMatch(classement);
+						endGame.updateMatch(classement);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -241,7 +241,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 					{
 						//on met à jour les stats d'une manche
 						try {
-							PhpCommunication.updateManche(p.profile.profileId, p.roundScore, (raisonMort == "en vie"), raisonMort);
+							endGame.updateManche(p.profile.profileId, p.roundScore, (raisonMort == "en vie"), raisonMort);
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
