@@ -1,22 +1,27 @@
 
 ----- SCRIPT DE CREATION DE LA BDD TABLES STATISTIQUES ----
+
+
 --realisé par Alexandre et Charlie
-
 drop table stat_joueur;
-
---- on les crées ---
-
 CREATE TABLE stat_joueur
 (
 id SERIAL ,
 nb_partie INT DEFAULT 0,
-nb_partie_premier INT DEFAULT 0
+nb_partie_premier INT DEFAULT 0,
+nb_manche INT DEFAULT 0,
+nb_manche_premier INT DEFAULT 0,
+nb_points INT DEFAULT 0,
+moy_points_partie FLOAT DEFAULT 0,
+moy_points_manche FLOAT DEFAULT 0,
+mort_bord INT DEFAULT 0,
+mort_autre INT DEFAULT 0,
+mort_soi_meme INT DEFAULT 0
 );
 
+
 --réalisé par Charlie
-
 drop table stat_elo;
-
 CREATE TABLE stat_elo
 (
 id SERIAL,

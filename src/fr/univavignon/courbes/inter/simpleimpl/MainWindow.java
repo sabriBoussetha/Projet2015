@@ -224,7 +224,6 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 				currentPanel = new ProfileListPanel(this);
 				break;
 			case STATISTICS:
-				System.out.println("Option pas encore implémentée...");
 				currentPanel = new MenuStatPanel(this);
 				break;
 			case CLIENT_GAME_CENTRAL_CONNECTION:

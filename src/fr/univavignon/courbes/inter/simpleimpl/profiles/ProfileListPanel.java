@@ -211,7 +211,7 @@ public class ProfileListPanel extends JPanel implements ActionListener, FocusLis
 			profile.eloRank = ProfileManager.getProfiles().size()+1;
 			profile.password = password;
 			
-			//AJOUT ALEX ET CHARLIE
+			//AJOUT Alexandre ET CHARLIE
 			// si addProfile return false, c'est que le pseudo existe deja
 			if(ProfileManager.addProfile(profile))
 			{

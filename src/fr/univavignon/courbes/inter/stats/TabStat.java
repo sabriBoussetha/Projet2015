@@ -52,28 +52,26 @@ class TabStat extends AbstractTableModel{
 
 	
 		//recuperation des
-		String test = null;
+		String json = null;
 		try {
-			test = PhpCommunication.getPlayer();
+			json = PhpCommunication.getPlayer();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
-		
-		System.out.println(test);
+		}		
 
 		JSONParser parser = new JSONParser();
 		  
 		//on recupere la table principale depuis la chaine
 		JSONArray tabPrincipale = null;
 		try {
-			tabPrincipale = (JSONArray) parser.parse(test);
+			tabPrincipale = (JSONArray) parser.parse(json);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		
-		
+		//tabLigne est un tableau
 		JSONArray tabLigne;
 		JSONObject ligne;
 		
