@@ -180,7 +180,7 @@
             $i = 0;
             foreach($res as $player){
                 $id = $player["id"];
-                $sql1 = "SELECT id,score_elo,pseudo,nb_partie,nb_partie_premier , date_
+                $sql1 = "SELECT id,score_elo,pseudo,nb_partie,nb_partie_premier, nb_manche, nb_manche_premier, nb_points, mort_bord, mort_autre, mort_soi_meme, date_
                     FROM player NATURAL JOIN stat_joueur NATURAL JOIN stat_elo  
                     WHERE id='$id' AND date_ >= ALL (SELECT date_ FROM stat_elo WHERE id='$id')";
                 $res1 = $connection->doQuery($sql1);
@@ -230,22 +230,41 @@
         }
 
         
-        public function update_manche(){
+        public function updateManche(){
                $parse_update_manche = explode("|",$_POST['update_manche']);
        		$id = $parse_update_manche[0];
             	$score = $parse_update_manche[1];
-            	$gagne = $parse_update_manche[2];
             	$raison_mort = $parse_update_manche[3];
+            	
+            	
+            	$connection = new dbconnection();
+            	
+            	if ($raison_mort == "en vie"){
+            	echo "en vie";
+            		$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_manche_premier = nb_manche_premier + 1 , nb_points = nb_points + $score, moy_points_manche = cast(nb_points + $score AS double)/(nb_manche + 1) WHERE id=$id";
+            	}
+            	
+            	else{
+            		if($raison_mort == "bord"){
+            		echo "bord";
+            			$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_points = nb_points + $score, moy_points_manche = cast(nb_points + $score AS double)/(nb_manche + 1), mort_bord = mort_bord + 1 WHERE id=$id";
+            		}
+            		
+            		else if ($raison_mort = "lui meme"){
+            		echo "lui meme";
+            			$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_points = nb_points + $score, moy_points_manche = cast(nb_points + $score AS double)/(nb_manche + 1), mort_soi_meme = mort_soi_meme + 1 WHERE id=$id";
+            		}
+            		
+            		else{
+            		echo "autre";
+            			$sql = "UPDATE stat_joueur SET nb_manche = nb_manche + 1, nb_points = nb_points + $score, moy_points_manche = cast(nb_points + $score AS double)/(nb_manche + 1), mort_autre = mort_autre + 1 WHERE id=$id";
+            		}
+            	
+            	}
+               echo "sql : $sql";
+               $res = $connection->doExec($sql);
+               //echo " id = var_dump($id), score = var_dump($score), gagne = var_dump($gagne), raison = var_dump($raison_mort)";
                
-               echo " id = var_dump($id), score = var_dump($score), gagne = var_dump($gagne), raison = var_dump($raison_mort)";
-               
-               /*
-               $connection = new dbconnection();
-                
-                $sql = "UPDATE stat_joueur SET nb_partie = nb_partie + 1 WHERE id = '$id_player'";
-                
-                $res = $connection->doExec($sql);
-                */
         }
         
         

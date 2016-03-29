@@ -43,8 +43,8 @@
     {
         JavaCommunication::getPseudo();
     }
-    else if(isset($_POST['update_match'])){
-        JavaCommunication::update_match();
+    else if(isset($_POST['update_manche'])){
+        JavaCommunication::updateManche();
     }
     else if(isset($_POST['update_won_match'])){
         JavaCommunication::update_won_match();
