@@ -2,6 +2,9 @@
     include_once 'dbconnection.class.php';
 
     class JavaCommunication{
+        public function verifUser(){
+            
+        }
         public function addNewGame(){
             $parse_new_game = explode("|",$_POST['new_game']);
             $ip_host = $parse_new_game[0];
@@ -67,7 +70,8 @@
             $connection = new dbconnection();
             $sql = "SELECT ip_host,available_place FROM parties where available_place > 0";
             $available_game = $connection->doQuery($sql);
-            echo json_encode($available_game);
+            $listServers = fopen('listServers.json', 'r+');
+            fputs($listServers, json_encode($available_game));        
         }
         public function resetGame(){
             $ip_host = $_POST['reset_game'];
@@ -96,38 +100,6 @@
                 return false ;
             return $res;
         }
-        /*
-        public function addPlayer(){
-            $parse_add_player = explode("|",$_POST['add_player']);
-            $pseudo = $parse_add_player[0];
-            $country = $parse_add_player[1];
-            $password = sha1($parse_add_player[2]);
-            $connection = new dbconnection();
-
-
-            $sql = "INSERT INTO player (pseudo, country,password) VALUES('$pseudo','$country','$password')";
-            $connection->doExec($sql);
-
-            //$res = $connection->doExec($sql);
-            
-            //$sql1 = "SELECT id FROM player WHERE pseudo = '$pseudo'";
-            //$res1 = $connection->doQuery($sql1);
-            
-
-            //$id_joueur = $connection->mysql_insert_id();
-            $sql1 = "SELECT id FROM player WHERE pseudo = '$pseudo'";
-            $res1 = $connection->doExec($sql1);
-            $id_joueur = $res1[0]['id'];
-
-            //insertion des stat
-            $sql2 = "INSERT INTO stat_joueur (id) VALUES ('$id_joueur')";
-            $res2 = $connection->doExec($sql2);
-            $date = date('d-m-Y, H:i:s');
-            $sql3 = "INSERT INTO stat_elo (id,date_) VALUES ('$id_joueur','$date')";
-            $res3 = $connection->doExec($sql3);
-
-            echo $id_joueur;
-        }*/
 
         public function addPlayer(){
             $parse_add_player = explode("|",$_POST['add_player']);

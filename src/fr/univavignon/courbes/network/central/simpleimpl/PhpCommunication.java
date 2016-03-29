@@ -19,8 +19,6 @@ import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
 /**
  * @author : Nathan Cheval
  * @author : Sabri Boussetha
- * @author : Latif Alexandre
- * @author : Brugvin Charlie
  *
  */
 public class PhpCommunication implements CentralCommunication{
@@ -250,12 +248,8 @@ public class PhpCommunication implements CentralCommunication{
             System.out.println(result);
 	    }catch(Throwable t) {
 	        System.out.println("Error: " + t.getMessage());
-	    }
-	    
-	}
-	
-	
-	
+	    }   
+	}	
 	
 	
 	public static String getElo(Integer id) throws IOException{
