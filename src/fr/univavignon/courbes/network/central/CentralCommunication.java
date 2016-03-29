@@ -24,7 +24,7 @@ public interface CentralCommunication {
 	 */
 	boolean sendInformation(String Ip, Integer nbPlayer, Integer choix) throws IOException;
 			
-	String searchGame(String choice) throws IOException;
+	String searchGame(String choice, String userName, String password) throws IOException;
 	
 	Integer addPlayer(String pseudo,String country,String password) throws IOException;
 }

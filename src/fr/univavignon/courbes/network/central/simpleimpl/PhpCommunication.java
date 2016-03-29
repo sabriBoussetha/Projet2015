@@ -12,6 +12,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import fr.univavignon.courbes.common.Constants;
+import fr.univavignon.courbes.common.Profile;
 import fr.univavignon.courbes.network.ClientCommunication;
 import fr.univavignon.courbes.network.central.CentralCommunication;
 import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
@@ -98,12 +99,12 @@ public class PhpCommunication implements CentralCommunication{
 	}	
 	
 	@Override
-	public String searchGame(String choice) throws IOException{
+	public String searchGame(String choice, String userName, String password) throws IOException{
 		String data = null;
 		if(choice=="All servers")
 			data = "search_game_json";
 		else if(choice=="server")
-			data = "search_game";
+			data = "search_game" + URLEncoder.encode(userName+"|"+password, "UTF-8");;
 		URL url = new URL("https://pedago02a.univ-avignon.fr/~uapv1402577/server/server.php");
 	    String result = ""; 
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
