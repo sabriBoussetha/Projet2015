@@ -46,142 +46,112 @@ import fr.univavignon.courbes.network.central.simpleimpl.PhpCommunication;
  */
 
 /**
- * Cette classe permet de construire un panel contenant un graphique
- * @author charlie
+ * Panel contenant le graphique qui représente l'évolution du classement ELO
+ * de 1 ou plusieurs joueurs
+ * 
+ * @param linkedlist d'id. Ceux des joueurs à afficher
+ * 
+ * @author Charlie
  *
  */
 public class graphEloPanel extends JPanel{
 	
+	
 	public graphEloPanel(LinkedList listId) 
     {
         super();
+        //on construit notre chart depuis un dataset
         JFreeChart chart = createChart(createDataset(listId));
+        //creation du panel
         ChartPanel panel = new ChartPanel(chart);
         panel.setFillZoomRectangle(true);
         panel.setMouseWheelEnabled(true);
         
+        //on ajoute le graphique au panel
         this.setLayout(new BorderLayout());
         this.add(panel,  BorderLayout.CENTER); 
     }
 	
-	//fonction qui construit un dataset en dur
+	/**
+	 * fonction qui construit le jeu de donnée, a partie de la liste d'id
+	 * @param listId : les joueurs a afficher
+	 * 
+	 * @return un Dataset de jfreechart.
+	 * 
+	 */
 	private static XYDataset createDataset(LinkedList listId) {
 		
-		//un dataset est une sorte de paquet qui contients plusieurs series
+		//creation du dataset, contenant plusieur timesseries
         TimeSeriesCollection dataset = new TimeSeriesCollection();
+        
+        //on enumere les joueurs
         
 		//on construit un timeSeries par joueurs
 		TimeSeries ts = null;
-		
 		String json = null;
 		for (int i = 0; i < listId.size(); i++)
 		{
-			try {
-				System.out.println("id : " + listId.get(i) + " pseudo : " + PhpCommunication.getPseudo((Integer) listId.get(i)));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			//on recupere la donnee depuis la bases de donnee
+
+			//on recupere les donnees du joueur depuis la bases de donnee
+			//sous forme de json
 			try {
 				json = PhpCommunication.getElo((Integer) listId.get(i));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		
 			
-			//System.out.println(json);
+			//traitement du json
 			
-			
-			
-			//on recupe les donne du json
 			JSONParser parser = new JSONParser();
 			
+			//tableau contenant un element par couple (date - ELO)
 			JSONArray tab = null;
 			try {
 				tab = (JSONArray) parser.parse(json);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			//ligne contenant un tableau associatif date => ELO
 			JSONObject ligne;
 			
-			//on cree un TimeSeries
+			//on cree un TimeSeries avec le nom du joueur en cours
 			try {
 				ts = new TimeSeries(PhpCommunication.getPseudo((Integer) listId.get(i)));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 			//on le remplie
 			for (int j = 0; j < tab.size(); j++)
 			{
-				
+				//recuperation des données de la ligne en cours
 				ligne = (JSONObject) tab.get(j);
-				
-				System.out.println(ligne.get("score_elo"));
-				System.out.println(ligne.get("date_"));
-				
-				//ts.add(new Month(j, 2016), (int) (double) ligne.get("score_elo"));
-				//System.out.println("ok");
-				
+				//on ajoute au timeSeries les valeurs
 				ts.add(createDate((String) ligne.get("date_")), (int) (long) ligne.get("score_elo"));
+				//on utilise createDate, qui convertis une date en string sous forme de date jfreechart
 			}
 			
-			//System.out.println(ts.toString());
 			dataset.addSeries(ts);
 		}
 		
-		/*
-    	//une timeSeries sont une serie d'elements chronoliques
-        TimeSeries s1 = new TimeSeries("Charlie");
-        s1.add(new Month(1, 2016), 2000);
-        s1.add(new Month(2, 2016), 2050);
-        s1.add(new Month(3, 2016), 2075);
-        s1.add(new Month(4, 2016), 2150);
-        s1.add(new Month(5, 2016), 2150);
-        s1.add(new Month(6, 2016), 2100);
-        s1.add(new Month(7, 2016), 2075);
-        s1.add(new Month(8, 2016), 2120);
-        s1.add(new Month(9, 2016), 2140);
-        s1.add(new Month(10, 2016), 2150);
-        s1.add(new Month(11, 2016), 2200);
-        s1.add(new Month(12, 2016), 2150);
-        
-        TimeSeries s2 = new TimeSeries("Alex");
-        s2.add(new Month(1, 2016), 2000);
-        s2.add(new Month(2, 2016), 1900);
-        s2.add(new Month(3, 2016), 1800);
-        s2.add(new Month(4, 2016), 1700);
-        s2.add(new Month(5, 2016), 1600);
-        s2.add(new Month(6, 2016), 1500);
-        s2.add(new Month(7, 2016), 1400);
-        s2.add(new Month(8, 2016), 1300);
-        s2.add(new Month(9, 2016), 1200);
-        s2.add(new Month(10, 2016), 1100);
-        s2.add(new Month(11, 2016), 1000);
-        s2.add(new Month(12, 2016), 900);*/
-
-        //un dataset est une sorte de paquet qui contients plusieurs series
-        //TimeSeriesCollection dataset = new TimeSeriesCollection();
-        //dataset.addSeries(s1);
-        //dataset.addSeries(s2);
-       // dataset.addSeries(ts);
-
         return dataset;
     }
 	
 	/**
-	 * fonction qui créé un objet day, utilisable dans un timeSerie, depuis une chaine date
+	 * fonction qui créé un objet Second, utilisable dans un timeSerie, depuis une chaine date
 	 * recupere sur la bdd
-	 * @param date
-	 * @return
+	 * @param String date : une chaine sous la forme YYYY-MM-DD hh:mm:ss
+	 * 
+	 * @return un objet Second, une date jfreechart précis a la seconde près
+	 * 
+	 * @author Charlie
 	 */
 	private static Second createDate(String date)
 	{
-		//2016-03-26 17:11:32
-		//new Day(4, MonthConstants.JANUARY, 2001)
-		
+
+		//recuperation des données de la chaine
 		int seconde = Integer.parseInt(date.split(" ")[1].split(":")[2]);
 		int minute = Integer.parseInt(date.split(" ")[1].split(":")[1]);
 		int heure =  Integer.parseInt(date.split(" ")[1].split(":")[0]);
@@ -189,28 +159,32 @@ public class graphEloPanel extends JPanel{
 		int jour = Integer.parseInt(date.split(" ")[0].split("-")[2]);
 		int mois = Integer.parseInt(date.split(" ")[0].split("-")[1]);
 		int annee = Integer.parseInt(date.split(" ")[0].split("-")[0]);
-		Second day = new Second(seconde, minute, heure, jour, mois, annee);
-		return day;
+		
+		//creation de l'objet
+		Second madate = new Second(seconde, minute, heure, jour, mois, annee);
+		return madate;
 	}
 	
+	/**
+	 * fonction qui créé un graphique depuis un dataset
+	 */
     private static JFreeChart createChart(XYDataset dataset) {
 
     	//un chart semble contenir d'interessant un objet xyplot
     	
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Classement Elo exemple",  // title
-            "temps",             // x-axis label
-            "ELO",  			 // y-axis label
+            "Classement Elo exemple",  // titre
+            "temps",             // titre des abscisses
+            "ELO",  			 // titre des ordonnées
             dataset,            // data
-            true,               // create legend?
-            true,               // generate tooltips?
-            false               // generate URLs?
+            true,               // faire 
+            true,               // ajouter des outils
+            false               // ajouter des liens
         );
 
+        //parametrage de l'affichage du graphique
+        
         chart.setBackgroundPaint(Color.white);
-        
-        //NOTE : je pense que xyplot contient : les axes, le cadrillages, les points, tout
-        
         XYPlot plot = (XYPlot) chart.getPlot();
         //parametrage des couleurs arriere plan, les cadrillages en colonne et ligne
         plot.setBackgroundPaint(Color.lightGray); //arriere plan

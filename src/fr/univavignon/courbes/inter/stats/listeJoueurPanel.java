@@ -15,7 +15,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
 /**
- * panel qui contient principalement la liste des données statistiques des joueurs
+ * panel qui contient un tableau qui affiche les 
+ * statistiques de tout les joueurs de la base de donnée
  * 
  * @author charlie
  *
@@ -28,22 +29,20 @@ public class listeJoueurPanel extends JPanel{
 	public listeJoueurPanel()
 	{
 		this.setLayout(new BorderLayout());
-		
-		//this.add(new JLabel("TABLEAU DE JOUEUR. en construction..."), BorderLayout.NORTH);
-		
+
 		//Les données du tableau
 		
 		//le tableau est un JTable classique mais qui utilise un modele perso
 		modele = new TabStat();
 	    tableau = new JTable(modele);
 	    
+	    //on parametre le tableau pour que les Integer et 
+	    //les String soient centré sur leurs colonnes
 	    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 	    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-	    
 	    tableau.setDefaultRenderer(String.class, centerRenderer);
 	    tableau.setDefaultRenderer(Integer.class, centerRenderer);
-	   // tableau.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-
+	   
 		//on ajoute le table au panel
 		this.add(new JScrollPane( tableau),BorderLayout.CENTER);
 

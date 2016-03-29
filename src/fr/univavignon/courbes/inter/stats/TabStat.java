@@ -21,20 +21,33 @@ import fr.univavignon.courbes.network.central.simpleimpl.PhpCommunication;
 /**
  * Classe creant un modele de table qui contient les donnees statistiques des joueurs
  *
- * @author charlie
+ * @author Charlie
  */
 class TabStat extends AbstractTableModel{
-
-  private Object[][] data; //les donnes du tableau
-  private String[] title; //le titre des colonnes
-  private int[] tabId; //les ids des joueurs, dans l'ordre d'affichage
+	
+	/** les données de la JTable*/
+	private Object[][] data; //les donnes du tableau
+	
+	/** le titre des colonnes, dans l'ordre d'afficahge */
+	private String[] title;
+	/** le titre des id des joueurs */
+	private int[] tabId; //les ids des joueurs, dans l'ordre d'affichage
   
 	//Constructeur
-	public TabStat(){
-
-		System.out.println("on construit la tab");
+	public TabStat()
+	{
 		String  title[] = 
-		{"ELO", "Pseudo", "Nb parties", "% Victoire", "Nb manches", "% Victoire", "Points", "mort Bord", "autre","soi même"," "};
+		{"ELO", 
+		"Pseudo", 
+		"Nb parties",
+		"% Victoire", 
+		"Nb manches",
+		"% Victoire", 
+		"Points",
+		"mort Bord", 
+		"autre",
+		"soi même",
+		" "}; // colonne des checkbox
 
 	
 		//TRAITEMENT JSON
