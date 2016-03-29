@@ -67,6 +67,7 @@ class TabStat extends AbstractTableModel{
 		
 		//on remplis le tableau qui sera affiché a partir des données JSON
         data = new Object[tabPrincipale.size()][title.length];
+   
         tabId = new int[tabPrincipale.size()];
 
         
@@ -75,6 +76,8 @@ class TabStat extends AbstractTableModel{
         {
         	tabLigne = (JSONArray)tabPrincipale.get(i);
     		ligne = (JSONObject) tabLigne.get(0);
+    		
+    		//data[i] = new Object[title.length];
         	
         	data[i][0] = (int) (long) ligne.get("score_elo");
         	data[i][1] = ligne.get("pseudo");
