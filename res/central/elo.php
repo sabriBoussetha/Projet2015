@@ -21,8 +21,7 @@ function majElo($issuePartie)
 	$elo = array();
 
 	$connection = new dbconnection();
-	$
-	for ($issuePartie as $idJoueur){
+	foreach ($issuePartie as $idJoueur){
 		$sql = 
 		 "SELECT id, score_elo 
 		  from player natural join stat_elo 
@@ -32,29 +31,34 @@ function majElo($issuePartie)
 		$elo[ $res[0]["id"] ] = $res[0]["score_elo"];
 	}
 	
+	var_dump($elo);
+	
 
 //calcule du coefficient de reussite
 	for ($i = 0; $i < count($issuePartie); $i++)
 	{
 		$idJoueur = $issuePartie[$i];
 
-		echo "<p style='color:red'> id : $i  idjoueur : $idJoueur elo : $elo[$idJoueur]</p>"; 
+		//echo "id : $i  idjoueur : $idJoueur elo : $elo[$idJoueur]"; 
+		//echo "\n";
 		//pour chaque joueurs
 		$proba_succes = proba_succes_multi($elo, $idJoueur);
-		echo "<p> proba succes : $proba_succes</p>";
+		//echo "proba succes : $proba_succes";
+		//echo "\n";
 		$coef_reussite = coef_reussite(count($issuePartie), $i+1);
-		echo "<p> coef reussite : $coef_reussite </p>";
+		//echo "coef reussite : $coef_reussite";
+		//echo "\n";
 		$ancien_elo = $elo[$idJoueur];
-		echo "<p> ancien elo : $ancien_elo </p>";
+		//echo "ancien elo : $ancien_elo";
+		//echo "\n";
 		$elo[$idJoueur] = newElo($ancien_elo, $coef_reussite, $proba_succes);
 	}
 
-	for ($i=0; $i < count($elo); $i++)
-	{
-		$id = 
-	//foreach ($elo as $id => $elo) {
-	    $date = date('d-m-Y, H:i:s');
-	    $sql = "INSERT INTO stat_elo (id,date_,score_elo) VALUES($id,$date,$elo)";
+	foreach ($elo as $id => $valueElo) {
+	    $date = date('Y-m-d H:i:s');
+	    echo "id : $id, date : $date, elo : $valueElo";
+	    $sql = "INSERT INTO stat_elo VALUES($id,'$date',$valueElo)";
+	    echo $sql;
 	    $connection->doExec($sql);
 	}
 

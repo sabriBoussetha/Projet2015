@@ -22,46 +22,38 @@ import fr.univavignon.courbes.network.central.simpleimpl.PhpCommunication;
  * Panel qui represente le contenu central du menu statistiques (listeJoueurPanel ou graphEloPanel)
  * et les boutons suivant precedents qui permettent de passer de du graphique au tableau
  * 
- * @author charlie
+ * @author Charlie
  *
  */
 public class MenuStatPanel extends AbstractConfigurationPanel{
 	
+	/** FALSE : on est sur la page du tableau
+	 * TRUE : on est sur le graphique ELO
+	 */
 	boolean afficherGraphique = false;
-	//FALSE : on est sur la page du tableau
-	//TRUE : on est sur le graphique ELO
 	
+	/**le tableau des joueurs**/ 
 	listeJoueurPanel listeJoueursPanel;
 
-	public MenuStatPanel(MainWindow mainWindow) {
+	public MenuStatPanel(MainWindow mainWindow)
+	{
 		super(mainWindow, "Statistiques de joueurs");
-		// TODO Auto-generated constructor stub
-		
-		//TEST DIVERS
-		PhpCommunication a = new PhpCommunication();
-		
-		//FIN TEST DIVERS
-		
 	}
 	
 	@Override
 	protected void initContent() {
-		// TODO Auto-generated method stub
 		
 		listeJoueursPanel = new listeJoueurPanel();
+		
 		//par defaut, on charge la liste des joueurs
 		this.add(listeJoueursPanel);
 	}
 
 	@Override
 	protected void nextStep() throws IOException {
-		// TODO Auto-generated method stub
-		
+	
 		//on presse le bouton suivant sur la page du graphique
-		if (afficherGraphique)
-		{
-			//il ne se passe rien
-		}
+		if (afficherGraphique) {/*il ne se passe rien*/}
 		
 		//on presse le suivant  sur la page du tableau
 		else
@@ -70,18 +62,13 @@ public class MenuStatPanel extends AbstractConfigurationPanel{
 			
 			//on supprime tout
 			this.removeAll();
-			
 			//on reajoute tout les elements composant la page du graphique
 			initTitle("ELO");
 			
-			
+			//on recupere les ids selectionné
 			LinkedList listId = listeJoueursPanel.modele.getIdChecked();
-			/*
-			for (int i = 0; i < listId.size(); i++)
-			{
-				System.out.println(listId.get(i));
-			}*/
 			
+			//on construit le graphEloPanel avec les id selectionné
 			this.add(new graphEloPanel(listId));
 			add(Box.createVerticalGlue());
 			initButtons();
@@ -89,19 +76,12 @@ public class MenuStatPanel extends AbstractConfigurationPanel{
 			
 			this.validate();
 			this.repaint();
-			
-			//on affiche en console la lite des id selectioinne
-			
-			
-			
 		}
 		
 	}
 
 	@Override
 	protected void previousStep() {
-		
-		// TODO Auto-generated method stub
 		
 		//on presse le bouton precedent sur la page du graphique
 		if (afficherGraphique)
