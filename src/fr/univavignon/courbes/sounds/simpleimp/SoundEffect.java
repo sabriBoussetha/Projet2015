@@ -24,6 +24,7 @@ public class SoundEffect implements SoundEngine, Serializable {
 											   "res/sounds/background_sound/Happy.wav",
 											   "res/sounds/background_sound/Bonus.wav",
 											   "res/sounds/background_sound/piano.wav"};
+	
 	/**
 	 * Jouer le son correspondant à la collision avec un snake
 	 */
