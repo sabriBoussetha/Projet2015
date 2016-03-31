@@ -18,7 +18,8 @@ import javax.swing.*;
  * Classe nécessaire pour la manipulation (lancement/lancement en bouble/arrêt/reprise
  * d'un morceau de son.
  * Cette classe est la classe qui se charge du chargement du ficher et le lancement de ce dernier
- * @author sabri
+ * 
+ * @author Sabri
  *
  */
 
@@ -61,10 +62,11 @@ public class Sound implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
 	/**
 	 * Fonction permet de lancer le fichier son proprement dit
 	 * @param loop
-	 * 		Avec cette fonction on décide de lancer le son en boucle ou pas.
+	 * 		Avec ce paramètre on décide de lancer le son en boucle ou pas.
 	 * 		si {@true} en boucle {@false} sinon.
 	 */
 	public void play(final boolean loop)

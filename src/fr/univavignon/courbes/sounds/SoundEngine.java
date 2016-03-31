@@ -9,6 +9,7 @@ import fr.univavignon.courbes.common.ItemType;
  * @author Sabri
  */
 public interface SoundEngine {
+			
 	/**
 	 *	Cette fonction est appelée quand il y a une collision avec un autre snake ou avec 
 	 *  le snake même
@@ -16,17 +17,17 @@ public interface SoundEngine {
 	void collisionWithSnakeSound();
 	
 	/**
-	 * 	Cette fonction est appelée quand il y a une item
+	 * 	Cette fonction est appelée quand il y a une collision avec un item
 	 */
 	void collisionWithItemSound(ItemType item);
 	
 	/**
-	 * 	Cette fonction est appelée quand il y a une bordure
+	 * 	Cette fonction est appelée quand il y a une collision avec une bordure
 	 */
 	void collisionWithBordSound();
 	
 	/**
-	 * 	Cette fonction est appelée quand il s'agit du début de la partie
+	 * 	Cette fonction est appelée au début de la partie
 	 */
 	void newGameSound();
 	
@@ -38,8 +39,8 @@ public interface SoundEngine {
 	/**
 	 *  Fonction qui fait un effet sonore lors d'un click
 	 */
-	
 	void clickSound();
+	
 	/**
 	 * Fonction qui lance le son en arrière plan durant tout le jeu 
 	 * renvoie boolean {@true} is le son en arrière plan est entrain de jouer sinon {@false}
