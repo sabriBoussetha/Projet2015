@@ -1,8 +1,8 @@
 package fr.univavignon.courbes.sounds.simpleimp;
 
-import java.applet.Applet;
+//import java.applet.Applet;
 
-import java.applet.AudioClip;
+//import java.applet.AudioClip;
 import java.io.File;
 import java.io.Serializable;
 import java.net.URL;
