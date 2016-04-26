@@ -19,9 +19,6 @@ package fr.univavignon.courbes.inter.simpleimpl.remote.server;
  */
 
 import java.awt.Dimension;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -44,11 +41,9 @@ import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager.NetEngineImpl;
-import fr.univavignon.courbes.inter.simpleimpl.local.AbstractLocalPlayerSelectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.remote.RemotePlayerConfigPanel;
 import fr.univavignon.courbes.inter.simpleimpl.remote.RemotePlayerSelectionPanel;
 import fr.univavignon.courbes.network.ServerCommunication;
-import fr.univavignon.courbes.network.central.simpleimpl.PhpCommunication;
 import fr.univavignon.courbes.network.kryonet.ServerCommunicationKryonetImpl;
 import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
 
@@ -67,8 +62,6 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 	/** Texte associé à la combobox */
 	private static final String COMBO_TEXT = "Nombre de joueurs distants : ";
 	
-	private PhpCommunication deletePlayer = new PhpCommunication();
-		
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
 	 * les joueurs locaux au serveur participant à une partie locale.
@@ -76,7 +69,6 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 	 * @param mainWindow
 	 * 		Fenêtre contenant ce panel.
 	 */
-		
 	public ServerGameRemotePlayerSelectionPanel(MainWindow mainWindow)
 	{	super(mainWindow,TITLE);
 		
@@ -221,10 +213,6 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 		int result = Constants.MAX_PLAYER_NBR - players.length;
 		return result;
 	}
-	
-	public int getMaxPlayer(){
-		return getMaxPlayerNbr();
-	}
 
 	@Override
 	public int getSelectedProfileCount()
@@ -255,14 +243,6 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 		// on prévient les clients restants
 		Profile profiles[] = getAllPlayers();
 		serverCom.sendProfiles(profiles);
-		
-		//Rajout d'une place dans la table sur le serveur central
-		try {
-			deletePlayer.sendInformation(serverCom.getIp(), 1, 3);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	@Override
@@ -300,7 +280,7 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 	
 	@Override
 	protected Round initRound()
-	{	Round result = new Round();
+	{	Round result = new Round(SettingsManager.getBoardWidth(),SettingsManager.getBoardHeight());
 		
 		// initialisation des joueurs
 		result.players = new Player[selectedProfiles.size()];
@@ -334,11 +314,9 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 			}
 			mainWindow.displayPanel(PanelName.SERVER_GAME_PLAY);
 //			mainWindow.serverCom.sendRound(round);
-			
 		}
 		else
-		{	sound.errorSound();
-			JOptionPane.showMessageDialog(mainWindow, 
+		{	JOptionPane.showMessageDialog(mainWindow, 
 				"<html>Tous les joueurs distants n'ont pas été sélectionnés.<br/>"
 				+ "Ajoutez de nouveaux joueurs ou diminuez le nombre de joueurs distants.</html>");
 		}
@@ -349,13 +327,6 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 	{	serverCom.closeServer();
 		mainWindow.serverCom = null;
 		mainWindow.displayPanel(PanelName.SERVER_GAME_LOCAL_PLAYER_SELECTION);
-		// En cas de retour à la selection des joueurs locaux, remise à 0 des places restantes
-		try {
-			deletePlayer.sendInformation("NULL", 0, 4);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	/**
@@ -465,6 +436,6 @@ public class ServerGameRemotePlayerSelectionPanel extends AbstractPlayerSelectio
 				Profile profiles[] = getAllPlayers();
 				serverCom.sendProfiles(profiles);
 			}
-		});
+		   });
 	}
 }

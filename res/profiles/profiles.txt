@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 63,Nathan,France,1,null,nathan
 64,Sabri,Algérie,2,null,sabri
 65,Alexande,Syrie,3,null,alexandre
@@ -5,3 +6,13 @@
 75,valentin,france,6,null,a
 76,aaaa,aaaa,7,null,aaaa
 77,mary,france,8,null,a
+
+Leroy,USA,6,leroy@fake.com,password1,null
+Kvothe,France,5,kvothe@fake.com,password2,null
+Fitz,Angleterre,1,fitz@fake.com,password3,null
+Test,France,3,test@fake.com,password4,null
+Toto,France,2,toto@fake.com,password5,null
+Zaza,France,4,zaza@fake.com,password6,null
+Roboto,Japon,7,roboto@fake.com,password7,randomagent
+R2D2-1,Chine,8,r2d21@fake.com,password8,avoidcloserwallagent
+R2D2-2,Chine,9,r2d22@fake.com,password9,avoidcloserwallagent

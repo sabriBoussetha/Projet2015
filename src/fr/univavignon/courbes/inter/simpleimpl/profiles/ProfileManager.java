@@ -49,6 +49,7 @@ public class ProfileManager
 	private static final int PROFILE_FIELD_NBR = 6;
 	
 	static PhpCommunication player = new PhpCommunication();
+
 	
 	/**
 	 * Renvoie la liste de tous profils disponibles. La méthode charge
@@ -177,6 +178,9 @@ public class ProfileManager
 					profile.eloRank = Integer.parseInt(elem[3].trim());
 					profile.email = elem[4].trim();
 					profile.password = elem[5].trim();
+					profile.agent = elem[5].trim();
+					if(profile.agent.equals("null"))
+						profile.agent = null;
 					PROFILES.add(profile);
 				}
 				else
