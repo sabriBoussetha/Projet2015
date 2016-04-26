@@ -46,7 +46,7 @@ public class ProfileManager
 	/** Liste des profils */
 	private static final TreeSet<Profile> PROFILES = new TreeSet<Profile>();
 	/** Nombre de champs à lire par profil */
-	private static final int PROFILE_FIELD_NBR = 6;
+	private static final int PROFILE_FIELD_NBR = 7;
 	
 	static PhpCommunication player = new PhpCommunication();
 
@@ -178,7 +178,7 @@ public class ProfileManager
 					profile.eloRank = Integer.parseInt(elem[3].trim());
 					profile.email = elem[4].trim();
 					profile.password = elem[5].trim();
-					profile.agent = elem[5].trim();
+					profile.agent = elem[6].trim();
 					if(profile.agent.equals("null"))
 						profile.agent = null;
 					PROFILES.add(profile);
